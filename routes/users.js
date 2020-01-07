@@ -3,6 +3,8 @@ const router = express.Router();
 const User = require("../models/User");
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 //@route    POST /api/users
 //@desc     Register users
@@ -32,7 +34,7 @@ router.post(
     const { userName, email, password, name } = req.body;
 
     try {
-      
+
       //This will catch if the email is already in use in the database
       let emailTaken = await User.findOne({ email });
       if (emailTaken) {
@@ -63,7 +65,14 @@ router.post(
 
       await user.save();
 
-      res.send("User saved");
+      //This will authenticate the user using tokens 
+      jwt.sign({_id: user._id}, config.get("jwtSecrets"),{
+        expiresIn: 36000
+      },(error,token)=>{
+        if (error) throw error;
+        res.json({token});
+      } )
+
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Server Error");
