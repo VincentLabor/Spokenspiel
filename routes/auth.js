@@ -1,22 +1,75 @@
 const express = require("express");
 const router = express.Router();
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
+const User = require("../models/User");
+const auth = require("../middleware/auth");
 
 //@route    GET /api/auth
 //@desc     This is to get logged in user
 //@access   Private: we are grabbing a user.
-router.get("/", [
+router.get("/", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
     
-], (req, res) => {
-  // The / refers to /api/users
-  res.send("Get logged in user");
+    console.log(req.user);
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server errorr");
+  }
 });
 
 //@route    POST /api/auth
 //@desc     This is us sending data to auth
 //@access   Public: we are trying to get a token
-router.post("/", (req, res) => {
-  // The / refers to /api/users
-  res.send("Login in user");
-});
+router.post(
+  "/",
+  [
+    check("userName", "Please enter a valid Username").exists(), //Checks if the username exists
+
+    check("password", "Please enter a password") //Checks if the entered a password
+      .not()
+      .isEmpty(),
+    check("password", "Please enter a valid password").exists() //Checks if the password exists
+  ],
+  async (req, res) => {
+    const { userName, password } = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const enteredUserName = await User.findOne({ userName }); //This will grab the entire entry from mongodb
+      if (!enteredUserName) {
+        res.status(400).json({ msg: "Username entered does not exist" });
+      }
+
+      const match = await bcrypt.compare(password, enteredUserName.password);
+      if (!match) {
+        res.status(400).json({ msg: "Incorrect password" });
+      }
+
+      jwt.sign(
+        { _id: enteredUserName._id },
+        config.get("jwtSecrets"),
+        {
+          expiresIn: 36000
+        },
+        (error, token) => {
+          if (error) throw error;
+          res.json({ token });
+        }
+      );
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Server error");
+    }
+  }
+);
 
 module.exports = router;

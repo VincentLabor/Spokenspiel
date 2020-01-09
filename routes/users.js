@@ -37,6 +37,7 @@ router.post(
 
       //This will catch if the email is already in use in the database
       let emailTaken = await User.findOne({ email });
+      console.log(emailTaken)
       if (emailTaken) {
         res.status(400).json({
           msg: "Email is already in use. Please enter a different Email"
@@ -70,7 +71,7 @@ router.post(
         expiresIn: 36000
       },(error,token)=>{
         if (error) throw error;
-        res.json({token});
+        res.json({token}); //Returns the token
       } )
 
     } catch (error) {
