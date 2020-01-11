@@ -6,18 +6,17 @@ const config = require("config");
 module.exports = (req, res, next) => {
    const bearerHeader = req.headers["authorization"]; //The authorization header is where we get the bearer token
 
-   const token = bearerHeader && bearerHeader.split(" ")[1];
-// const token = req.header('x-auth-token');
+   const token = bearerHeader && bearerHeader.split(" ")[1]; //If bearerheader exists, split and grab the 2nd item of the array
 
   if (!token) return res.sendStatus(401);
 
   try {
     const decoded = jwt.verify(token, config.get("jwtSecrets"));
+
     req.user = decoded;
-    console.log(req.user)
     next();
   } catch (error) {
-    res.status(401);
+    res.status(401).json({msg: 'The Toke is not valid'});
   }
 };
 

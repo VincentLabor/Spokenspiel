@@ -6,18 +6,18 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const User = require("../models/User");
 const auth = require("../middleware/auth");
+const isOnline = require('../middleware/isOnline');
 
 //@route    GET /api/auth
 //@desc     This is to get logged in user
 //@access   Private: we are grabbing a user.
-router.get("/", auth, async (req, res) => {
+router.get("/",[auth, isOnline] , async (req, res) => { //auth has to go before isOnline because that is how the user gets verified
   try {
-    const user = await User.findById(req.user._id);
-    
-    console.log(req.user);
+    const user = await User.findById(req.user._id).select("-password");
+
     res.json(user);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
     res.status(500).send("Server errorr");
   }
 });
