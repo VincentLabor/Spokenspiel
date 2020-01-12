@@ -19,8 +19,6 @@ router.get("/", auth, async (req, res) => {
     console.log(error);
     res.sendStatus(500)
   }
-
-  res.send("Get contacts");
 });
 
 //@route    POST /api/contacts
