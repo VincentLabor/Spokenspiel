@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({msg: 'The Toke is not valid'});
+    res.sendStatus(401);
   }
 };
 

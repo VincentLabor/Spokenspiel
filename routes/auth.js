@@ -11,14 +11,14 @@ const isOnline = require('../middleware/isOnline');
 //@route    GET /api/auth
 //@desc     This is to get logged in user
 //@access   Private: we are grabbing a user.
-router.get("/",[auth, isOnline] , async (req, res) => { //auth has to go before isOnline because that is how the user gets verified
+router.get("/",[auth] , async (req, res) => { //auth has to go before isOnline because that is how the user gets verified
   try {
     const user = await User.findById(req.user._id).select("-password");
 
     res.json(user);
   } catch (err) {
     console.log(err);
-    res.status(500).send("Server errorr");
+    res.sendStatus(500);
   }
 });
 
