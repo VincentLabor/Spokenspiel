@@ -12,21 +12,58 @@ router.get("/", auth, async (req, res) => {
   try {
     //This is to find the contacts this user has.
     const friends = await Friend.find({ user: req.user._id }).sort({
-      date: -1
+      userName: "asc"
     }); //Contacts contains the user field. auth gives access to req.user
     res.json(friends);
   } catch (error) {
     console.log(error);
-    res.sendStatus(500)
+    res.sendStatus(500);
   }
 });
 
 //@route    POST /api/contacts
 //@desc     Adds to a users contacts
 //@access   Private - Need to be logged/Auth to see contacts
-router.post("/", auth, (req, res) => {
-  res.send("Add contacts");
-});
+router.post(
+  "/",
+  [
+    auth,
+    [
+      check("userName", "Please enter a Username")
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.sendStatus(400);
+    }
+
+    const { userName, name } = req.body;
+
+    const findingFriend = await User.find({userName});
+
+    if (!findingFriend) {
+      res.sendStatus(400);
+    }
+
+    const friend = new Friend({
+      userName,
+      name,
+      user: req.user._id
+    });
+
+    const newFriend = await friend.save();
+    res.json(newFriend);
+
+    try {
+    } catch (error) {
+      console.log(error);
+      res.sendStatus(500);
+    }
+  }
+);
 
 //We add /:id as a placeholder for the contacts that we may wish to add.
 //@route    PUT /api/contacts/:id
