@@ -42,25 +42,31 @@ router.post(
 
     const { userName, name } = req.body;
 
-    const findingFriend = await User.find({userName});
-
-    if (!findingFriend) {
-      res.sendStatus(400);
-    }
-
-    const friend = new Friend({
-      userName,
-      name,
-      user: req.user._id
-    });
-
-    const newFriend = await friend.save();
-    res.json(newFriend);
+    // if (findingFriend[0].userName != userName) {
+    //   return res.sendStatus(400);
+    // }
 
     try {
+      let findingFriend = await User.find({ userName }).select("-password");
+      console.log(findingFriend[0].userName)
+
+      if (!findingFriend[0].userName) return res.sendStatus(400);
+      
+
+      const friender = new Friend({
+        userName,
+        name,
+        user: req.user._id
+      });
+
+      const newFriend = await friender.save();
+
+      res.json(newFriend);
+
     } catch (error) {
       console.log(error);
-      res.sendStatus(500);
+      // res.sendStatus(500);
+      return res.sendStatus(400);
     }
   }
 );
