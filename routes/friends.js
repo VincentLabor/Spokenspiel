@@ -42,16 +42,10 @@ router.post(
 
     const { userName, name } = req.body;
 
-    // if (findingFriend[0].userName != userName) {
-    //   return res.sendStatus(400);
-    // }
-
     try {
       let findingFriend = await User.find({ userName }).select("-password");
-      console.log(findingFriend[0].userName)
 
       if (!findingFriend[0].userName) return res.sendStatus(400);
-      
 
       const friender = new Friend({
         userName,
@@ -62,7 +56,6 @@ router.post(
       const newFriend = await friender.save();
 
       res.json(newFriend);
-
     } catch (error) {
       console.log(error);
       // res.sendStatus(500);
@@ -72,18 +65,33 @@ router.post(
 );
 
 //We add /:id as a placeholder for the contacts that we may wish to add.
+//Probably don't need updating contacts. Will change if updating contacts becomes necessary
 //@route    PUT /api/contacts/:id
 //@desc     This is to update contacts
 //@access   Private: Need to be logged to see contacts.
-router.put("/:id", auth, (req, res) => {
-  res.send("Update a users contact");
-});
+// router.put("/:id", auth, (req, res) => {
+//   res.send("Update a users contact");
+// });
 
 //@route    DELETE /api/contacts/:id
 //@desc     Delete contacts
 //@access   Private: Need to be logged to see contacts.
-router.delete("/:id", auth, (req, res) => {
-  res.send("Delete a users contact");
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    let findFriend = await Friend.findById(req.params.id); //req.params is an object. the route :id is why it is req.params.id
+
+    if (!findFriend) return res.sendStatus(404);
+    if (findFriend.user.toString() !== req.user._id) return res.sendStatus(404); //This is to prevent people from deleting other peoples friendslists.
+    console.log(typeof findFriend.user);
+    console.log(typeof req.user._id);
+    let removeFriend = await Friend.findByIdAndDelete(req.params.id);
+
+    res.json({ msg: "Contact has been removed" });
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
 });
 
 module.exports = router;
