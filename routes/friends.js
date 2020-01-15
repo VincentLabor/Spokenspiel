@@ -40,22 +40,55 @@ router.post(
       return res.sendStatus(400);
     }
 
-    const { userName, name } = req.body;
+    const { userName } = req.body;
 
     try {
+      //User sends a friend request
       let findingFriend = await User.find({ userName }).select("-password");
+
+      console.log(findingFriend);
 
       if (!findingFriend[0].userName) return res.sendStatus(400);
 
       const friender = new Friend({
         userName,
-        name,
-        user: req.user._id
+        name: findingFriend.name,
+        requester: req.user._id,
+        recipient: findingFriend[0]._id,
+        friendStatus: 1
       });
 
-      const newFriend = await friender.save();
+      //Recipient receives a request to be a friend
+      const friendRequest = await User.findById(req.user._id).select(
+        "-password"
+      );
 
-      res.json(newFriend);
+      if (!friendRequest) return res.sendStatus(404);
+
+      const receiveFriendReq = new Friend({
+        userName: friendRequest.userName,
+        name: friendRequest.name,
+        recipient: req.user._id,
+        requester: findingFriend[0]._id,
+        friendStatus: 2
+      });
+
+      //Update the requester and recipients friend request list
+      const updateRequester = await User.findByIdAndUpdate(req.user._id, {
+        $set: { friends: findingFriend[0]._id }
+      });
+      const updateRecipient = await User.findByIdAndUpdate(
+        findingFriend[0]._id,
+        { $set: { friends: req.user._id } }
+      );
+
+
+
+      const newFriend = await friender.save();
+      const getFriendReq = await receiveFriendReq.save();
+
+      res.json({friendA: newFriend, friendB: getFriendReq}); //This allows for both of the objects to be sent via res.json
+
     } catch (error) {
       console.log(error);
       // res.sendStatus(500);
@@ -64,8 +97,10 @@ router.post(
   }
 );
 
+//We can use the put route for something that requires us to update the friend request maybe which will work out in the end. Just need to think about the idea.
 //We add /:id as a placeholder for the contacts that we may wish to add.
-//Probably don't need updating contacts. Will change if updating contacts becomes necessary
+//This will be to update when the user declines or accepts the friendrequest. 
+
 //@route    PUT /api/contacts/:id
 //@desc     This is to update contacts
 //@access   Private: Need to be logged to see contacts.
