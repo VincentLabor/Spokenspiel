@@ -140,10 +140,6 @@ router.put("/decline/:id", auth, async (req, res) => {
     const recipFriendsList = await User.findById(receiversFriendReq.recipient);
     const ReqFriendsList = await User.findById(receiversFriendReq.requester);
 
-    // const searcher = await User.find({friends:req.user._id});
-    // const friendsId = await User.findById(searcher[0]._id); //This gets the original requesters _id which we can use to query with mongoose
-    // console.log(searcher); //It's an array and I need to differentiate
-
     //Remove the friendId from both of the parties involved.
     const removeRequestedFriendId = await User.findByIdAndUpdate(
       recipFriendsList._id,
@@ -178,12 +174,34 @@ router.put("/decline/:id", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   try {
-    let findFriend = await Friend.findById(req.params.id); //req.params is an object. the route :id is why it is req.params.id
+    let receiversFriendReq = await Friend.findById(req.params.id); //req.params is an object. the route :id is why it is req.params.id
+    if (!receiversFriendReq) return res.sendStatus(404);
+    let recipientFriendReq = await Friend.findById(receiversFriendReq._id);
 
-    if (!findFriend) return res.sendStatus(404);
-    if (findFriend.user.toString() !== req.user._id) return res.sendStatus(404); //This is to prevent people from deleting other peoples friendslists.
+    let findReqFriend = await User.findById(receiversFriendReq.requester);
+    if (!findReqFriend) return res.sendStatus(404);
+    let removeReqFriend = await User.findByIdAndUpdate(
+      receiversFriendReq.requester,
+      { $pull: { friends: receiversFriendReq.recipient } }
+    );
 
-    let removeFriend = await Friend.findByIdAndDelete(req.params.id);
+    let findRecipFriend = await User.findById(receiversFriendReq.recipient);
+    if (!findRecipFriend) return res.sendStatus(receiversFriendReq.recipient);
+    let removeRecipFriend = await User.findByIdAndUpdate(
+      receiversFriendReq.recipient,
+      { $pull: { friends: receiversFriendReq.requester } }
+    );
+
+    let deleteFriends = await Friend.findOneAndDelete({
+      requester: receiversFriendReq.recipient,
+      recipient: receiversFriendReq.requester
+    });
+    let deleteOtherFriend = await Friend.findOneAndDelete({
+      requester: receiversFriendReq.requester,
+      recipient: receiversFriendReq.recipient
+    });
+
+    //should just use the users stuff
 
     res.json({ msg: "Contact has been removed" });
   } catch (error) {
