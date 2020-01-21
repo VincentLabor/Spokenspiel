@@ -99,68 +99,73 @@ router.post(
 //@access   Private: Need to be logged to see contacts.
 router.put("/accept/:id", auth, async (req, res) => {
   //Change the requesters friendstatus to friends
-
   try {
     //The receivers friendsstatus
-    let receiversFriendReq = await Friend.findById(req.params.id); //This is good
-    //  console.log(receiversFriendReq);
+    let receiversFriendReq = await Friend.findById(req.params.id);
 
-    if (!receiversFriendReq) return res.send({msg: "Checkpoint 1"})
-
+    if (!receiversFriendReq) return res.send({ msg: "Checkpoint 1" });
     let updFriendStatusReq = await Friend.findByIdAndUpdate(
       receiversFriendReq,
       { $set: { friendStatus: 3 } }
     );
 
     //The requesters friendsstatus
-    // let requestersFriendReq = await Friend.findById(req.user._id, (err,hsend)=>console.log(err)); //This is not.
-    // // console.log(typeof req.user._id);
-    // if (!requestersFriendReq) return res.send({msg: "Checkpoint 2"})
-    // let updReceiveStatus = await Friend.findByIdAndUpdate(req.user._id, {
-    //   $set: { friendStatus: 3 }
-    // }); 
-    //, (err, continues)=> {if(err) res.send({msg: "Checkpoint 2"})}
+    const requestersFriendReq = await Friend.find({ recipient: req.user._id }); //Recognize that this is a different model to access.
+    if (!requestersFriendReq) return res.sendStatus(404);
+    const updateRequesterFriend = await Friend.findOneAndUpdate(
+      { recipient: req.user._id },
+      { $set: { friendStatus: 3 } }
+    );
 
-    const requestersFriendReq = await Friend.find({recipient: req.user._id});
-    if(!requestersFriendReq) return res.sendStatus(404);
-    const updateRequesterFriend = await Friend.findOneAndUpdate({recipient: req.user._id}, {$set: {friendStatus: 3}});
-
-    res.json({msg: "Both of the users are now friends"});
-
+    res.json({ receiversFriendReq, requestersFriendReq });
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
   }
 });
 
-//@route    PUT /api/contacts/decline/:id
+//@route    PUT /api/friends/decline/:id
 //@desc     This is to update contacts: To reject specifically
 //@access   Private: Need to be logged to see contacts.
 router.put("/decline/:id", auth, async (req, res) => {
   //Change the requesters friendstatus to friends
 
   try {
-    //This deletes the entire friend to friend relationship within the receiver
-    const receiversFriendReq = await Friend.findById(req.params._id);
-    if (!receiversFriendReq) return res.sendStatus(404);
-    const rejectReceiversReq = await Friend.findByIdAndDelete(req.params._id);
+    let receiversFriendReq = await Friend.findById(req.params.id); //Good
+    if (!receiversFriendReq) return res.send({ msg: "checkpoint 1" });
 
-    //This deletes the entire friend to friend relation within the requester.
-    const requestersFriendReq = await Friend.findById(req.user._id);
-    if (!requestersFriendReq) return res.sendStatus(404);
-    const rejectRequesterReq = await Friend.findByIdAndDelete(req.user._id);
+    const requestersFriendReq = await Friend.find({ recipient: req.user._id }); //Good
+    if (!requestersFriendReq) return res.send({ msg: "checkpoint 2" });
+
+    const recipFriendsList = await User.findById(receiversFriendReq.recipient);
+    const ReqFriendsList = await User.findById(receiversFriendReq.requester);
+
+    // const searcher = await User.find({friends:req.user._id});
+    // const friendsId = await User.findById(searcher[0]._id); //This gets the original requesters _id which we can use to query with mongoose
+    // console.log(searcher); //It's an array and I need to differentiate
 
     //Remove the friendId from both of the parties involved.
-    const removeUsersFriendIdReq = await User.findByIdAndUpdate(req.user._id, {
-      $pull: { friends: req.params._id }
-    });
     const removeRequestedFriendId = await User.findByIdAndUpdate(
-      req.params._id,
-      { $pull: { friends: req.user._id } }
+      recipFriendsList._id,
+      { $pull: { friends: ReqFriendsList._id } }
     );
 
-      res.json({msg: "The friend request was cancelled"});
+    const removeUsersFriendIdReq = await User.findByIdAndUpdate(
+      ReqFriendsList._id,
+      {
+        $pull: { friends: recipFriendsList._id }
+      }
+    );
 
+    //This deletes the entire friend to friend relationship within the receiver
+    const rejectReceiversReq = await Friend.findByIdAndDelete(req.params.id);
+
+    //This deletes the entire friend to friend relation within the requester.
+    const rejectRequesterReq = await Friend.findOneAndDelete({
+      recipient: req.user._id
+    });
+
+    res.json({ msg: "The friend request was cancelled" });
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);
