@@ -1,11 +1,17 @@
-import React from "react";
-import Navbar from "./components/layout/Navbar";
+import React, { Fragment } from "react";
+import Home from "./components/pages/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
 
 function App() {
   return (
-    <div>
-      <Navbar />
-    </div>
+    <Fragment>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
+      </Router>
+    </Fragment>
   );
 }
 
