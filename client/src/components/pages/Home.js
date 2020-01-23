@@ -1,13 +1,15 @@
 import React from "react";
 import Navbar from '../layout/Navbar';
 import Landing from '../layout/Landing';
+import Footer from '../layout/Footer';
 
 function Home() {
   return (
-    <div>
+    <div className="fullSize">
       <Navbar />
       <Landing/>
-      {/* <a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by katemangostar - www.freepik.com</a> */}
+      <Footer/>
+      {/**/}
     </div>
   );
 }
