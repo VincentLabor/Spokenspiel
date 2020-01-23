@@ -1,13 +1,30 @@
-import React from 'react';
-import NavbarStandard from '../layout/NavbarStandard';
-import {Link} from 'react-router-dom';
+import React from "react";
+import NavbarStandard from "../layout/NavbarStandard";
+import { Link } from "react-router-dom";
 
 function Login() {
-    return (
-        <div>
-            <NavbarStandard/>
-        </div>
-    )
+  return (
+    <div className="container pageColor">
+      <NavbarStandard />
+      <div className="container-form">
+        <h1>Login</h1>
+        <form>
+          <p className="credText">USERNAME</p>
+          <input type="text" name="Username" className="credentials"></input>
+          <p className="credText">PASSWORD</p>
+          <input type="text" name="Password" className="credentials"></input>
+          <button type="submit" className="submitBtn">
+            Submit
+          </button>
+        </form>
+        <p>
+          <Link to="/register" className="credLink">
+            Don't have an account? Click here to register
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
 }
 
-export default Login
+export default Login;

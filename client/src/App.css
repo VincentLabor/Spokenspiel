@@ -6,9 +6,18 @@
   font-family: "Nunito", sans-serif;
 }
 
+html, body{
+  height: 100%;
+  margin: 0;
+}
+
 .clear{
   text-decoration: none;
   color: inherit;
+}
+
+.pageColor{
+  background-color: #fafafa;
 }
 
 .fullSize {
@@ -17,12 +26,19 @@
   background-color: #fafafa;
 }
 
+.container{
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  height: 100vh;
+}
+
 .linkColor{
   color: white;
   text-decoration: none;
 }
 
-.about .linkColor{
+.about .footerLink{
   color: black;
 }
 
@@ -50,6 +66,7 @@ nav li {
   background-color: #2a8dff;
   border-radius: 2px;
   color: white;
+  text-decoration: none;
 }
 
 button:hover {
@@ -159,6 +176,64 @@ button:hover {
   left: 30em;
   height: 90px;
   width: 90px;
+}
+
+/* Login/Register page */
+
+.block{
+  display: block;
+  }
+  
+.container-form h1{
+  text-align: center;
+  margin: 1em 0;
+}
+
+  .block p{
+    margin: .3em 0;
+  }
+
+.container-form{
+  width: 25%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.credentials{
+  box-shadow: none;
+  border: 1px solid black;
+  padding: .4em;
+  width: 100%;
+  border-radius: 2px;
+  text-align: left;
+  margin-bottom: .5em;
+}
+
+.credText{
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.credLink{
+  text-decoration: none;
+  color: #1563bb;
+}
+
+.credentials:hover{
+  border: 1px solid #2a8dff;
+}
+
+.submitBtn{
+  margin-top: 2em;
+  padding: .4em;
+  width: 100%;
+  border: none;
+  background-color: #2a8dff;
+  border-radius: 2px;
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin: 1em auto;
 }
 
 /* About page */
