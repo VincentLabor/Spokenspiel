@@ -28,9 +28,7 @@ html, body{
 
 .container{
   width: 100%;
-  margin: auto;
   text-align: center;
-  height: 100vh;
 }
 
 .linkColor{
@@ -197,6 +195,8 @@ button:hover {
   width: 25%;
   margin: 0 auto;
   text-align: left;
+  min-height: 100vh;
+  margin-bottom: 0;
 }
 
 .credentials{

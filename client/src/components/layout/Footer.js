@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Footer() {
+const Footer = () => {
     return (
         <div className="footer-container">
           <h3>This website was made by Vincent Labor!</h3>

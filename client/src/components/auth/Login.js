@@ -1,8 +1,9 @@
 import React from "react";
 import NavbarStandard from "../layout/NavbarStandard";
 import { Link } from "react-router-dom";
+import Footer from "../layout/Footer"
 
-function Login() {
+const Login =()=> {
   return (
     <div className="container pageColor">
       <NavbarStandard />
@@ -23,6 +24,7 @@ function Login() {
           </Link>
         </p>
       </div>
+      <Footer/>
     </div>
   );
 }

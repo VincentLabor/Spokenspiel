@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-function Landing() {
+const Landing = () => {
   return (
     <Fragment>
       <div className="flexRight pd-2_5 ">
@@ -33,6 +33,6 @@ function Landing() {
       </div>
     </Fragment>
   );
-}
+};
 
 export default Landing;
