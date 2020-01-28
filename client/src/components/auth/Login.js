@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import NavbarStandard from "../layout/NavbarStandard";
+import {connect} from 'react-redux';
 import { Link } from "react-router-dom";
-import Footer from "../layout/Footer"
+import Footer from "../layout/Footer";
+import { loginUser } from "../../actions/authActions";
 
-const Login =()=> {
+const Login = ({ loginUser }) => {
+  const [email, setEmail] = useState({
+    email: ""
+  });
+  const [password, setPassword] = useState({
+    password: ""
+  });
+
+  const onChange = e => {
+    e.preventDefault();
+    // const formData = {
+    //   setEmail({e.})
+    // }
+  };
+  const onSubmit = e => {};
+
   return (
     <div className="container pageColor">
       <NavbarStandard />
@@ -11,10 +28,20 @@ const Login =()=> {
         <h1>Login</h1>
         <form>
           <p className="credText">USERNAME</p>
-          <input type="text" name="Username" className="credentials"></input>
+          <input
+            type="text"
+            name="Username"
+            className="credentials"
+            onChange={onChange}
+          />
           <p className="credText">PASSWORD</p>
-          <input type="text" name="Password" className="credentials"></input>
-          <button type="submit" className="submitBtn">
+          <input
+            type="text"
+            name="Password"
+            className="credentials"
+            onChange={onChange}
+          />
+          <button type="submit" className="submitBtn" onSubmit={onSubmit}>
             Submit
           </button>
         </form>
@@ -24,9 +51,9 @@ const Login =()=> {
           </Link>
         </p>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
-}
+};
 
-export default Login;
+export default connect(null, { loginUser })(Login);

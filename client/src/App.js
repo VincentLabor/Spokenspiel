@@ -6,11 +6,11 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import "./App.css";
 import { Provider } from "react-redux";
-import store from './store';
+import store from "./store";
 
 const App = () => {
   return (
-    <Provider store ={store}>
+    <Provider store={store}>
       <Fragment>
         <Router>
           <Switch>
