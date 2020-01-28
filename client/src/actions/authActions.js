@@ -1,5 +1,5 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
@@ -28,15 +28,25 @@ export const loadUser = formData => async dispatch => {
 };
 
 export const registerUser = formData => async dispatch => {
+
+
+  console.log(formData)
   const config = {
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     }
   };
 
   try {
     const res = await axios.post("/api/users", formData, config);
-  } catch (error) {}
+    
+
+    dispatch({ type: REGISTER_SUCCESS, payload: res.data });
+
+    loadUser();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const loginUser = formData => async dispatch => {

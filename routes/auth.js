@@ -36,7 +36,7 @@ router.post(
     check("password", "Please enter a valid password").exists() //Checks if the password exists
   ],
   async (req, res) => {
-    const { userName, password } = req.body;
+    const { email, userName, password } = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

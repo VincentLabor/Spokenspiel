@@ -5,7 +5,7 @@ import { registerUser } from "../../actions/authActions";
 import Footer from "../layout/Footer";
 import { connect } from "react-redux";
 
-const Register = ({registerUser}) => {
+const Register = ({ registerUser }) => {
   const [user, setUser] = useState({
     email: "",
     userName: "",
@@ -13,10 +13,10 @@ const Register = ({registerUser}) => {
     password2: ""
   });
 
-const {email, userName, password, password2} = user;
+  const { email, userName, password, password2 } = user;
 
   const onChange = e => {
-    setUser({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const onSubmit = e => {
@@ -26,18 +26,19 @@ const {email, userName, password, password2} = user;
     //      "Please fill in all of the forms to complete the registration"
     //    );
     //  }
-     if (password !== password2) {
-       console.log("The passwords do not match");
-     }
+    // if (password !== password2) {
+    //   console.log("The passwords do not match");
+    // }
 
-     const newUser = {
-       email,
-       userName,
-       password,
-       password2
-     }; 
+    const newUser = {
+      email,userName,password
+    }
 
-    registerUser(user);
+     registerUser(newUser);
+
+    console.log(newUser);
+    
+
   };
 
   return (
@@ -45,13 +46,13 @@ const {email, userName, password, password2} = user;
       <NavbarStandard />
       <div className="container-form">
         <h1>Register</h1>
-        <form className="block">
+        <form className="block" onSubmit={onSubmit}>
           <p className="credText"> EMAIL</p>
           <input
             type="text"
             name="email"
             className="credentials"
-            value={user}
+            value={email}
             onChange={onChange}
           />
           <p className="credText">USERNAME</p>
@@ -59,27 +60,27 @@ const {email, userName, password, password2} = user;
             type="text"
             name="userName"
             className="credentials"
-            value={user}
+            value={userName}
             onChange={onChange}
           />
           <p className="credText">PASSWORD</p>
           <input
-            type="text"
+            type="password"
             name="password"
             className="credentials"
-            value={user}
+            value={password}
             onChange={onChange}
           />
           <p className="credText">CONFIRM PASSWORD</p>
           <input
-            type="text"
+            type="password"
             name="password2"
             className="credentials"
-            value={user}
+            value={password2}
             onChange={onChange}
           />
 
-          <button type="submit" className="submitBtn" onSubmit={onSubmit}>
+          <button type="submit" className="submitBtn">
             Submit
           </button>
 
@@ -95,8 +96,8 @@ const {email, userName, password, password2} = user;
   );
 };
 
-const mapStateToProps = state => ({
-  auth: state.user
-});
+// const mapStateToProps = state => ({
+//   auth: state.user
+// });
 
-export default connect(mapStateToProps, { registerUser })(Register);
+export default connect(null, { registerUser })(Register);

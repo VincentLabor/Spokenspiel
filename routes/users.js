@@ -12,9 +12,9 @@ const config = require('config');
 router.post(
   "/",
   [
-    check("name", "Name is required")
-      .not()
-      .isEmpty(),
+    // check("name", "Name is required")
+    //   .not()
+    //   .isEmpty(),
     check("userName", "Please create a Username")
       .not()
       .isEmpty(),
@@ -54,7 +54,6 @@ router.post(
 
       //This is the model, a constructor from the schema.
       user = new User({
-        name,
         password,
         userName,
         email

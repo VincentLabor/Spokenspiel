@@ -3,7 +3,8 @@ import {
   REGISTER_FAILURE,
   AUTH_ERROR,
   SET_LOADING,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  USER_LOADED
 } from "../actions/types";
 
 const initialState = {
@@ -23,10 +24,31 @@ export default (state = initialState, action) => {
         user: action.payload
       }
       case REGISTER_SUCCESS:
+        localStorage.setItem('token',action.payload.token);
+        console.log(action.payload)
         return {
           ...state,
-          user: action.payload
+          isAuthenticated: true,
+          loading: false,
+          ...action.payload
         }
+        case REGISTER_FAILURE:
+          localStorage.removeItem('token')
+          return{
+            ...state, 
+            token: null,
+            isAuthenticated: false,
+            loading: false,
+            user: null,
+            error: action.payload
+          }
+        case USER_LOADED:
+          return{
+            ...state,
+            isAuthenticated: true,
+            loading: false,
+            user: action.payload
+          }
     case SET_LOADING:
       return{
         ...state,

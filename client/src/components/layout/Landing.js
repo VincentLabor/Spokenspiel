@@ -26,7 +26,7 @@ const Landing = () => {
             </Link>
           </button>
         </div>
-        <img src={require("./20671_1_25.jpg")} className="landingImg"></img>
+        <img src={require("./20671_1_25.jpg")} className="landingImg" alt=""></img>
         <div className="dot"></div>
         <div className="dot botRight"></div>
         <div className="dot top"></div>
