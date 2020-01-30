@@ -17,7 +17,7 @@ router.get("/",[auth] , async (req, res) => { //auth has to go before isOnline b
 
     res.json(user);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.sendStatus(500);
   }
 });
@@ -29,7 +29,7 @@ router.post(
   "/",
   [
     check("userName", "Please enter a valid Username").exists(), //Checks if the username exists
-
+    check("email", "Please include a valid email").isEmail(),
     check("password", "Please enter a password") //Checks if the entered a password
       .not()
       .isEmpty(),
@@ -47,6 +47,11 @@ router.post(
       const enteredUserName = await User.findOne({ userName }); //This will grab the entire entry from mongodb
       if (!enteredUserName) {
         res.status(400).json({ msg: "Username entered does not exist" });
+      }
+
+      const matchedEmail = await User.findOne({email});
+      if(matchedEmail){
+        res.status(400).json({msg: "The email entered already exists"});
       }
 
       const match = await bcrypt.compare(password, enteredUserName.password);

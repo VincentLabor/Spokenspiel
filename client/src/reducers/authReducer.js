@@ -1,18 +1,18 @@
 import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
-  AUTH_ERROR,
   SET_LOADING,
   SET_CURRENT_USER,
-  USER_LOADED
+  USER_LOADED,
+  GET_ERRORS
 } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem('token'),
   loading: false,
   isAuthenticated: null,
-  error: null,
-  user: null
+  user: null,
+  error: null
 };
 
 export default (state = initialState, action) => {
@@ -25,23 +25,13 @@ export default (state = initialState, action) => {
       }
       case REGISTER_SUCCESS:
         localStorage.setItem('token',action.payload.token);
-        console.log(action.payload)
+        // console.log(action.payload)
         return {
           ...state,
           isAuthenticated: true,
           loading: false,
           ...action.payload
         }
-        case REGISTER_FAILURE:
-          localStorage.removeItem('token')
-          return{
-            ...state, 
-            token: null,
-            isAuthenticated: false,
-            loading: false,
-            user: null,
-            error: action.payload
-          }
         case USER_LOADED:
           return{
             ...state,
@@ -54,6 +44,16 @@ export default (state = initialState, action) => {
         ...state,
         loading: true
       }
+      case GET_ERRORS:
+        localStorage.removeItem('token');
+        console.log(action.payload)
+        return {
+          ...state,
+          loading: false,
+          isAuthenticated: null,
+          user: null,
+          error: [action.payload]
+        }
     default:
       return state;
   }

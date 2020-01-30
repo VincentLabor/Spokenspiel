@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavbarStandard from "../layout/NavbarStandard";
 import { Link } from "react-router-dom";
 import { registerUser } from "../../actions/authActions";
+// import { setAlert } from "../../actions/alertActions";
+import {setAlert} from '../../actions/alertActions';
 import Footer from "../layout/Footer";
 import { connect } from "react-redux";
+import Alert from "../alert/alerts";
 
-const Register = ({ registerUser }) => {
+const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
   const [user, setUser] = useState({
     email: "",
     userName: "",
@@ -15,29 +18,34 @@ const Register = ({ registerUser }) => {
 
   const { email, userName, password, password2 } = user;
 
+useEffect(()=>{
+  console.log(alerts);
+  
+})
+
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    //  if (!email || !userName || !password) {
-    //    console.log(
-    //      "Please fill in all of the forms to complete the registration"
-    //    );
-    //  }
-    // if (password !== password2) {
-    //   console.log("The passwords do not match");
-    // }
-
-    const newUser = {
-      email,userName,password
+    if (!email || !userName || !password) {
+      setAlert("Please fill in all of the fields", "danger");
     }
 
-     registerUser(newUser);
+    if (password !== password2) {
+      setAlert("The passwords did not match", "danger");
+    }
 
-    console.log(newUser);
-    
+    const newUser = {
+      email,
+      userName,
+      password
+    };
+
+    registerUser(newUser);
+
+    // console.log(newUser);
 
   };
 
@@ -46,6 +54,7 @@ const Register = ({ registerUser }) => {
       <NavbarStandard />
       <div className="container-form">
         <h1>Register</h1>
+        {alerts && <Alert/>}
         <form className="block" onSubmit={onSubmit}>
           <p className="credText"> EMAIL</p>
           <input
@@ -90,14 +99,17 @@ const Register = ({ registerUser }) => {
             </Link>
           </p>
         </form>
+        {/* {error && (error[0].msg.map((oneError)=><Alert oneError={oneError} key={oneError.id}/>))}  */}
       </div>
+     
       <Footer />
     </div>
   );
 };
 
-// const mapStateToProps = state => ({
-//   auth: state.user
-// });
+const mapStateToProps = state => ({
+  auth: state.auth, //This is based on the index.js file in the root reducer folder.
+  alert: state.alert
+});
 
-export default connect(null, { registerUser })(Register);
+export default connect(mapStateToProps, { registerUser, setAlert })(Register);

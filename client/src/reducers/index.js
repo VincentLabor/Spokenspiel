@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import friendReducer from "./friendReducer";
-import errorReducer from "./errorReducer";
 import authReducer from "./authReducer";
+import alertReducer from './alertReducer';
 
 export default combineReducers({
   friend: friendReducer,
-  errors: errorReducer,
-  auth: authReducer
+  auth: authReducer,
+  alert: alertReducer
 });

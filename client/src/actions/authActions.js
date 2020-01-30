@@ -1,13 +1,11 @@
-import React from "react";
+
 import axios from "axios";
 import {
   REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-  AUTH_ERROR,
   SET_LOADING,
   SET_CURRENT_USER,
   USER_LOADED,
-  GET_ERRORS
+  GET_ERRORS,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -22,30 +20,26 @@ export const loadUser = formData => async dispatch => {
       type: USER_LOADED,
       payload: res.data
     });
-  } catch (error) {
-    dispatch({ type: GET_ERRORS, payload: error.response.data });
+  } catch (err) {
+    dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
 };
 
 export const registerUser = formData => async dispatch => {
-
-
-  console.log(formData)
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
   };
 
   try {
+    loading();
     const res = await axios.post("/api/users", formData, config);
-    
-
     dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-
     loadUser();
   } catch (err) {
-    console.log(err);
+    dispatch({ type: GET_ERRORS, payload: err.response.data });
+
   }
 };
 
@@ -65,8 +59,9 @@ export const loginUser = formData => async dispatch => {
     });
 
     loadUser();
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
 };
 
