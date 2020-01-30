@@ -53,7 +53,7 @@ const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
         <form className="block" onSubmit={onSubmit}>
           <p className="credText"> EMAIL</p>
           <input
-            type="text"
+            type="email"
             name="email"
             className="credentials"
             value={email}
