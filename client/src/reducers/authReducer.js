@@ -17,15 +17,17 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_CURRENT_USER:
-      return{
-        ...state,
-        isAuthenticated: true,
-        user: action.payload
-      }
+    // case SET_CURRENT_USER:
+    //   return{
+    //     ...state,
+    //     isAuthenticated: true,
+    //     user: action.payload,
+    //     loading: false,
+    //   }
+      case SET_CURRENT_USER: //Will hand user a token if successful login
       case REGISTER_SUCCESS:
         localStorage.setItem('token',action.payload.token);
-        // console.log(action.payload)
+         console.log(action.payload)
         return {
           ...state,
           isAuthenticated: true,
@@ -46,7 +48,7 @@ export default (state = initialState, action) => {
       }
       case GET_ERRORS:
         localStorage.removeItem('token');
-        console.log(action.payload)
+        // console.log(action.payload)
         return {
           ...state,
           loading: false,

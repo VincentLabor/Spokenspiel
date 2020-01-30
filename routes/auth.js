@@ -29,14 +29,14 @@ router.post(
   "/",
   [
     check("userName", "Please enter a valid Username").exists(), //Checks if the username exists
-    check("email", "Please include a valid email").isEmail(),
-    check("password", "Please enter a password") //Checks if the entered a password
-      .not()
-      .isEmpty(),
-    check("password", "Please enter a valid password").exists() //Checks if the password exists
+    // check("email", "Please include a valid email").isEmail(),
+    // check("password", "Please enter a password") //Checks if the entered a password
+    //   .not()
+    //   .isEmpty(),
+     check("password", "Please enter a valid password").exists() //Checks if the password exists
   ],
   async (req, res) => {
-    const { email, userName, password } = req.body;
+    const { userName, password } = req.body;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -49,10 +49,10 @@ router.post(
         res.status(400).json({ msg: "Username entered does not exist" });
       }
 
-      const matchedEmail = await User.findOne({email});
-      if(matchedEmail){
-        res.status(400).json({msg: "The email entered already exists"});
-      }
+      // const matchedEmail = await User.findOne({email});
+      // if(matchedEmail){
+      //   res.status(400).json({msg: "The email entered already exists"});
+      // }
 
       const match = await bcrypt.compare(password, enteredUserName.password);
       if (!match) {

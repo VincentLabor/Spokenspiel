@@ -236,6 +236,15 @@ button:hover {
   margin: 1em auto;
 }
 
+/* Alerts */
+.alert{
+  padding: 0.7rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: #FF2626;
+  color: black;
+}
+
 /* About page */
 .about{
   text-align: center;
@@ -243,13 +252,7 @@ button:hover {
   height: 100%;
 }
 
-.alert{
-  padding: 0.7rem;
-  margin: 1rem 0;
-  opacity: 0.9;
-  background: var(--light-color);
-  color: #333;
-}
+
 
 /* Footer */
 .footer-container {

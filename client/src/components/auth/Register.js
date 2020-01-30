@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import NavbarStandard from "../layout/NavbarStandard";
 import { Link } from "react-router-dom";
 import { registerUser } from "../../actions/authActions";
-import {setAlert} from '../../actions/alertActions';
+import { setAlert } from "../../actions/alertActions";
 import Footer from "../layout/Footer";
 import { connect } from "react-redux";
 import Alert from "../alert/alerts";
 
-const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
+const Register = ({ registerUser, setAlert, alert: { alerts } }) => {
   const [user, setUser] = useState({
     email: "",
     userName: "",
@@ -17,9 +17,9 @@ const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
 
   const { email, userName, password, password2 } = user;
 
-// useEffect(()=>{
-//   console.log(alerts);
-// })
+  // useEffect(()=>{
+  //   console.log(alerts);
+  // })
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -29,10 +29,10 @@ const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
     e.preventDefault();
     if (!email || !userName || !password) {
       setAlert("Please fill in all of the fields", "danger");
-    }
-
-    if (password !== password2) {
-      setAlert("The passwords did not match", "danger");
+    } else if(password.length < 6) {
+      setAlert("Please enter a password of at least 6 characters");
+    } else if (password !== password2) {
+      setAlert("The passwords do not match", "danger");
     }
 
     const newUser = {
@@ -49,7 +49,7 @@ const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
       <NavbarStandard />
       <div className="container-form">
         <h1>Register</h1>
-        {alerts && <Alert/>}
+
         <form className="block" onSubmit={onSubmit}>
           <p className="credText"> EMAIL</p>
           <input
@@ -87,7 +87,7 @@ const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
           <button type="submit" className="submitBtn">
             Submit
           </button>
-
+          {alerts && <Alert />}
           <p>
             <Link to="/login" className="credLink">
               Have an account? Click here to login
@@ -95,7 +95,7 @@ const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
           </p>
         </form>
       </div>
-     
+
       <Footer />
     </div>
   );
