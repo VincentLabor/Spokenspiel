@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import NavbarStandard from "../layout/NavbarStandard";
 import { Link } from "react-router-dom";
 import { registerUser } from "../../actions/authActions";
-// import { setAlert } from "../../actions/alertActions";
 import {setAlert} from '../../actions/alertActions';
 import Footer from "../layout/Footer";
 import { connect } from "react-redux";
@@ -18,10 +17,9 @@ const Register = ({ registerUser, error, setAlert, alert: {alerts} }) => {
 
   const { email, userName, password, password2 } = user;
 
-useEffect(()=>{
-  console.log(alerts);
-  
-})
+// useEffect(()=>{
+//   console.log(alerts);
+// })
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -44,9 +42,6 @@ useEffect(()=>{
     };
 
     registerUser(newUser);
-
-    // console.log(newUser);
-
   };
 
   return (
@@ -99,7 +94,6 @@ useEffect(()=>{
             </Link>
           </p>
         </form>
-        {/* {error && (error[0].msg.map((oneError)=><Alert oneError={oneError} key={oneError.id}/>))}  */}
       </div>
      
       <Footer />
