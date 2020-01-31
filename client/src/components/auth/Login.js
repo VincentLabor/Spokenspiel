@@ -22,9 +22,9 @@ const Login = ({ loginUser, alert: {alerts}, setAlert }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-     if(userName === "" || password === ""){
-       setAlert("Please enter a valid Username and Password")
-     }
+    //  if(userName === "" || password === ""){
+    //    setAlert("Please enter a valid Username and Password")
+    //  }
 
     const userCreds = {userName, password};
     loginUser(userCreds);

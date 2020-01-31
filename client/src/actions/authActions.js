@@ -61,9 +61,9 @@ export const loginUser = formData => async dispatch => {
 
     loadUser();
   } catch (err) {
-    console.log(err.response.data);
+    // console.log(err.response.data);
     dispatch({ type: GET_ERRORS, payload: err.response.data });
-    dispatch(setAlert(err.response.data.msg))
+    dispatch(setAlert(err.response.data.msg)) // This allows us to reach the other set of actions.
   }
 };
 

@@ -46,7 +46,7 @@ router.post(
     try {
       const enteredUserName = await User.findOne({ userName }); //This will grab the entire entry from mongodb
       if (!enteredUserName) {
-        res.status(400).json({ msg: "Username entered does not exist" });
+        res.status(400).json({ msg: "The Username and/or Password are invalid." });
       }
 
       // const matchedEmail = await User.findOne({email});
@@ -56,7 +56,7 @@ router.post(
 
       const match = await bcrypt.compare(password, enteredUserName.password);
       if (!match) {
-        res.status(400).json({ msg: "Incorrect password" });
+        res.status(400).json({ msg: "The Username and/or Password are invalid." });
       }
 
       jwt.sign(
