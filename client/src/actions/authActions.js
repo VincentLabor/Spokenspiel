@@ -8,6 +8,7 @@ import {
   GET_ERRORS,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
+import { setAlert } from "./alertActions";
 
 export const loadUser = formData => async dispatch => {
   if (localStorage.token) {
@@ -60,8 +61,9 @@ export const loginUser = formData => async dispatch => {
 
     loadUser();
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data);
     dispatch({ type: GET_ERRORS, payload: err.response.data });
+    dispatch(setAlert(err.response.data.msg))
   }
 };
 
