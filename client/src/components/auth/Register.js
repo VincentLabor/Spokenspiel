@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import NavbarStandard from "../layout/NavbarStandard";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {useHistory} from "react-router-dom"; // This allows me to push users to differnt page after registration
 import { Link } from "react-router-dom";
 import { registerUser } from "../../actions/authActions";
 import { setAlert } from "../../actions/alertActions";
 import Footer from "../layout/Footer";
 import { connect } from "react-redux";
 import Alert from "../alert/alerts";
+// import history from '../history/history';
 
-const Register = ({ registerUser, setAlert, alert: { alerts } }) => {
+
+const Register = ({  registerUser, setAlert, alert: { alerts }, auth: { isAuthenticated } , props},) => {
+  console.log(props)
   const [user, setUser] = useState({
     email: "",
     userName: "",
@@ -15,11 +20,17 @@ const Register = ({ registerUser, setAlert, alert: { alerts } }) => {
     password2: ""
   });
 
+  const history = useHistory();
+
   const { email, userName, password, password2 } = user;
 
-  // useEffect(()=>{
-  //   console.log(alerts);
-  // })
+  useEffect(() => {
+    if (isAuthenticated) {
+    history.push("/dashboard");
+    } else {
+     history.push("/register");
+    }
+  },[history, isAuthenticated]);
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -29,7 +40,7 @@ const Register = ({ registerUser, setAlert, alert: { alerts } }) => {
     e.preventDefault();
     if (!email || !userName || !password) {
       setAlert("Please fill in all of the fields", "danger");
-    } else if(password.length < 6) {
+    } else if (password.length < 6) {
       setAlert("Please enter a password of at least 6 characters");
     } else if (password !== password2) {
       setAlert("The passwords do not match", "danger");
@@ -40,8 +51,10 @@ const Register = ({ registerUser, setAlert, alert: { alerts } }) => {
       userName,
       password
     };
-
     registerUser(newUser);
+    if(isAuthenticated){
+      return <Redirect to="/dashboard"/>
+    }
   };
 
   return (

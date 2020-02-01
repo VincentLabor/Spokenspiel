@@ -1,15 +1,17 @@
-
+import React from "react";
 import axios from "axios";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import {
   REGISTER_SUCCESS,
   SET_LOADING,
   SET_CURRENT_USER,
   USER_LOADED,
-  GET_ERRORS,
+  GET_ERRORS
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alertActions";
+// import {browserHistory} from 'react-router-dom';
+
 
 export const loadUser = formData => async dispatch => {
   if (localStorage.token) {
@@ -39,9 +41,9 @@ export const registerUser = formData => async dispatch => {
     const res = await axios.post("/api/users", formData, config);
     dispatch({ type: REGISTER_SUCCESS, payload: res.data });
     loadUser();
+    // browserHistory.push('/dashboard')
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
-
   }
 };
 
@@ -65,7 +67,7 @@ export const loginUser = formData => async dispatch => {
   } catch (err) {
     // console.log(err.response.data);
     dispatch({ type: GET_ERRORS, payload: err.response.data });
-    dispatch(setAlert(err.response.data.msg)) // This allows us to reach the other set of actions.
+    dispatch(setAlert(err.response.data.msg)); // This allows us to reach the other set of actions.
   }
 };
 
