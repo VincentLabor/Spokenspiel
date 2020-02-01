@@ -11,8 +11,7 @@ import Alert from "../alert/alerts";
 // import history from '../history/history';
 
 
-const Register = ({  registerUser, setAlert, alert: { alerts }, auth: { isAuthenticated } , props},) => {
-  console.log(props)
+const Register = ({  registerUser, setAlert, alert: { alerts }, auth: { isAuthenticated }},) => {
   const [user, setUser] = useState({
     email: "",
     userName: "",
