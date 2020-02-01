@@ -1,5 +1,6 @@
 
 import axios from "axios";
+import {Redirect} from "react-router-dom";
 import {
   REGISTER_SUCCESS,
   SET_LOADING,
@@ -60,6 +61,7 @@ export const loginUser = formData => async dispatch => {
     });
 
     loadUser();
+    // push("/dashboard")
   } catch (err) {
     // console.log(err.response.data);
     dispatch({ type: GET_ERRORS, payload: err.response.data });
