@@ -12,9 +12,9 @@ const Login = ({
   loginUser,
   alert: { alerts },
   setAlert,
-  auth: { isAuthenticated }
+  auth: { isAuthenticated,user }
 }) => {
-  
+
   const [userAcct, setUserAcct] = useState({
     userName: "",
     password: ""
@@ -27,13 +27,14 @@ const Login = ({
     } else {
       history.push("/login");
     }
-  }, [history, isAuthenticated]);
+
+    console.log(user)
+  }, [history, isAuthenticated, user]);
 
   const { userName, password } = userAcct;
 
   const onChange = e => {
     setUserAcct({ ...userAcct, [e.target.name]: e.target.value });
-    console.log(userName, password);
   };
 
   const onSubmit = e => {

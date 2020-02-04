@@ -6,7 +6,8 @@ import {
   SET_LOADING,
   SET_CURRENT_USER,
   USER_LOADED,
-  GET_ERRORS
+  GET_ERRORS,
+  CLEAR_STATE
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alertActions";
@@ -70,6 +71,10 @@ export const loginUser = formData => async dispatch => {
     dispatch(setAlert(err.response.data.msg)); // This allows us to reach the other set of actions.
   }
 };
+
+export const clearState = () => async dispatch =>{
+  dispatch({type: CLEAR_STATE});
+}
 
 export const loading = () => {
   return {

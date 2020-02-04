@@ -4,11 +4,12 @@ import {
   SET_LOADING,
   SET_CURRENT_USER,
   USER_LOADED,
-  GET_ERRORS
+  GET_ERRORS,
+  CLEAR_STATE
 } from "../actions/types";
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem("token"),
   loading: false,
   isAuthenticated: null,
   user: null,
@@ -17,37 +18,45 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-      case SET_CURRENT_USER: //Will hand user a token if successful login
-      case REGISTER_SUCCESS:
-        localStorage.setItem('token',action.payload.token);
-        return {
-          ...state,
-          isAuthenticated: true,
-          loading: false,
-          ...action.payload
-        }
-        case USER_LOADED:
-          return{
-            ...state,
-            isAuthenticated: true,
-            loading: false,
-            user: action.payload
-          }
+    case SET_CURRENT_USER: //Will hand user a token if successful login
+    case REGISTER_SUCCESS:
+      localStorage.setItem("token", action.payload.token);
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        ...action.payload
+      };
+    case USER_LOADED:
+      console.log(action.payload);
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: action.payload
+      };
     case SET_LOADING:
-      return{
+      return {
         ...state,
         loading: true
-      }
-      case GET_ERRORS:
-        localStorage.removeItem('token');
-        // console.log(action.payload)
-        return {
-          ...state,
-          loading: false,
-          isAuthenticated: null,
-          user: null,
-          error: [action.payload]
-        }
+      };
+    case GET_ERRORS:
+      localStorage.removeItem("token");
+      // console.log(action.payload)
+      return {
+        ...state,
+        loading: false,
+        isAuthenticated: null,
+        user: null,
+        error: [action.payload]
+      };
+    case CLEAR_STATE:
+      return {
+        loading: false,
+        isAuthenticated: null,
+        user: null,
+        error: null
+      };
     default:
       return state;
   }
