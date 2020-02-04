@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavbarStandard from "../layout/NavbarStandard";
+import Navbar from "../layout/Navbar";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setAlert } from "../../actions/alertActions";
@@ -56,7 +56,7 @@ const Login = ({
 
   return (
     <div className="container pageColor">
-      <NavbarStandard />
+      <Navbar />
       <div className="container-form">
         <h1>Login</h1>
 

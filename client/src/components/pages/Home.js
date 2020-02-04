@@ -13,20 +13,12 @@ const Home = ({ auth: { isAuthenticated, token } }) => {
       <Navbar />
       <Landing />
       <Footer />
-      {/**/}
     </div>
   );
-
-  // <div className="fullSize">
-  //   <Navbar />
-  //   <Landing/>
-  //   <Footer/>
-  //   {/**/}
-  // </div>
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps)(Home);
