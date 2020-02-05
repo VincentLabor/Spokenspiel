@@ -16,6 +16,10 @@ html, body{
   color: inherit;
 }
 
+.clear:hover{
+  cursor: pointer;
+}
+
 .pageColor{
   background-color: #fafafa;
 }

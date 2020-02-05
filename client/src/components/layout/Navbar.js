@@ -34,19 +34,6 @@ const Navbar = ({ auth: { token, user }, clearState }) => {
     </Fragment>
   );
 
-  const Refresh = ({ path = '/' }) => (
-    <Route
-        path={path}
-        component={({ history, location, match }) => {
-            history.replace({
-                ...location,
-                pathname:location.pathname.substring(match.path.length)
-            });
-            return null;
-        }}
-    />
-);
-
 const redirected = ()=>{
   history.push('/');
   window.location.reload();
@@ -61,10 +48,8 @@ const redirected = ()=>{
               Spokenspiel
             </Link>
           ) : (
-            <p onClick={redirected}>Spokenspiel</p>
-            // <Link to="/" className="clear">
-            //   Spokenspiel
-            // </Link>
+            <p onClick={redirected} className="clear">Spokenspiel</p>
+
           )}
         </h1>
         {!token ? null : <p onClick={onClick}>Logout</p>}
@@ -76,6 +61,7 @@ const redirected = ()=>{
           </Link>
         </li>
         {!token ? guestLinks : null}
+        <li>Hello world</li>
       </ul>
     </nav>
   );

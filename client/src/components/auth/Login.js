@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { setAlert } from "../../actions/alertActions";
 import Footer from "../layout/Footer";
-import { loginUser } from "../../actions/authActions";
+import { loginUser, loadUser } from "../../actions/authActions";
 import Alert from "../alert/alerts";
 import { useHistory } from "react-router-dom";
 
@@ -12,7 +12,8 @@ const Login = ({
   loginUser,
   alert: { alerts },
   setAlert,
-  auth: { isAuthenticated,user }
+  auth: { isAuthenticated,user },
+  loadUser
 }) => {
 
   const [userAcct, setUserAcct] = useState({
@@ -28,8 +29,10 @@ const Login = ({
       history.push("/login");
     }
 
+    loadUser();
+
     console.log(user)
-  }, [history, isAuthenticated, user]);
+  }, [history, isAuthenticated, user, loadUser]);
 
   const { userName, password } = userAcct;
 
@@ -98,4 +101,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { loginUser, setAlert })(Login);
+export default connect(mapStateToProps, { loginUser, setAlert, loadUser })(Login);

@@ -14,7 +14,8 @@ import { setAlert } from "./alertActions";
 // import {browserHistory} from 'react-router-dom';
 
 
-export const loadUser = formData => async dispatch => {
+export const loadUser = () => async dispatch => { //For some reason this doesn't do anything.
+  // console.log(localStorage)
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -25,6 +26,8 @@ export const loadUser = formData => async dispatch => {
       type: USER_LOADED,
       payload: res.data
     });
+
+    console.log(res.data)
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
