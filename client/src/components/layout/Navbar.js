@@ -6,12 +6,10 @@ import { clearState } from "../../actions/authActions";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const Navbar = ({ auth: { token, user }, clearState }) => {
-
   const history = useHistory();
 
   const onClick = e => {
     if (token) {
-      localStorage.removeItem("token");
       clearState();
       history.push("/login");
     } else {
@@ -34,10 +32,16 @@ const Navbar = ({ auth: { token, user }, clearState }) => {
     </Fragment>
   );
 
-const redirected = ()=>{
-  history.push('/');
-  window.location.reload();
-}
+  // const greetUser = () => (
+  //   <Fragment>
+      
+  //   </Fragment>
+  // );
+
+  const redirected = () => {
+    history.push("/");
+    window.location.reload();
+  };
 
   return (
     <nav className=" nav pd-2_5">
@@ -48,20 +52,22 @@ const redirected = ()=>{
               Spokenspiel
             </Link>
           ) : (
-            <p onClick={redirected} className="clear">Spokenspiel</p>
-
+            <p onClick={redirected} className="clear">
+              Spokenspiel
+            </p>
           )}
         </h1>
-        {!token ? null : <p onClick={onClick}>Logout</p>}
       </div>
       <ul className="flexRight">
+      <li> {user ? ("Greetings, " + user.userName): null }</li> 
         <li>
           <Link to="/about" className="clear">
             About
           </Link>
         </li>
+
         {!token ? guestLinks : null}
-        <li>Hello world</li>
+        {!token ? null : <li onClick={onClick} className="clear">Logout</li>}
       </ul>
     </nav>
   );

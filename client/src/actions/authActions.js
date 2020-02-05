@@ -1,6 +1,5 @@
-import React from "react";
+
 import axios from "axios";
-import { Redirect } from "react-router-dom";
 import {
   REGISTER_SUCCESS,
   SET_LOADING,
@@ -15,8 +14,9 @@ import { setAlert } from "./alertActions";
 
 
 export const loadUser = () => async dispatch => { //For some reason this doesn't do anything.
-  // console.log(localStorage)
-  if (localStorage.token) {
+
+if (localStorage.token) {
+    
     setAuthToken(localStorage.token);
   }
 
@@ -26,8 +26,8 @@ export const loadUser = () => async dispatch => { //For some reason this doesn't
       type: USER_LOADED,
       payload: res.data
     });
-
     console.log(res.data)
+
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
@@ -45,7 +45,6 @@ export const registerUser = formData => async dispatch => {
     const res = await axios.post("/api/users", formData, config);
     dispatch({ type: REGISTER_SUCCESS, payload: res.data });
     loadUser();
-    // browserHistory.push('/dashboard')
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
@@ -65,11 +64,10 @@ export const loginUser = formData => async dispatch => {
       type: SET_CURRENT_USER,
       payload: res.data
     });
-
+    
     loadUser();
     // push("/dashboard")
   } catch (err) {
-    // console.log(err.response.data);
     dispatch({ type: GET_ERRORS, payload: err.response.data });
     dispatch(setAlert(err.response.data.msg)); // This allows us to reach the other set of actions.
   }

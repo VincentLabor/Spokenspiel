@@ -12,7 +12,7 @@ const Login = ({
   loginUser,
   alert: { alerts },
   setAlert,
-  auth: { isAuthenticated,user },
+  auth: { isAuthenticated,user,token },
   loadUser
 }) => {
 
@@ -23,16 +23,20 @@ const Login = ({
   const history = useHistory();
 
   useEffect(() => {
+    if (alerts) {
+      console.log(alerts);
+      setAlert(alerts[0].msg);
+    }
     if (isAuthenticated) {
       history.push("/dashboard");
     } else {
       history.push("/login");
     }
+    if(token&&isAuthenticated){
+      loadUser();
+    }
 
-    loadUser();
-
-    console.log(user)
-  }, [history, isAuthenticated, user, loadUser]);
+  }, [history, isAuthenticated, user, loadUser, alerts, setAlert, token]);
 
   const { userName, password } = userAcct;
 
@@ -42,20 +46,10 @@ const Login = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    //  if(userName === "" || password === ""){
-    //    setAlert("Please enter a valid Username and Password")
-    //  }
-
     const userCreds = { userName, password };
     loginUser(userCreds);
+    loadUser();
   };
-
-  useEffect(() => {
-    if (alerts) {
-      console.log(alerts);
-      setAlert(alerts[0].msg);
-    }
-  }, [alert]);
 
   return (
     <div className="container pageColor">
@@ -71,6 +65,7 @@ const Login = ({
             className="credentials"
             onChange={onChange}
             value={userName}
+            autoFocus
           />
           <p className="credText">PASSWORD</p>
           <input

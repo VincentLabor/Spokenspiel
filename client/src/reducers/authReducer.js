@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
     case SET_CURRENT_USER: //Will hand user a token if successful login
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.token);
-      console.log(localStorage.token)
       return {
         ...state,
         isAuthenticated: true,
@@ -29,6 +28,7 @@ export default (state = initialState, action) => {
         ...action.payload
       };
     case USER_LOADED:
+     console.log(action.payload)
       return {
         ...state,
         isAuthenticated: true,
@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
       };
     case GET_ERRORS:
       localStorage.removeItem("token");
-      // console.log(action.payload)
+
       return {
         ...state,
         loading: false,
@@ -51,6 +51,7 @@ export default (state = initialState, action) => {
         error: [action.payload]
       };
     case CLEAR_STATE:
+      localStorage.removeItem("token");
       return {
         loading: false,
         isAuthenticated: null,

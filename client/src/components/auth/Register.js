@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../layout/Navbar";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import {useHistory} from "react-router-dom"; // This allows me to push users to differnt page after registration
 import { Link } from "react-router-dom";
 import { registerUser } from "../../actions/authActions";
@@ -51,9 +50,7 @@ const Register = ({  registerUser, setAlert, alert: { alerts }, auth: { isAuthen
       password
     };
     registerUser(newUser);
-    if(isAuthenticated){
-      return <Redirect to="/dashboard"/>
-    }
+
   };
 
   return (

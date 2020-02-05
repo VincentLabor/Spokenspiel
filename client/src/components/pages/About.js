@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../layout/Navbar";
-import Landing from "../layout/Landing";
-import Footer from "../layout/Footer";
+// import Landing from "../layout/Landing";
+// import Footer from "../layout/Footer";
 function About() {
   return (
     <div className="about">
