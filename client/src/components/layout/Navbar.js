@@ -21,7 +21,7 @@ const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser }
     if(token && !isAuthenticated){
       loadUser();
     };
-  },[loadUser,isAuthenticated])
+  },[loadUser,isAuthenticated, token])
 
   const guestLinks = (
     <Fragment>

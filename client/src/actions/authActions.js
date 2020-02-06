@@ -12,7 +12,7 @@ import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alertActions";
 
 //Grabbing the information through the token
-export const loadUser = () => async dispatch => { //For some reason this doesn't do anything.
+export const loadUser = () => async dispatch => {
 console.log(localStorage.token)
 if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -67,9 +67,8 @@ export const loginUser = formData => async dispatch => {
       payload: res.data
     });
 
-    dispatch(loadUser());
- 
-    // push("/dashboard")
+    dispatch(loadUser()); //This works thanks to react/thunk
+
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
     dispatch(setAlert(err.response.data.msg)); // This allows us to reach the other set of actions.

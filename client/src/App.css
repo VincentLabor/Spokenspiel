@@ -6,21 +6,24 @@
   font-family: "Nunito", sans-serif;
 }
 
-html, body{
-  height: 100%;
+html,
+body {
+  /* height: 100%; */
   margin: 0;
+  /* width: 100vw; */
+  height: 100vh;
 }
 
-.clear{
+.clear {
   text-decoration: none;
   color: inherit;
 }
 
-.clear:hover{
+.clear:hover {
   cursor: pointer;
 }
 
-.pageColor{
+.pageColor {
   background-color: #fafafa;
 }
 
@@ -30,17 +33,18 @@ html, body{
   background-color: #fafafa;
 }
 
-.container{
+.container {
   width: 100%;
   text-align: center;
+  height: 100%;
 }
 
-.linkColor{
+.linkColor {
   color: white;
   text-decoration: none;
 }
 
-.about .footerLink{
+.about .footerLink {
   color: black;
 }
 
@@ -48,9 +52,6 @@ html, body{
   display: inline;
 }
 
-nav li {
-  padding: 0 1em;
-}
 
 .flexRight {
   display: flex;
@@ -84,11 +85,16 @@ button:hover {
 }
 
 .nav {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
   padding: 2.5em 4em;
+}
+
+nav li {
+  padding: 0 1em;
 }
 
 .inlineBlock {
@@ -182,20 +188,20 @@ button:hover {
 
 /* Login/Register page */
 
-.block{
+.block {
   display: block;
-  }
-  
-.container-form h1{
+}
+
+.container-form h1 {
   text-align: center;
   margin: 1em 0;
 }
 
-  .block p{
-    margin: .3em 0;
-  }
+.block p {
+  margin: 0.3em 0;
+}
 
-.container-form{
+.container-form {
   width: 25%;
   margin: 0 auto;
   text-align: left;
@@ -203,33 +209,33 @@ button:hover {
   margin-bottom: 0;
 }
 
-.credentials{
+.credentials {
   box-shadow: none;
   border: 1px solid black;
-  padding: .4em;
+  padding: 0.4em;
   width: 100%;
   border-radius: 2px;
   text-align: left;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
-.credText{
+.credText {
   font-size: 10px;
   font-weight: bold;
 }
 
-.credLink{
+.credLink {
   text-decoration: none;
   color: #1563bb;
 }
 
-.credentials:hover{
+.credentials:hover {
   border: 1px solid #2a8dff;
 }
 
-.submitBtn{
+.submitBtn {
   margin-top: 2em;
-  padding: .4em;
+  padding: 0.4em;
   width: 100%;
   border: none;
   background-color: #2a8dff;
@@ -240,23 +246,79 @@ button:hover {
   margin: 1em auto;
 }
 
+/* Dashboard */
+
+.containers {
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.gridContainer {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 10%);
+  grid-template-rows: repeat(3, 29%);
+}
+
+.friendsList {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  background-color: red;
+}
+
+.chatting {
+  grid-column-start: 3;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  background-color: blue;
+}
+
+.chatbox{
+  grid-column-start: 3;
+  grid-column-end: 9;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  background-color: lightblue;
+}
+.conversations {
+  grid-column-start: 9;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  background-color: yellow;
+}
+
+.c1{
+  background-color: violet;
+}
+.c2{
+  background-color: green;
+}
+.c3{
+  background-color: purple;
+}
+
+
 /* Alerts */
-.alert{
+.alert {
   padding: 0.7rem;
   margin: 1rem 0;
   opacity: 0.9;
-  background: #FF2626;
+  background: #ff2626;
   color: black;
 }
 
 /* About page */
-.about{
+.about {
   text-align: center;
   margin: auto;
   height: 100%;
 }
-
-
 
 /* Footer */
 .footer-container {
