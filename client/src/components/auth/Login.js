@@ -32,9 +32,9 @@ const Login = ({
     } else {
       history.push("/login");
     }
-    if(token&&isAuthenticated){
-      loadUser();
-    }
+    // if(token&&isAuthenticated){
+    //   loadUser();
+    // }
 
   }, [history, isAuthenticated, user, loadUser, alerts, setAlert, token]);
 
@@ -48,7 +48,6 @@ const Login = ({
     e.preventDefault();
     const userCreds = { userName, password };
     loginUser(userCreds);
-    loadUser();
   };
 
   return (

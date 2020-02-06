@@ -2,10 +2,10 @@ import React, { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { clearState } from "../../actions/authActions";
+import { clearState, loadUser } from "../../actions/authActions";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const Navbar = ({ auth: { token, user }, clearState }) => {
+const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser }) => {
   const history = useHistory();
 
   const onClick = e => {
@@ -16,6 +16,12 @@ const Navbar = ({ auth: { token, user }, clearState }) => {
       console.log("nothing happened");
     }
   };
+
+  useEffect(()=>{
+    if(token && !isAuthenticated){
+      loadUser();
+    };
+  },[loadUser,isAuthenticated])
 
   const guestLinks = (
     <Fragment>
@@ -77,4 +83,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { clearState })(Navbar);
+export default connect(mapStateToProps, { clearState, loadUser })(Navbar);

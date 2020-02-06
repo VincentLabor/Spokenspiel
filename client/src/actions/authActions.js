@@ -10,13 +10,11 @@ import {
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alertActions";
-// import {browserHistory} from 'react-router-dom';
 
-
+//Grabbing the information through the token
 export const loadUser = () => async dispatch => { //For some reason this doesn't do anything.
-
+console.log(localStorage.token)
 if (localStorage.token) {
-    
     setAuthToken(localStorage.token);
   }
 
@@ -33,6 +31,7 @@ if (localStorage.token) {
   }
 };
 
+//Registering a User
 export const registerUser = formData => async dispatch => {
   const config = {
     headers: {
@@ -44,12 +43,15 @@ export const registerUser = formData => async dispatch => {
     loading();
     const res = await axios.post("/api/users", formData, config);
     dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-    loadUser();
+    
+    dispatch(loadUser());
+
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
 };
 
+//Logging in a User
 export const loginUser = formData => async dispatch => {
   const config = {
     headers: {
@@ -58,14 +60,15 @@ export const loginUser = formData => async dispatch => {
   };
 
   try {
-    loading();
+    // loading();
     const res = await axios.post("/api/auth", formData, config);
     dispatch({
       type: SET_CURRENT_USER,
       payload: res.data
     });
-    
-    loadUser();
+
+    dispatch(loadUser());
+ 
     // push("/dashboard")
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
@@ -73,8 +76,8 @@ export const loginUser = formData => async dispatch => {
   }
 };
 
-export const clearState = () => async dispatch =>{
-  dispatch({type: CLEAR_STATE});
+export const clearState = () => {
+ return({type: CLEAR_STATE});
 }
 
 export const loading = () => {

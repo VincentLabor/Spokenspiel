@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../layout/Navbar";
-import {useHistory} from "react-router-dom"; // This allows me to push users to differnt page after registration
+import { useHistory } from "react-router-dom"; // This allows me to push users to differnt page after registration
 import { Link } from "react-router-dom";
-import { registerUser } from "../../actions/authActions";
+import { registerUser, loadUser } from "../../actions/authActions";
 import { setAlert } from "../../actions/alertActions";
 import Footer from "../layout/Footer";
 import { connect } from "react-redux";
 import Alert from "../alert/alerts";
 // import history from '../history/history';
 
-
-const Register = ({  registerUser, setAlert, alert: { alerts }, auth: { isAuthenticated }},) => {
+const Register = ({
+  registerUser,
+  setAlert,
+  alert: { alerts },
+  auth: { isAuthenticated, token },
+  loadUser
+}) => {
   const [user, setUser] = useState({
     email: "",
     userName: "",
@@ -24,11 +29,11 @@ const Register = ({  registerUser, setAlert, alert: { alerts }, auth: { isAuthen
 
   useEffect(() => {
     if (isAuthenticated) {
-    history.push("/dashboard");
+      history.push("/dashboard");
     } else {
-     history.push("/register");
+      history.push("/register");
     }
-  },[history, isAuthenticated]);
+  }, [history, isAuthenticated, token, loadUser]);
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -50,7 +55,6 @@ const Register = ({  registerUser, setAlert, alert: { alerts }, auth: { isAuthen
       password
     };
     registerUser(newUser);
-
   };
 
   return (
@@ -115,4 +119,6 @@ const mapStateToProps = state => ({
   alert: state.alert
 });
 
-export default connect(mapStateToProps, { registerUser, setAlert })(Register);
+export default connect(mapStateToProps, { registerUser, setAlert, loadUser })(
+  Register
+);
