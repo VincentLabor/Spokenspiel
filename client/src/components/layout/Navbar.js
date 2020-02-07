@@ -18,9 +18,14 @@ const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser }
   };
 
   useEffect(()=>{
-    if(token && !isAuthenticated){
+    // if(token && !isAuthenticated){
+    //   loadUser();
+    //     };
+    //Temporary code for development. please remove after development
+    if(token){
       loadUser();
-    };
+    }
+
   },[loadUser,isAuthenticated, token])
 
   const guestLinks = (

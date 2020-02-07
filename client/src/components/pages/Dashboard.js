@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Navbar from "../layout/Navbar";
 import { connect } from "react-redux";
+import FriendsList from "../dashboardLayout/FriendsList";
 
 const Dashboard = ({}) => {
   return (
@@ -8,9 +9,12 @@ const Dashboard = ({}) => {
       <div className="containers">
         <Navbar />
         <div className="gridContainer">
-          <div className="friendsList">FriendsList</div>
-          <div className="chatting">Chat</div>
-          <div className="chatbox"></div>
+          <FriendsList />
+          {/* <div className="chat"> */}
+            <div className="chatting">Chat</div>
+            <div className="chatbox">chatbox</div>
+          {/* </div> */}
+
           <div className="conversations">Conversations</div>
         </div>
       </div>

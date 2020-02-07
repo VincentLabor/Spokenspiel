@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import {
   REGISTER_SUCCESS,
@@ -6,25 +5,26 @@ import {
   SET_CURRENT_USER,
   USER_LOADED,
   GET_ERRORS,
-  CLEAR_STATE
+  CLEAR_STATE,
+  GET_FRIENDS
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alertActions";
 
 //Grabbing the information through the token
 export const loadUser = () => async dispatch => {
-console.log(localStorage.token)
-if (localStorage.token) {
+
+  if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   try {
     const res = await axios.get("/api/auth/");
+
     dispatch({
       type: USER_LOADED,
       payload: res.data
     });
-    console.log(res.data)
 
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
@@ -43,9 +43,8 @@ export const registerUser = formData => async dispatch => {
     loading();
     const res = await axios.post("/api/users", formData, config);
     dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-    
-    dispatch(loadUser());
 
+    dispatch(loadUser());
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
@@ -68,16 +67,17 @@ export const loginUser = formData => async dispatch => {
     });
 
     dispatch(loadUser()); //This works thanks to react/thunk
-
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
     dispatch(setAlert(err.response.data.msg)); // This allows us to reach the other set of actions.
   }
 };
 
+
+
 export const clearState = () => {
- return({type: CLEAR_STATE});
-}
+  return { type: CLEAR_STATE };
+};
 
 export const loading = () => {
   return {

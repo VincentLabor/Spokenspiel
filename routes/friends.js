@@ -5,13 +5,13 @@ const auth = require("../middleware/auth");
 const Friend = require("../models/Friend");
 const User = require("../models/User");
 
-//@route    GET /api/contacts
-//@desc     Grabs all of the users contacts
-//@access   Private - Need to be logged/Auth to see contacts
+//@route    GET /api/Friends
+//@desc     Grabs all of the users Friends
+//@access   Private - Need to be logged/Auth to see Friends
 router.get("/", auth, async (req, res) => {
   try {
-    //This is to find the contacts this user has.
-    const friendsList = await Friend.find({ requester: req.user._id }); //Contacts contains the user field. auth gives access to req.user
+    //This is to find the Friends this user has.
+    const friendsList = await Friend.find({ requester: req.user._id }); //Friends contains the user field. auth gives access to req.user
     res.json(friendsList);
   } catch (error) {
     console.log(error);
@@ -19,9 +19,9 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-//@route    POST /api/contacts
-//@desc     Adds to a users contacts
-//@access   Private - Need to be logged/Auth to see contacts
+//@route    POST /api/Friends
+//@desc     Adds to a users Friends
+//@access   Private - Need to be logged/Auth to see Friends
 router.post(
   "/",
   [

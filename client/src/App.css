@@ -6,12 +6,16 @@
   font-family: "Nunito", sans-serif;
 }
 
+h1{
+  margin: 0;
+}
+
 html,
 body {
   /* height: 100%; */
   margin: 0;
   /* width: 100vw; */
-  height: 100vh;
+
 }
 
 .clear {
@@ -90,7 +94,7 @@ button:hover {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 2.5em 4em;
+  padding: 2em 4em;
 }
 
 nav li {
@@ -250,58 +254,112 @@ nav li {
 
 .containers {
   box-sizing: border-box;
-  height: 100vh;
+  /* height: 100vh;
+  min-height: 100%; */
 }
+/* 
+.flex-container{
+  display: flex;
 
-.gridContainer {
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(10, 10%);
-  grid-template-rows: repeat(3, 29%);
+  flex-direction: row;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .friendsList {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 4;
-  background-color: red;
+  width: 20%;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+ display: inline-block;
+
+flex: 2;
+}
+.chat{
+  display: inline-block;
+  width: 60%;
+
 }
 
-.chatting {
-  grid-column-start: 3;
-  grid-column-end: 9;
-  grid-row-start: 1;
-  grid-row-end: 3;
-  background-color: blue;
+.chatting{
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+
 }
 
 .chatbox{
-  grid-column-start: 3;
-  grid-column-end: 9;
-  grid-row-start: 3;
-  grid-row-end: 4;
-  background-color: lightblue;
-}
-.conversations {
-  grid-column-start: 9;
-  grid-column-end: 11;
-  grid-row-start: 1;
-  grid-row-end: 4;
-  background-color: yellow;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+
 }
 
-.c1{
-  background-color: violet;
+.conversations{
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  display: inline-block;
+} */
+
+/* This is the gridding section */
+
+ .gridContainer {
+  box-sizing: border-box;
+  height: 89.8vh;
+
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  grid-template-rows: repeat(9, auto);
+} 
+
+/* 10% 10% 10% 10% 10% 10% 10% 10% 10% auto;
+10% 10% 10% 10% 10% 10% 10% 10% 10% auto; */
+/* repeat(10, 10%); */
+
+.friendsListWrapper { 
+   grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 10; 
+  border-right: lightgray .5px solid;
+  text-align: center;
+} 
+
+/* .chat{
+  grid-column-start: 3;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 10; 
+} */
+
+.chatting { 
+   grid-column-start: 3;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 10; 
+   background-color: white;
+} 
+
+
+.chatbox{ 
+   grid-column-start: 3;
+  grid-column-end: 9;
+  grid-row-start: 9;
+  grid-row-end: 10; 
+   background-color: white;
+   border-top: solid lightgray .5px;
+}  
+
+ .conversations { 
+   grid-column-start: 9;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 10; 
+
+  border-left: solid .5px lightgray;
 }
-.c2{
-  background-color: green;
-}
-.c3{
-  background-color: purple;
-}
+
 
 
 /* Alerts */
