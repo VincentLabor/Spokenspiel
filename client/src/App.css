@@ -254,53 +254,8 @@ nav li {
 
 .containers {
   box-sizing: border-box;
-  /* height: 100vh;
-  min-height: 100%; */
-}
-/* 
-.flex-container{
-  display: flex;
-
-  flex-direction: row;
-  justify-content: center;
-  min-height: 100vh;
 }
 
-.friendsList {
-  width: 20%;
-  margin: 10px;
-  padding: 20px;
-  font-size: 30px;
- display: inline-block;
-
-flex: 2;
-}
-.chat{
-  display: inline-block;
-  width: 60%;
-
-}
-
-.chatting{
-  margin: 10px;
-  padding: 20px;
-  font-size: 30px;
-
-}
-
-.chatbox{
-  margin: 10px;
-  padding: 20px;
-  font-size: 30px;
-
-}
-
-.conversations{
-  margin: 10px;
-  padding: 20px;
-  font-size: 30px;
-  display: inline-block;
-} */
 
 /* This is the gridding section */
 
@@ -313,9 +268,7 @@ flex: 2;
   grid-template-rows: repeat(9, auto);
 } 
 
-/* 10% 10% 10% 10% 10% 10% 10% 10% 10% auto;
-10% 10% 10% 10% 10% 10% 10% 10% 10% auto; */
-/* repeat(10, 10%); */
+/* Friendslist? */
 
 .friendsListWrapper { 
    grid-column-start: 1;
@@ -326,12 +279,14 @@ flex: 2;
   text-align: center;
 } 
 
-/* .chat{
-  grid-column-start: 3;
-  grid-column-end: 9;
-  grid-row-start: 1;
-  grid-row-end: 10; 
-} */
+.friendOption{
+  padding: 0 1em;
+}
+
+.flexContainer{
+  display: flex;
+  justify-content: center;
+}
 
 .chatting { 
    grid-column-start: 3;

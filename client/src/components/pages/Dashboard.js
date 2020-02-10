@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Navbar from "../layout/Navbar";
 import { connect } from "react-redux";
 import FriendsList from "../dashboardLayout/FriendsList";
+import addFriendModal from '../layout/addFriend/addFriendModal';
 
 const Dashboard = ({}) => {
   return (

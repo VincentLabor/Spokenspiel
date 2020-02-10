@@ -48,6 +48,7 @@ const Login = ({
     e.preventDefault();
     const userCreds = { userName, password };
     loginUser(userCreds);
+    console.log(userCreds)
   };
 
   return (

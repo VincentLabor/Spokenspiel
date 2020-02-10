@@ -4,7 +4,8 @@ const initialState = {
   friends: null,
   loading: false,
   current: null,
-  filtered: null
+  filtered: null,
+  friendRequested: null
 };
 
 export default (state = initialState, action) => {
@@ -13,6 +14,11 @@ export default (state = initialState, action) => {
       return{
         ...state,
         friends: action.payload
+      }
+      case ADD_FRIEND: 
+      return{
+        ...state,
+        friendRequested: action.payload
       }
     default:
       return state;
