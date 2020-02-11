@@ -17,10 +17,7 @@ const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
 
   const onSubmit = (e) =>{
     e.preventDefault();
-
     const friendUserName = {userName}
-    console.log(userName);
-    console.log(friendUserName)
     addFriend(friendUserName); 
     setModalState(false);
   }
@@ -72,6 +69,7 @@ const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
           {/*Checks if user has friends and displays them*/}
           {friends
             ? friends.map(friend => (
+              
                 <FriendItem friend={friend} key={friend._id} />
               ))
             : "Add some friends to get started."}
