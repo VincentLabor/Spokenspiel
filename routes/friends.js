@@ -11,7 +11,7 @@ const User = require("../models/User");
 router.get("/", auth, async (req, res) => {
   try {
     //This is to find the Friends this user has.
-    const friendsList = await Friend.find({ requester: req.user._id }); //Friends contains the user field. auth gives access to req.user
+    const friendsList = await Friend.find({ recipient: req.user._id }); //Friends contains the user field. auth gives access to req.user
     res.json(friendsList);
   } catch (error) {
     console.log(error);
@@ -51,7 +51,7 @@ router.post(
         name: findingFriend.name,
         requester: req.user._id,
         recipient: findingFriend[0]._id,
-        friendStatus: 1
+        friendStatus: 2
       });
 
       //Recipient receives a request to be a friend
@@ -61,12 +61,12 @@ router.post(
 
       if (!friendRequest) return res.sendStatus(404);
 
-      const receiveFriendReq = new Friend({
+      const friendRequester = new Friend({
         userName: friendRequest.userName,
         name: friendRequest.name,
-        recipient: req.user._id,
-        requester: findingFriend[0]._id,
-        friendStatus: 2
+        requester: req.user._id,
+        recipient: findingFriend[0]._id,
+        friendStatus: 1
       });
 
       //Update the requester and recipients friend request list
@@ -79,7 +79,7 @@ router.post(
       );
 
       const newFriend = await friender.save();
-      const getFriendReq = await receiveFriendReq.save();
+      const getFriendReq = await friendRequester.save();
 
       res.json({ friendA: newFriend, friendB: getFriendReq }); //This allows for both of the objects to be sent via res.json
     } catch (error) {

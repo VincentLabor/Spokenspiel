@@ -2,32 +2,79 @@ import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import FriendItem from "./FriendItem";
 import { getFriends, addFriend } from "../../actions/friendActions";
+import FriendRequests from "./FriendRequests";
 
 const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
+
   useEffect(() => {
     getFriends();
   }, [getFriends]);
 
-  const [modalState, setModalState] = useState(false);
+  const [friendTab, setFriendTab] = useState(true);
+  const [friendReqTab, setFriendReqTab] = useState(false);
+  const [addFriendTab, setAddFriendTab] = useState(false);
+
   const [userName, setUserName] = useState("");
 
   const onChange = e => {
     setUserName(e.target.value);
   };
 
-  const onSubmit = (e) =>{
+  const onSubmit = e => {
     e.preventDefault();
-    const friendUserName = {userName}
-    addFriend(friendUserName); 
-    setModalState(false);
-  }
+    const friendUserName = { userName };
+    addFriend(friendUserName);
+    setFriendTab(true);
+    setFriendReqTab(false);
+    setAddFriendTab(false);
+  };
 
   return (
     <Fragment>
       <div className="friendsListWrapper">
         <h3>Friends List </h3>
 
-        {modalState === true ? (
+        {/* These are the different tabs you can click to see different things */}
+        {/* This is to see your friends list */}
+        <div className="flexContainer">
+          <p
+            onClick={() => {
+              setFriendTab(true);
+              setFriendReqTab(false);
+              setAddFriendTab(false);
+            }}
+            className="friendOption"
+          >
+            Friends
+          </p>
+
+          {/* This is to add friends */}
+          <p
+            onClick={() => {
+              setFriendTab(false);
+              setFriendReqTab(false);
+              setAddFriendTab(true);
+            }}
+            className="friendOption"
+          >
+            Add Friend
+          </p>
+
+          {/* this is to see your current friend requests */}
+          <p
+            onClick={() => {
+              setFriendTab(false);
+              setFriendReqTab(true);
+              setAddFriendTab(false);
+            }}
+            className="friendOption"
+          >
+            Friend Requests
+          </p>
+        </div>
+
+        {/* This is the JSX for adding friends*/}
+        {addFriendTab === true ? (
           <form onSubmit={onSubmit}>
             <input
               type="text"
@@ -43,37 +90,32 @@ const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
           </form>
         ) : null}
 
-        <div className="flexContainer">
-          <p
-            onClick={() => {
-              setModalState(false);
-            }}
-            className="friendOption"
-          >
-            Friends
-          </p>
-          <p
-            onClick={() => {
-              setModalState(!modalState);
-            }}
-            className="friendOption"
-          >
-            Add Friend
-          </p>
-        </div>
+        {/* This is the JSX for the friendslist */}
+        {friendTab === true ? (
+          <div className="flexWrapperRow">
+            {/*Checks if user has friends and displays them*/}
+            {friends
+              ? friends.map(friend => (
+                  <FriendItem friend={friend} key={friend._id} />
+                ))
+              : "Add some friends to get started."}
+          </div>
+        ) : null}
 
-        {/* <i class="fas fa-user-plus" onClick={()=>{setModalState(!modalState)}}></i> Clicking this icon gives access to add friends */}
-
-        <div className="flexWrapperRow">
-          {" "}
-          {/*Checks if user has friends and displays them*/}
-          {friends
-            ? friends.map(friend => (
-              
-                <FriendItem friend={friend} key={friend._id} />
+        {/* This is the JSX for the friend Requests */}
+        {friendReqTab === true ? (
+          <div className="flexWrapperRow">
+            {" "}
+            {/*Checks if user has friends and displays them*/}
+            {friends ? (
+              friends.map(friend => (
+                <FriendRequests friend={friend} key={friend._id} />
               ))
-            : "Add some friends to get started."}
-        </div>
+            ) : (
+              "Send some friend requests to start your journey"
+            )}
+          </div>
+        ) : null}
       </div>
     </Fragment>
   );

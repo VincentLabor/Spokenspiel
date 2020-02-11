@@ -43,9 +43,11 @@ const Register = ({
     e.preventDefault();
     if (!email || !userName || !password) {
       setAlert("Please fill in all of the fields", "danger");
-    } else if (password.length < 6) {
-      setAlert("Please enter a password of at least 6 characters");
-    } else if (password !== password2) {
+    } 
+    // else if (password.length < 6) {
+    //   setAlert("Please enter a password of at least 6 characters");
+    // }
+     else if (password !== password2) {
       setAlert("The passwords do not match", "danger");
     }
 

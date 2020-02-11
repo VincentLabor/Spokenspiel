@@ -280,13 +280,18 @@ nav li {
 } 
 
 .friendOption{
-  padding: 0 1em;
+  padding: 1em .5em;
 }
 
 .flexContainer{
   display: flex;
   justify-content: center;
 }
+/* 
+.friendIcon{
+  width: 20px;
+  height: 20px;
+} */
 
 .chatting { 
    grid-column-start: 3;
