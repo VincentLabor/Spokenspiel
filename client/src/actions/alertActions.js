@@ -1,17 +1,17 @@
-import {
-    SET_ALERT,
-    REMOVE_ALERT
-} from './types'
-import uuid from 'uuid';
+import { SET_ALERT, REMOVE_ALERT } from "./types";
+import uuid from "uuid";
 
-export const setAlert = (msg) => async dispatch =>{
-    const id = uuid.v4();
+export const setAlert = msg => async dispatch => {
+  const id = uuid.v4();
 
-    console.log(msg)
-    dispatch({
-        type: SET_ALERT, payload: {msg,id}
-    })
+  dispatch({
+    type: SET_ALERT,
+    payload: { msg, id }
+  });
 
-     setTimeout(()=> dispatch({type: REMOVE_ALERT,payload: id}), 5000);
-}
+  setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 7000);
+};
 
+export const removeAlert = () => async dispatch => {
+  dispatch({ type: REMOVE_ALERT });
+};

@@ -11,7 +11,7 @@ export default (state = initialState, action) =>{
     switch (action.type) {
         case SET_ALERT:
             return{
-                alerts: [ action.payload]
+                alerts: [action.payload]
             }
             case REMOVE_ALERT: 
             return{
@@ -20,4 +20,4 @@ export default (state = initialState, action) =>{
             default:
                 return state;
     }
-}
+};

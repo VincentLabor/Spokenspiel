@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../layout/Navbar";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { setAlert } from "../../actions/alertActions";
+import { setAlert,removeAlert } from "../../actions/alertActions";
 import Footer from "../layout/Footer";
 import { loginUser, loadUser } from "../../actions/authActions";
 import Alert from "../alert/alerts";
@@ -10,8 +10,9 @@ import { useHistory } from "react-router-dom";
 
 const Login = ({
   loginUser,
-  alert: { alerts },
+  alert: { alerts, },
   setAlert,
+  removeAlert,
   auth: { isAuthenticated,user,token },
   loadUser
 }) => {
@@ -23,10 +24,6 @@ const Login = ({
   const history = useHistory();
 
   useEffect(() => {
-    if (alerts) {
-      console.log(alerts);
-      setAlert(alerts[0].msg);
-    }
     if (isAuthenticated) {
       history.push("/dashboard");
     } else {
@@ -35,7 +32,7 @@ const Login = ({
     // if(token&&isAuthenticated){
     //   loadUser();
     // }
-
+    //eslint-disable-next-line
   }, [history, isAuthenticated, user, loadUser, alerts, setAlert, token]);
 
   const { userName, password } = userAcct;
@@ -95,4 +92,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { loginUser, setAlert, loadUser })(Login);
+export default connect(mapStateToProps, { loginUser, setAlert, loadUser,removeAlert })(Login);
