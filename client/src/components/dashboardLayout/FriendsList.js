@@ -1,11 +1,19 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import FriendItem from "./FriendItem";
-import { getFriends, addFriend } from "../../actions/friendActions";
+import {
+  getFriends,
+  addFriend,
+  getFriendRequests
+} from "../../actions/friendActions";
 import FriendRequests from "./FriendRequests";
 
-const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
-
+const FriendsList = ({
+  friend: { friends, currentFriendReqs },
+  getFriendRequests,
+  getFriends,
+  addFriend
+}) => {
   useEffect(() => {
     getFriends();
   }, [getFriends]);
@@ -42,6 +50,7 @@ const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
               setFriendTab(true);
               setFriendReqTab(false);
               setAddFriendTab(false);
+              getFriends();
             }}
             className="friendOption"
           >
@@ -66,6 +75,7 @@ const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
               setFriendTab(false);
               setFriendReqTab(true);
               setAddFriendTab(false);
+              getFriendRequests();
             }}
             className="friendOption"
           >
@@ -105,15 +115,15 @@ const FriendsList = ({ friend: { friends }, getFriends, addFriend }) => {
         {/* This is the JSX for the friend Requests */}
         {friendReqTab === true ? (
           <div className="flexWrapperRow">
-            {" "}
             {/*Checks if user has friends and displays them*/}
-            {friends ? (
-              friends.map(friend => (
-                <FriendRequests friend={friend} key={friend._id} />
-              ))
-            ) : (
-              "Send some friend requests to start your journey"
-            )}
+            {currentFriendReqs
+              ? currentFriendReqs.map(friendReqs => (
+                  <FriendRequests
+                    friendReqs={friendReqs}
+                    key={friendReqs._id}
+                  />
+                ))
+              : "Send some friend requests to start your journey"}
           </div>
         ) : null}
       </div>
@@ -125,4 +135,8 @@ const mapStateToProps = state => ({
   friend: state.friend
 });
 
-export default connect(mapStateToProps, { getFriends, addFriend })(FriendsList);
+export default connect(mapStateToProps, {
+  getFriends,
+  addFriend,
+  getFriendRequests
+})(FriendsList);

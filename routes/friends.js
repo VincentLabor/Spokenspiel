@@ -10,14 +10,32 @@ const User = require("../models/User");
 //@access   Private - Need to be logged/Auth to see Friends
 router.get("/", auth, async (req, res) => {
   try {
-    //This is to find the Friends this user has.
-    const friendsList = await Friend.find({ recipient: req.user._id }); //Friends contains the user field. auth gives access to req.user
-    res.json(friendsList);
+    let friendsList = await User.find({_id: req.user._id});
+
+    let usersFriendsList = await User.find({friends:friendsList});
+    res.json(usersFriendsList);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
+
+//@route    GET /api/Friends
+//@desc     Will grab Users friend Requests
+//@access   Private - Need to be logged/Auth to see Friend requests
+router.get("/friendRequests", auth, async (req, res) => {
+  try {
+
+    let usersFriendsList = await Friend.find({recipient: req.user._id, friendStatus: 1});
+
+    res.json(usersFriendsList);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+
 
 //@route    POST /api/Friends
 //@desc     Adds to a users Friends
@@ -71,11 +89,11 @@ router.post(
 
       //Update the requester and recipients friend request list
       const updateRequester = await User.findByIdAndUpdate(req.user._id, {
-        $set: { friends: findingFriend[0]._id }
+        $push: { friends: findingFriend[0]._id }
       });
       const updateRecipient = await User.findByIdAndUpdate(
         findingFriend[0]._id,
-        { $set: { friends: req.user._id } }
+        { $push: { friends: req.user._id } }
       );
 
       const newFriend = await friender.save();
@@ -110,7 +128,11 @@ router.put("/accept/:id", auth, async (req, res) => {
     );
 
     //The requesters friendsstatus
-    const requestersFriendReq = await Friend.find({ recipient: req.user._id }); //Recognize that this is a different model to access.
+    const requestersFriendReq = await Friend.find({
+      recipient: req.user._id,
+      requester: receiversFriendReq.requester,
+      userName: req.user.userName
+    }); //Recognize that this is a different model to access.
     if (!requestersFriendReq) return res.sendStatus(404);
     const updateRequesterFriend = await Friend.findOneAndUpdate(
       { recipient: req.user._id },

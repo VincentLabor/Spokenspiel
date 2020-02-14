@@ -9,7 +9,7 @@ export const setAlert = msg => async dispatch => {
     payload: { msg, id }
   });
 
-  setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 7000);
+  setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), 5000);
 };
 
 export const removeAlert = () => async dispatch => {

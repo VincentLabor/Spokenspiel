@@ -1,15 +1,27 @@
 import React from "react";
+import {connect} from "react-redux";
+import {acceptFriendReq} from "../../actions/friendActions";
 
-const FriendRequests = ({ friend }) => {
+const FriendRequests = ({ friendReqs, auth, acceptFriendReq }) => {
+  
+  const addFriend = ()=>{
+    console.log(friendReqs._id)
+    acceptFriendReq(friendReqs._id);
+  }
+
+  const rejectFriend = ()=>{
+
+  }
+
   return (
     <div>
         {/* Checks if the friend status == 1 because that person is the sender. 2 is Receiver.  */}
-      {friend.friendStatus === 1 ? (
+      {friendReqs ? (
         <div>
           <p>
-            {`${friend.userName} has sent you a Friend Request`}{" "}
-            <i class="fas fa-check-circle fa-lg"></i>
-            <i class="far fa-times-circle fa-lg"></i>
+            {`${friendReqs.userName} has sent you a Friend Request`}{" "}
+            <i className="fas fa-check-circle fa-lg" onClick={addFriend}></i>
+            <i className="far fa-times-circle fa-lg" onClick={rejectFriend}></i>
           </p> 
                    
         </div>
@@ -18,4 +30,8 @@ const FriendRequests = ({ friend }) => {
   );
 };
 
-export default FriendRequests;
+const mapStateToProps = state => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps,{acceptFriendReq})(FriendRequests);
