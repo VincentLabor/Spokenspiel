@@ -5,7 +5,8 @@ import {
   ACCEPT_FRIEND_REQ,
   USER_LOADED,
   GET_FRIEND_REQS,
-  CLEAR_FRIEND_STATE
+  CLEAR_FRIEND_STATE,
+  REMOVE_FRIEND_REQ
 } from "../actions/types";
 
 const initialState = {
@@ -31,34 +32,41 @@ export default (state = initialState, action) => {
         ...state,
         friendRequested: action.payload
       };
-      case USER_LOADED:
-        return{
-          ...state,
-          user: action.payload
-        }
-      case ACCEPT_FRIEND_REQ:
-        return{
-          ...state,
-          friends: [...state.friends, action.payload] //This allows you to add to already established friendslist array
-        }
-        case GET_FRIEND_REQS: 
-        console.log(action.payload)
-        return{
-          ...state,
-          currentFriendReqs: action.payload
-        }
-        case CLEAR_FRIEND_STATE:
-          return{
-            ...state, 
-            friends: null,
-            loading: false,
-            current: null,
-            filtered: null,
-            friendRequested: null,
-            acceptedFriend: null,
-            user: null,
-            currentFriendReqs: null
-          }
+    case USER_LOADED:
+      return {
+        ...state,
+        user: action.payload
+      };
+    case ACCEPT_FRIEND_REQ:
+      return {
+        ...state,
+        friends: [...state.friends, action.payload] //This allows you to add to already established friendslist array
+      };
+    case REMOVE_FRIEND_REQ:
+      return {
+        ...state,
+        currentFriendReqs: state.currentFriendReqs.filter(
+          friendRequest => friendRequest._id === action.payload
+        )
+      };
+    case GET_FRIEND_REQS:
+      console.log(action.payload);
+      return {
+        ...state,
+        currentFriendReqs: action.payload
+      };
+    case CLEAR_FRIEND_STATE:
+      return {
+        ...state,
+        friends: null,
+        loading: false,
+        current: null,
+        filtered: null,
+        friendRequested: null,
+        acceptedFriend: null,
+        user: null,
+        currentFriendReqs: null
+      };
     default:
       return state;
   }

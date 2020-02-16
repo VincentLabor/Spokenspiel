@@ -13,10 +13,12 @@ const FriendsList = ({
   getFriendRequests,
   getFriends,
   addFriend
+  
 }) => {
   useEffect(() => {
     getFriends();
-  }, [getFriends]);
+    getFriendRequests();
+  }, [getFriends,getFriendRequests]);
 
   const [friendTab, setFriendTab] = useState(true);
   const [friendReqTab, setFriendReqTab] = useState(false);
@@ -76,6 +78,7 @@ const FriendsList = ({
               setFriendReqTab(true);
               setAddFriendTab(false);
               getFriendRequests();
+              
             }}
             className="friendOption"
           >
@@ -140,4 +143,5 @@ export default connect(mapStateToProps, {
   getFriends,
   addFriend,
   getFriendRequests
+  
 })(FriendsList);

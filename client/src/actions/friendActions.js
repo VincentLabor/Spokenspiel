@@ -1,4 +1,13 @@
-import { GET_FRIENDS, USER_LOADED, GET_ERRORS, ADD_FRIEND, GET_FRIEND_REQS,ACCEPT_FRIEND_REQ, CLEAR_FRIEND_STATE} from "./types";
+import {
+  GET_FRIENDS,
+  USER_LOADED,
+  GET_ERRORS,
+  ADD_FRIEND,
+  GET_FRIEND_REQS,
+  ACCEPT_FRIEND_REQ,
+  CLEAR_FRIEND_STATE,
+  REMOVE_FRIEND_REQ
+} from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -22,22 +31,23 @@ export const loadUser = () => async dispatch => {
 };
 
 //Getting the users friend requests
-export const getFriendRequests = () => async dispatch =>{
+export const getFriendRequests = () => async dispatch => {
   const config = {
-    headers:{
+    headers: {
       "Content-Type": "application/json"
     }
-  }
+  };
   try {
     loadUser();
     const res = await axios.get("/api/friends/friendRequests/", config);
     dispatch({
-      type: GET_FRIEND_REQS, payload: res.data
-    })
+      type: GET_FRIEND_REQS,
+      payload: res.data
+    });
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 //Sending a friend request
 export const addFriend = friendData => async dispatch => {
@@ -57,20 +67,23 @@ export const addFriend = friendData => async dispatch => {
 };
 
 //Accepting a Friend Request
-export const acceptFriendReq = (friendData) => async dispatch => {
+export const acceptFriendReq = friendData => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json"
     }
-  }
+  };
 
   try {
     loadUser();
-    const res = await axios.put(`api/friends/accept/${friendData}`,config);
+    const res = await axios.put(`api/friends/accept/${friendData}`, config);
+    //First change the status and add the friends to the friends list
+    dispatch({ type: ACCEPT_FRIEND_REQ, payload: res.data });
 
-    dispatch({type: ACCEPT_FRIEND_REQ, payload: res.data})
+    //Second, remove the friend request
+    dispatch({ type: REMOVE_FRIEND_REQ, dispatch: res.data });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -91,6 +104,6 @@ export const getFriends = () => async dispatch => {
   }
 };
 
-export const clearAll = () => async dispatch=>{
-  dispatch({type: CLEAR_FRIEND_STATE})
-}
+export const clearAll = () => async dispatch => {
+  dispatch({ type: CLEAR_FRIEND_STATE });
+};
