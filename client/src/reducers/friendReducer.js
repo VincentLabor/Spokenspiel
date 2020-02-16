@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
     case ACCEPT_FRIEND_REQ:
       return {
         ...state,
-        friends: [...state.friends, action.payload] //This allows you to add to already established friendslist array
+        friends: [...state.friends, action.payload._id] //This allows you to add to already established friendslist array
       };
     case REMOVE_FRIEND_REQ:
       return {

@@ -77,6 +77,7 @@ export const acceptFriendReq = friendData => async dispatch => {
   try {
     loadUser();
     const res = await axios.put(`api/friends/accept/${friendData}`, config);
+    
     //First change the status and add the friends to the friends list
     dispatch({ type: ACCEPT_FRIEND_REQ, payload: res.data });
 

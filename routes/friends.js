@@ -10,7 +10,7 @@ const User = require("../models/User");
 //@access   Private - Need to be logged/Auth to see Friends
 router.get("/", auth, async (req, res) => {
   try {
-    let usersFriendsList = await User.find({friends:req.user._id});
+    let usersFriendsList = await User.find({ friends: req.user._id });
 
     // let usersFriends = await Friend.find({recipient: req.user._id, friendStatus: 3});
 
@@ -26,8 +26,10 @@ router.get("/", auth, async (req, res) => {
 //@access   Private - Need to be logged/Auth to see Friend requests
 router.get("/friendRequests", auth, async (req, res) => {
   try {
-
-    let usersFriendsList = await Friend.find({recipient: req.user._id, friendStatus: 1});
+    let usersFriendsList = await Friend.find({
+      recipient: req.user._id,
+      friendStatus: 1
+    });
 
     res.json(usersFriendsList);
   } catch (error) {
@@ -134,33 +136,25 @@ router.put("/accept/:id", auth, async (req, res) => {
       recipient: req.user._id,
       requester: receiversFriendReq.requester,
       userName: req.user.userName
-    }); 
+    });
+
     if (!requestersFriendReq) return res.sendStatus(404);
     const updateRequesterFriend = await Friend.findOneAndUpdate(
       { recipient: req.user._id },
       { $set: { friendStatus: 3 } }
     );
 
-    //Grabs values from 
+    //Grabs values from
     const recipFriendsReq = await User.findById(receiversFriendReq.recipient);
     const reqFriendRequest = await User.findById(receiversFriendReq.requester);
 
-
-     const updateRequester = await User.findByIdAndUpdate(recipFriendsReq._id, {
-       $push: { friends: reqFriendRequest._id }
-     });
-     
-     const updateReceiver = await User.findByIdAndUpdate(reqFriendRequest._id, {
-      $push: { friends: recipFriendsReq._id }
+    const updateRequester = await User.findByIdAndUpdate(recipFriendsReq._id, {
+      $push: { friends: reqFriendRequest._id }
     });
 
-    //  const findMe = await User.findOneAndUpdate({userName}, {$push:{friends: req.user._id}})
-
-    // const updateRecipient = await User.findByIdAndUpdate(receiversFriendReq,{
-    //   $push:{friends: req.user._id}
-    // })
-
-
+    const updateReceiver = await User.findByIdAndUpdate(reqFriendRequest._id, {
+      $push: { friends: recipFriendsReq._id }
+    });
 
     res.json({ receiversFriendReq, requestersFriendReq });
   } catch (error) {
