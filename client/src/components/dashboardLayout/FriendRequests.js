@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {acceptFriendReq, getFriendRequests} from "../../actions/friendActions";
+import {acceptFriendReq, getFriendRequests, declineFriendReq} from "../../actions/friendActions";
 
 
-const FriendRequests = ({ friendReqs, auth, acceptFriendReq, getFriendRequests }) => {
+const FriendRequests = ({ friendReqs, auth, acceptFriendReq, getFriendRequests,declineFriendReq }) => {
   
 useEffect(()=>{getFriendRequests()},[getFriendRequests]);
 
@@ -13,7 +13,7 @@ useEffect(()=>{getFriendRequests()},[getFriendRequests]);
   }
 
   const rejectFriend = ()=>{
-
+    declineFriendReq(friendReqs._id)
   }
 
   return (
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps,{acceptFriendReq, getFriendRequests})(FriendRequests);
+export default connect(mapStateToProps,{acceptFriendReq, getFriendRequests, declineFriendReq})(FriendRequests);

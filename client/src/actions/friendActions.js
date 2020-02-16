@@ -6,7 +6,8 @@ import {
   GET_FRIEND_REQS,
   ACCEPT_FRIEND_REQ,
   CLEAR_FRIEND_STATE,
-  REMOVE_FRIEND_REQ
+  REMOVE_FRIEND_REQ,
+  DECLINE_FRIEND_REQ
 } from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
@@ -77,7 +78,7 @@ export const acceptFriendReq = friendData => async dispatch => {
   try {
     loadUser();
     const res = await axios.put(`api/friends/accept/${friendData}`, config);
-    
+
     //First change the status and add the friends to the friends list
     dispatch({ type: ACCEPT_FRIEND_REQ, payload: res.data });
 
@@ -87,6 +88,25 @@ export const acceptFriendReq = friendData => async dispatch => {
     console.log(err);
   }
 };
+
+
+export const declineFriendReq = friendData => async dispatch=>{
+  const config = {
+    header:{ "Content-Type": "application/json"}
+  };
+
+  try {
+    loadUser();
+    const res = await axios.put(`api/friends/decline/${friendData}`, config);
+    console.log(res.data)
+    //Decline the request and remove the scrub the request entirely
+    dispatch({type:DECLINE_FRIEND_REQ, payload: res.data});
+    dispatch({ type: REMOVE_FRIEND_REQ, dispatch: res.data });
+
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 //Grabbing the users friends
 export const getFriends = () => async dispatch => {
