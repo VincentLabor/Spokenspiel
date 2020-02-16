@@ -9,7 +9,7 @@ import {
 import FriendRequests from "./FriendRequests";
 
 const FriendsList = ({
-  friend: { friends, currentFriendReqs },
+  friend: { friends, currentFriendReqs, friendRequested },
   getFriendRequests,
   getFriends,
   addFriend

@@ -22,7 +22,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_FRIENDS:
-      console.log(action.payload);
       return {
         ...state,
         friends: action.payload
@@ -40,10 +39,10 @@ export default (state = initialState, action) => {
       case ACCEPT_FRIEND_REQ:
         return{
           ...state,
-          friends: action.payload
+          friends: [...state.friends, action.payload] //This allows you to add to already established friendslist array
         }
         case GET_FRIEND_REQS: 
-        console.log(action.payload);
+        console.log(action.payload)
         return{
           ...state,
           currentFriendReqs: action.payload

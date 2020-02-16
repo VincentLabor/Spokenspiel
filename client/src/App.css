@@ -6,6 +6,10 @@
   font-family: "Nunito", sans-serif;
 }
 
+.cursorChg:hover{
+  cursor: pointer;
+}
+
 h1{
   margin: 0;
 }

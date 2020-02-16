@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {acceptFriendReq} from "../../actions/friendActions";
+import {acceptFriendReq, getFriendRequests} from "../../actions/friendActions";
 
-const FriendRequests = ({ friendReqs, auth, acceptFriendReq }) => {
+
+const FriendRequests = ({ friendReqs, auth, acceptFriendReq, getFriendRequests }) => {
   
+useEffect(()=>{getFriendRequests()},[getFriendRequests]);
+
+
   const addFriend = ()=>{
-    console.log(friendReqs._id)
     acceptFriendReq(friendReqs._id);
   }
 
@@ -20,8 +23,8 @@ const FriendRequests = ({ friendReqs, auth, acceptFriendReq }) => {
         <div>
           <p>
             {`${friendReqs.userName} has sent you a Friend Request`}{" "}
-            <i className="fas fa-check-circle fa-lg" onClick={addFriend}></i>
-            <i className="far fa-times-circle fa-lg" onClick={rejectFriend}></i>
+            <i className="fas fa-check-circle fa-lg cursorChg" onClick={addFriend}></i>
+            <i className="far fa-times-circle fa-lg cursorChg" onClick={rejectFriend}></i>
           </p> 
                    
         </div>
@@ -34,4 +37,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps,{acceptFriendReq})(FriendRequests);
+export default connect(mapStateToProps,{acceptFriendReq, getFriendRequests})(FriendRequests);
