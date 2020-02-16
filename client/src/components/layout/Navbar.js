@@ -3,14 +3,16 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser }) => {
+import {clearAll} from "../../actions/friendActions";
+
+const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser,clearAll }) => {
   const history = useHistory();
 
   const onClick = e => {
     if (token) {
       clearState();
+      clearAll();
       history.push("/login");
     } else {
       console.log("nothing happened");
@@ -88,4 +90,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { clearState, loadUser })(Navbar);
+export default connect(mapStateToProps, { clearState, loadUser,clearAll })(Navbar);

@@ -10,9 +10,10 @@ const User = require("../models/User");
 //@access   Private - Need to be logged/Auth to see Friends
 router.get("/", auth, async (req, res) => {
   try {
-    let friendsList = await User.find({_id: req.user._id});
+    let usersFriendsList = await User.find({friends:req.user._id});
 
-    let usersFriendsList = await User.find({friends:friendsList});
+    // let usersFriends = await Friend.find({recipient: req.user._id, friendStatus: 3});
+
     res.json(usersFriendsList);
   } catch (error) {
     console.log(error);
@@ -34,8 +35,6 @@ router.get("/friendRequests", auth, async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-
 
 //@route    POST /api/Friends
 //@desc     Adds to a users Friends
@@ -88,13 +87,13 @@ router.post(
       });
 
       //Update the requester and recipients friend request list
-      const updateRequester = await User.findByIdAndUpdate(req.user._id, {
-        $push: { friends: findingFriend[0]._id }
-      });
-      const updateRecipient = await User.findByIdAndUpdate(
-        findingFriend[0]._id,
-        { $push: { friends: req.user._id } }
-      );
+      // const updateRequester = await User.findByIdAndUpdate(req.user._id, {
+      //   $push: { friends: findingFriend[0]._id }
+      // });
+      // const updateRecipient = await User.findByIdAndUpdate(
+      //   findingFriend[0]._id,
+      //   { $push: { friends: req.user._id } }
+      // );
 
       const newFriend = await friender.save();
       const getFriendReq = await friendRequester.save();
@@ -116,6 +115,9 @@ router.post(
 //@desc     This is to update contacts
 //@access   Private: Need to be logged to see contacts.
 router.put("/accept/:id", auth, async (req, res) => {
+  //Here we are getting the objectId of the friend requester in order to change the friendstatus to 3
+
+  const { userName } = req.body;
   //Change the requesters friendstatus to friends
   try {
     //The receivers friendsstatus
@@ -132,12 +134,33 @@ router.put("/accept/:id", auth, async (req, res) => {
       recipient: req.user._id,
       requester: receiversFriendReq.requester,
       userName: req.user.userName
-    }); //Recognize that this is a different model to access.
+    }); 
     if (!requestersFriendReq) return res.sendStatus(404);
     const updateRequesterFriend = await Friend.findOneAndUpdate(
       { recipient: req.user._id },
       { $set: { friendStatus: 3 } }
     );
+
+    //Grabs values from 
+    const recipFriendsReq = await User.findById(receiversFriendReq.recipient);
+    const reqFriendRequest = await User.findById(receiversFriendReq.requester);
+
+
+     const updateRequester = await User.findByIdAndUpdate(recipFriendsReq._id, {
+       $push: { friends: reqFriendRequest._id }
+     });
+     
+     const updateReceiver = await User.findByIdAndUpdate(reqFriendRequest._id, {
+      $push: { friends: recipFriendsReq._id }
+    });
+
+    //  const findMe = await User.findOneAndUpdate({userName}, {$push:{friends: req.user._id}})
+
+    // const updateRecipient = await User.findByIdAndUpdate(receiversFriendReq,{
+    //   $push:{friends: req.user._id}
+    // })
+
+
 
     res.json({ receiversFriendReq, requestersFriendReq });
   } catch (error) {

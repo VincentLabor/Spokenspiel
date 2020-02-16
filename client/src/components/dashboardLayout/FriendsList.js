@@ -93,6 +93,7 @@ const FriendsList = ({
               className="AddFriendInput"
               onChange={onChange}
               placeholder=" "
+              autoFocus
             ></input>
             <button type="submit" className="addFriendBtn">
               Ok

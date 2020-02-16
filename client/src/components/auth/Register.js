@@ -73,6 +73,7 @@ const Register = ({
             className="credentials"
             value={email}
             onChange={onChange}
+            autoFocus
           />
           <p className="credText">USERNAME</p>
           <input

@@ -17,5 +17,6 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const SET_ALERT = "SET_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 export const CLEAR_STATE = "CLEAR_STATE";
+export const CLEAR_FRIEND_STATE = "CLEAR_FRIEND_STATE";
 
 

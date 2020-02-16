@@ -1,4 +1,4 @@
-import { GET_FRIENDS, USER_LOADED, GET_ERRORS, ADD_FRIEND, GET_FRIEND_REQS,ACCEPT_FRIEND_REQ} from "./types";
+import { GET_FRIENDS, USER_LOADED, GET_ERRORS, ADD_FRIEND, GET_FRIEND_REQS,ACCEPT_FRIEND_REQ, CLEAR_FRIEND_STATE} from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -28,12 +28,9 @@ export const getFriendRequests = () => async dispatch =>{
       "Content-Type": "application/json"
     }
   }
-
   try {
     loadUser();
     const res = await axios.get("/api/friends/friendRequests/", config);
-    console.log(res.data)
-
     dispatch({
       type: GET_FRIEND_REQS, payload: res.data
     })
@@ -75,8 +72,6 @@ export const acceptFriendReq = (friendData) => async dispatch => {
   } catch (err) {
     console.log(err)
   }
-
-
 };
 
 //Grabbing the users friends
@@ -90,9 +85,12 @@ export const getFriends = () => async dispatch => {
   try {
     loadUser();
     const res = await axios.get("/api/friends/", config);
-    // console.log(res.data)
     dispatch({ type: GET_FRIENDS, payload: res.data });
   } catch (err) {
     console.log(err.response.data);
   }
 };
+
+export const clearAll = () => async dispatch=>{
+  dispatch({type: CLEAR_FRIEND_STATE})
+}
