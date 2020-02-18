@@ -6,20 +6,25 @@
   font-family: "Nunito", sans-serif;
 }
 
-.cursorChg:hover{
+.cursorChg:hover {
   cursor: pointer;
 }
 
-h1{
+/* .fas {
+  color: red;
+} 
+
+This is how the icons will change colors */
+
+h1 {
   margin: 0;
 }
 
 html,
 body {
-  /* height: 100%; */
   margin: 0;
   /* width: 100vw; */
-
+    /* height: 100%; */
 }
 
 .clear {
@@ -59,7 +64,6 @@ body {
 .inline {
   display: inline;
 }
-
 
 .flexRight {
   display: flex;
@@ -260,75 +264,153 @@ nav li {
   box-sizing: border-box;
 }
 
-
 /* This is the gridding section */
 
- .gridContainer {
+.gridContainer {
   box-sizing: border-box;
   height: 89.8vh;
 
   display: grid;
   grid-template-columns: repeat(5, auto);
   grid-template-rows: repeat(9, auto);
-} 
+}
 
 /* Friendslist? */
 
-.friendsListWrapper { 
-   grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  grid-row-end: 10; 
-  border-right: lightgray .5px solid;
-  text-align: center;
-} 
+.underline{
+  border-bottom: solid 1px #2a8dff;
+}
 
-.friendOption{
-  padding: 1em .5em;
+.friendsListWrapper {
+  grid-column-start: 1;
+  grid-column-end: 2; /*This used to be 3*/
+  grid-row-start: 1;
+  grid-row-end: 10;
+  border-right: lightgray 0.5px solid;
+  text-align: center;
+}
+
+.friendOption {
+  padding: .7em 0.5em;
 }
 
 .friendOption:hover {
   cursor: pointer;
 }
 
-.flexContainer{
+.flexContainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly; /*This is the container for all the tabs*/
+  padding: 0 10px;
 }
-/* 
-.friendIcon{
-  width: 20px;
-  height: 20px;
-} */
 
-.chatting { 
-   grid-column-start: 3;
-  grid-column-end: 9;
-  grid-row-start: 1;
-  grid-row-end: 10; 
-   background-color: white;
-} 
+.friendContainer{
+  display: flex;
+  justify-content: space-around;
+  padding: .5em 0;
+}
 
+.friendContainer:hover{
+  background-color: whitesmoke;
+}
 
-.chatbox{ 
-   grid-column-start: 3;
-  grid-column-end: 9;
-  grid-row-start: 9;
-  grid-row-end: 10; 
-   background-color: white;
-   border-top: solid lightgray .5px;
+.friendName{
+  padding: 10px;
+}
+
+ .trashIcon{
+   padding: 10px;
 }  
 
- .conversations { 
-   grid-column-start: 9;
-  grid-column-end: 11;
-  grid-row-start: 1;
-  grid-row-end: 10; 
-
-  border-left: solid .5px lightgray;
+.trashIcon:hover{
+  cursor: pointer;
+  background-color: lightgray;
 }
 
+.chatting {
+  grid-column-start: 2;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 10;
+  background-color: white;
+}
 
+/* Friend Request Section */
+
+.AddFriendInput{
+  box-shadow: none;
+  border: 1px solid lightgray;
+  padding: 0.4em;
+  width: 80%;
+  border-radius: 2px;
+  text-align: left;
+  
+  margin: 0.5em 0;
+}
+
+.addFriendBtn{
+  width: 40%;
+  border: none;
+  background-color: #2a8dff;
+  margin-top: 2em;
+  padding: 0.4em;
+  border-radius: 2px;
+  color: white;
+  text-decoration: none;
+  margin: 1em auto;
+}
+
+/* Section for the Chatbox */
+
+.chatbox {
+  grid-column-start: 2;
+  grid-column-end: 9;
+  grid-row-start: 10; /* If things get weird, change back to 9 */
+  grid-row-end: 10;
+  background-color: white;
+  /* border-top: solid lightgray 0.5px; To be removed later */
+}
+
+.conversations {
+  grid-column-start: 9;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 10;
+  border-left: solid 0.5px lightgray;
+}
+
+.chatboxInput{
+  box-shadow: none;
+  border: 1px solid lightgray;
+  padding: 0.7em;
+  width: 85%;
+  border-radius: 2px;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+.chatboxBtn{
+  width: 15%;
+  border: none;
+  background-color: #2a8dff;
+  margin-top: 2em;
+  padding: 0.7em;
+  border-radius: 2px;
+  color: white;
+  text-decoration: none;
+  margin: 1em auto;
+}
+
+.chatboxDisplay{
+  width: 100%;
+  margin: auto;
+}
+
+.wrapper{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 
 /* Alerts */
 .alert {

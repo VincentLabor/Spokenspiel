@@ -7,7 +7,8 @@ import {
   ACCEPT_FRIEND_REQ,
   CLEAR_FRIEND_STATE,
   REMOVE_FRIEND_REQ,
-  DECLINE_FRIEND_REQ
+  DECLINE_FRIEND_REQ,
+  DELETE_FRIEND
 } from "./types";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
@@ -89,24 +90,39 @@ export const acceptFriendReq = friendData => async dispatch => {
   }
 };
 
-
-export const declineFriendReq = friendData => async dispatch=>{
+export const declineFriendReq = friendData => async dispatch => {
   const config = {
-    header:{ "Content-Type": "application/json"}
+    header: { "Content-Type": "application/json" }
   };
 
   try {
     loadUser();
     const res = await axios.put(`api/friends/decline/${friendData}`, config);
-    console.log(res.data)
+    console.log(res.data);
     //Decline the request and remove the scrub the request entirely
-    dispatch({type:DECLINE_FRIEND_REQ, payload: res.data});
+    dispatch({ type: DECLINE_FRIEND_REQ, payload: res.data });
     dispatch({ type: REMOVE_FRIEND_REQ, dispatch: res.data });
-
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
-}
+};
+
+export const deleteFriend = friendData => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  try {
+    loadUser();
+    const res = await axios.delete(`/api/friends/delete/${friendData}`, config);
+    console.log(res.data)
+    dispatch({ type: DELETE_FRIEND, payload: res.data });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 //Grabbing the users friends
 export const getFriends = () => async dispatch => {

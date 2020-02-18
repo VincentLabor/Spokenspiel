@@ -211,38 +211,74 @@ router.put("/decline/:id", auth, async (req, res) => {
 //@desc     Delete contacts
 //@access   Private: Need to be logged to see contacts.
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/delete/:id", auth, async (req, res) => {
   try {
-    let receiversFriendReq = await Friend.findById(req.params.id); //req.params is an object. the route :id is why it is req.params.id
-    if (!receiversFriendReq) return res.sendStatus(404);
-    let recipientFriendReq = await Friend.findById(receiversFriendReq._id);
+    let removeUsersFriend = await User.findById(req.user._id);
+    let removeUserFromFriend = await User.findById(req.params.id);
 
-    let findReqFriend = await User.findById(receiversFriendReq.requester);
-    if (!findReqFriend) return res.sendStatus(404);
-    let removeReqFriend = await User.findByIdAndUpdate(
-      receiversFriendReq.requester,
-      { $pull: { friends: receiversFriendReq.recipient } }
+    let removedTheUsersFriend = await User.findByIdAndUpdate(
+      removeUsersFriend._id,
+      { $pull: { friends: removeUserFromFriend._id } }
+    );
+    let removedUsersFromFriend = await User.findByIdAndUpdate(
+      removeUserFromFriend._id,
+      { $pull: { friends: removeUsersFriend._id } }
     );
 
-    let findRecipFriend = await User.findById(receiversFriendReq.recipient);
-    if (!findRecipFriend) return res.sendStatus(receiversFriendReq.recipient);
-    let removeRecipFriend = await User.findByIdAndUpdate(
-      receiversFriendReq.recipient,
-      { $pull: { friends: receiversFriendReq.requester } }
-    );
+    // Good so far
 
-    let deleteFriends = await Friend.findOneAndDelete({
-      requester: receiversFriendReq.recipient,
-      recipient: receiversFriendReq.requester
+    let deleteFriend = await Friend.findOneAndDelete({
+      requester: removeUsersFriend._id,
+      recipient: removeUserFromFriend._id,
+      userName: removeUsersFriend.userName
     });
     let deleteOtherFriend = await Friend.findOneAndDelete({
-      requester: receiversFriendReq.requester,
-      recipient: receiversFriendReq.recipient
+      requester: removeUsersFriend._id,
+      recipient: removeUserFromFriend._id,
+      userName: removeUserFromFriend.userName
     });
+
+    let deleteFriends = await Friend.findOneAndDelete({
+      requester: removeUserFromFriend._id,
+      recipient: removeUsersFriend._id,
+      userName: removeUsersFriend.userName
+    });
+    let deleteOtherFriender = await Friend.findOneAndDelete({
+      requester: removeUserFromFriend._id,
+      recipient: removeUsersFriend._id,
+      userName: removeUserFromFriend.userName
+    });
+
+    // let receiversFriendReq = await Friend.find(req.params.id); //req.params is an object. the route :id is why it is req.params.id
+    // if (!receiversFriendReq) return res.sendStatus(404);
+    // let recipientFriendReq = await Friend.findById(receiversFriendReq._id);
+
+    // let findReqFriend = await User.findById(receiversFriendReq.requester);
+    // if (!findReqFriend) return res.sendStatus(404);
+    // let removeReqFriend = await User.findByIdAndUpdate(
+    //   receiversFriendReq.requester,
+    //   { $pull: { friends: receiversFriendReq.recipient } }
+    // );
+
+    // let findRecipFriend = await User.findById(receiversFriendReq.recipient);
+    // if (!findRecipFriend) return res.sendStatus(receiversFriendReq.recipient);
+    // let removeRecipFriend = await User.findByIdAndUpdate(
+    //   receiversFriendReq.recipient,
+    //   { $pull: { friends: receiversFriendReq.requester } }
+    // );
+
+    // let deleteFriends = await Friend.findOneAndDelete({
+    //   requester: receiversFriendReq.recipient,
+    //   recipient: receiversFriendReq.requester
+    // });
+    // let deleteOtherFriend = await Friend.findOneAndDelete({
+    //   requester: receiversFriendReq.requester,
+    //   recipient: receiversFriendReq.recipient
+    // });
 
     //should just use the users stuff
 
-    res.json({ msg: "Contact has been removed" });
+    res.json({ msg: "Friends have been deleted" });
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

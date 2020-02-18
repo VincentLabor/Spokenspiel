@@ -33,6 +33,13 @@ export default (state = initialState, action) => {
         ...state,
         friendRequested: action.payload
       };
+    case DELETE_FRIEND:
+      return {
+        ...state,
+        friends: state.friends.filter(unWantedFriend => 
+          unWantedFriend._id === action.payload
+      )
+      };
     case USER_LOADED:
       return {
         ...state,

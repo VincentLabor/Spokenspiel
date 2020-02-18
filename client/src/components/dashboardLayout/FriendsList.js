@@ -54,7 +54,7 @@ const FriendsList = ({
               setAddFriendTab(false);
               getFriends();
             }}
-            className="friendOption"
+            className={friendTab? "friendOption underline": "friendOption"}
           >
             Friends
           </p>
@@ -66,7 +66,7 @@ const FriendsList = ({
               setFriendReqTab(false);
               setAddFriendTab(true);
             }}
-            className="friendOption"
+            className={addFriendTab? "friendOption underline": "friendOption"}
           >
             Add Friend
           </p>
@@ -80,7 +80,7 @@ const FriendsList = ({
               getFriendRequests();
               
             }}
-            className="friendOption"
+            className={friendReqTab? "friendOption underline": "friendOption"}
           >
             Friend Requests
           </p>
@@ -99,7 +99,7 @@ const FriendsList = ({
               autoFocus
             ></input>
             <button type="submit" className="addFriendBtn">
-              Ok
+              Send Friend Request
             </button>
           </form>
         ) : null}
