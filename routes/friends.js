@@ -225,7 +225,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
       { $pull: { friends: removeUsersFriend._id } }
     );
 
-    // Good so far
+  // This deletes the variation of friendships in the friend database
 
     let deleteFriend = await Friend.findOneAndDelete({
       requester: removeUsersFriend._id,
@@ -248,35 +248,6 @@ router.delete("/delete/:id", auth, async (req, res) => {
       recipient: removeUsersFriend._id,
       userName: removeUserFromFriend.userName
     });
-
-    // let receiversFriendReq = await Friend.find(req.params.id); //req.params is an object. the route :id is why it is req.params.id
-    // if (!receiversFriendReq) return res.sendStatus(404);
-    // let recipientFriendReq = await Friend.findById(receiversFriendReq._id);
-
-    // let findReqFriend = await User.findById(receiversFriendReq.requester);
-    // if (!findReqFriend) return res.sendStatus(404);
-    // let removeReqFriend = await User.findByIdAndUpdate(
-    //   receiversFriendReq.requester,
-    //   { $pull: { friends: receiversFriendReq.recipient } }
-    // );
-
-    // let findRecipFriend = await User.findById(receiversFriendReq.recipient);
-    // if (!findRecipFriend) return res.sendStatus(receiversFriendReq.recipient);
-    // let removeRecipFriend = await User.findByIdAndUpdate(
-    //   receiversFriendReq.recipient,
-    //   { $pull: { friends: receiversFriendReq.requester } }
-    // );
-
-    // let deleteFriends = await Friend.findOneAndDelete({
-    //   requester: receiversFriendReq.recipient,
-    //   recipient: receiversFriendReq.requester
-    // });
-    // let deleteOtherFriend = await Friend.findOneAndDelete({
-    //   requester: receiversFriendReq.requester,
-    //   recipient: receiversFriendReq.recipient
-    // });
-
-    //should just use the users stuff
 
     res.json({ msg: "Friends have been deleted" });
   } catch (error) {

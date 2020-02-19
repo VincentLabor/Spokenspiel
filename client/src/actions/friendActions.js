@@ -136,6 +136,7 @@ export const getFriends = () => async dispatch => {
     loadUser();
     const res = await axios.get("/api/friends/", config);
     dispatch({ type: GET_FRIENDS, payload: res.data });
+    console.log(res.data)
   } catch (err) {
     console.log(err.response.data);
   }

@@ -1,12 +1,17 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {connect} from "react-redux";
-import {deleteFriend} from '../../actions/friendActions';
+import {deleteFriend, getFriends} from '../../actions/friendActions';
 
-const FriendItem = ({ friend, deleteFriend }) => {
+const FriendItem = ({ friend, deleteFriend, getFriends }) => {
+
+  useEffect(()=>{
+    
+  },[])
 
   const onClick= () =>{
     deleteFriend(friend._id)
-    
+    getFriends();
+    window.location.reload();
   }
 
   const giveCode = () =>{
@@ -31,4 +36,4 @@ const mapStateToProps = state=>({
   auth:state.auth
 })
 
-export default connect(mapStateToProps,{deleteFriend})(FriendItem);
+export default connect(mapStateToProps,{deleteFriend, getFriends})(FriendItem);

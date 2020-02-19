@@ -10,6 +10,7 @@ useEffect(()=>{getFriendRequests()},[getFriendRequests]);
 
   const addFriend = ()=>{
     acceptFriendReq(friendReqs._id);
+    window.location.reload();
   }
 
   const rejectFriend = ()=>{
