@@ -12,6 +12,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "redux-devtools-extension": "^2.13.8",
+    "socket.io-client": "^2.3.0",
     "uuid": "^3.4.0"
   },
   "scripts": {
