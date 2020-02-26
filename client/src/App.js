@@ -29,7 +29,3 @@ const App = () => {
 };
 
 export default App;
-
-// /api/users",
-// /api/auth",
-// /api/friends

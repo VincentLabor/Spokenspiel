@@ -13,17 +13,16 @@ const FriendsList = ({
   getFriendRequests,
   getFriends,
   addFriend
-  
 }) => {
   useEffect(() => {
-     getFriends();
+    getFriends();
     getFriendRequests();
   }, [getFriends]); //Nothing in the brackets mean that these functions will only run once
 
   const [friendTab, setFriendTab] = useState(true);
   const [friendReqTab, setFriendReqTab] = useState(false);
   const [addFriendTab, setAddFriendTab] = useState(false);
-
+  const [sentFriendRequest, setSentFriendRequest] = useState(false);
   const [userName, setUserName] = useState("");
 
   const onChange = e => {
@@ -34,9 +33,10 @@ const FriendsList = ({
     e.preventDefault();
     const friendUserName = { userName };
     addFriend(friendUserName);
-    setFriendTab(true);
-    setFriendReqTab(false);
-    setAddFriendTab(false);
+    setSentFriendRequest(true);
+    setTimeout(() => {
+      setSentFriendRequest(false);
+    }, 6000);
   };
 
   return (
@@ -54,7 +54,7 @@ const FriendsList = ({
               setAddFriendTab(false);
               getFriends();
             }}
-            className={friendTab? "friendOption underline": "friendOption"}
+            className={friendTab ? "friendOption underline" : "friendOption"}
           >
             Friends
           </p>
@@ -66,7 +66,7 @@ const FriendsList = ({
               setFriendReqTab(false);
               setAddFriendTab(true);
             }}
-            className={addFriendTab? "friendOption underline": "friendOption"}
+            className={addFriendTab ? "friendOption underline" : "friendOption"}
           >
             Add Friend
           </p>
@@ -78,9 +78,8 @@ const FriendsList = ({
               setFriendReqTab(true);
               setAddFriendTab(false);
               getFriendRequests();
-              
             }}
-            className={friendReqTab? "friendOption underline": "friendOption"}
+            className={friendReqTab ? "friendOption underline" : "friendOption"}
           >
             Friend Requests
           </p>
@@ -102,6 +101,10 @@ const FriendsList = ({
               Send Friend Request
             </button>
           </form>
+        ) : null}
+
+        {sentFriendRequest === true ? (
+          <p>A friend request has been sent to {userName}</p>
         ) : null}
 
         {/* This is the JSX for the friendslist */}
@@ -143,5 +146,4 @@ export default connect(mapStateToProps, {
   getFriends,
   addFriend,
   getFriendRequests
-  
 })(FriendsList);
