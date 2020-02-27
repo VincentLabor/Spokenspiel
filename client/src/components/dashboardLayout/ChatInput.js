@@ -1,12 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 
-let socket;
-
 const ChatInput = ({currentMsg, setCurrentMsg, sendMessage}) => {
-  // const [currentMsg, setCurrentMsg] = useState("");
-  // const endpoint = "localhost:5000";
-
 
   const onChange = e => {
     setCurrentMsg(e.target.value);
@@ -27,6 +22,8 @@ const ChatInput = ({currentMsg, setCurrentMsg, sendMessage}) => {
             value={currentMsg}
             onChange = {onChange}
             name="msg"
+            placeholder="Send a message"
+            autoComplete = "off"
           ></input>
           <button type="submit" className="chatboxBtn ">
             Enter
