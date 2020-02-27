@@ -1,22 +1,22 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
+//import scrolltobottom react-scroll-to-the-bottom 1:30
+import Message from "./Message";
 
 let socket;
 
-const ChatMessages = () => {
-  const [newMsg,setNewMsg] = useState()
-  const endpoint = "localhost:5000";
-
-  useEffect(() => {
-    socket = io(endpoint);
-    socket.on("chat message", (msgs)=>{
-      
-    })
-
-  }, [endpoint]); 
-return <div></div>;
+const ChatMessages = ({ messages }) => {
+  return (
+    <div>
+      {messages.map((message, i) => (
+        <div key={i}>
+          <Message message={message} />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default ChatMessages;
 
-//41:43 passing in the room #
+//1:29 what we need input

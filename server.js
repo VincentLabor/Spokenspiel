@@ -33,13 +33,12 @@ const io = socketIo(server);
 const getApiAndEmit = 'Hello World';
 
 io.on("connection", (socket)=>{
-  console.log("A user has joined!");
-  //socket.on refers to the specific socket that just joined, the socket parameter above. 
+  // console.log("A user has joined!");
+   socket.on('join', (callback)=>{
 
-  //We are now calling the exact socket we called within the frontend
-  socket.on("join", (word)=>{
-    console.log(word)
-  })
+    socket.emit('welcome', "Welcome to the room")
+
+   });
 
   const error = false;
 
@@ -48,6 +47,11 @@ io.on("connection", (socket)=>{
 
     callback(); //Having this enables the frontend to have a callbackfunction. 
   })
+
+  socket.on("sendMessage", (message, callback)=>{ //Here the backend will be waiting for the front end
+    io.emit('message', message)
+    callback();
+  })  
 
   socket.on("disconnect", ()=>{          
     console.log("client has disconnected")

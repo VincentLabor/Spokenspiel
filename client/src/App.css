@@ -27,6 +27,14 @@ body {
     /* height: 100%; */
 }
 
+.backgroundBlue{
+  background: royalblue;
+}
+
+.colorWhite{
+  color: white;
+}
+
 .clear {
   text-decoration: none;
   color: inherit;
