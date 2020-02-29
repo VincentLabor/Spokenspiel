@@ -1,15 +1,18 @@
-import React from 'react';
+import React from "react";
+import { connect } from "react-redux";
 //we have to import users username here later
 
-const Message = ({message}) => {
+const Message = ({ message, auth:{user} }) => {
+  let sentByCurrentUser = false;
 
-    let sentByCurrentUser = false;
+  return (
+    <div className="messageContainer backgroundBlue">
+      <p className="colorWhite"> {user.userName}: {message} </p>
+    </div>
+  );
+};
 
-    return (
-        <div className="messageContainer backgroundBlue">
-          <p className="colorWhite"> {message} </p>  
-        </div>
-    )
-}
-
-export default Message
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps)(Message);

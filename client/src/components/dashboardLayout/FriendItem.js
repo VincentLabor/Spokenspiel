@@ -25,6 +25,7 @@ const FriendItem = ({ friend, deleteFriend, getFriends }) => {
           <p className="friendName" onClick={giveCode}>
             {friend.userName}
           </p>
+          <i className="fas fa-comment-alt trashIcon"></i>
           <i className="fas fa-trash-alt trashIcon" onClick={onClick}></i>
         </div>
       ) : null}

@@ -6,7 +6,8 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "friend" }]
+  friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "friend" }],
+  rooms: [{ type: mongoose.Schema.Types.ObjectId, ref: "chatroom" }]
   //Maybe create a listener that see if the user is logged in, then status will appear as logged in.
 });
 

@@ -4,8 +4,6 @@ const app = express();
 const connectDB = require("./config/db");
 const index = require('./routes/index');
 
-
-
 connectDB();
 
 // app.get("/", (req, res) => {
@@ -18,11 +16,9 @@ app.use(express.json({ extended: false }));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/friends", require("./routes/friends"));
+app.use("/api/chatroom", require("./routes/chatroom"));
 
 const PORT = process.env.PORT || 5000;
-
-// app.listen(PORT, () => console.log(`The server on Port ${PORT} is now online`));
-//Socket.io
 
 const http = require("http")
 const socketIo = require("socket.io");
@@ -33,9 +29,8 @@ const io = socketIo(server);
 const getApiAndEmit = 'Hello World';
 
 io.on("connection", (socket)=>{
-  // console.log("A user has joined!");
+  console.log("A user has joined!");
    socket.on('join', (callback)=>{
-
     socket.emit('welcome', "Welcome to the room")
 
    });
@@ -43,8 +38,7 @@ io.on("connection", (socket)=>{
   const error = false;
 
   socket.on("chat message", (msg, callback)=>{
-    console.log("message: " +  msg)
-
+    io.emit('chat message', msg)
     callback(); //Having this enables the frontend to have a callbackfunction. 
   })
 

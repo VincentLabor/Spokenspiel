@@ -11,8 +11,8 @@ import io from "socket.io-client";
 let socket;
 
 const Dashboard = ({}) => {
-  const [currentMsg, setCurrentMsg] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
+  const [messages, setMessages] = useState([]); //The whole array of messsages
   const endpoint = "localhost:5000";
 
   useEffect(() => {
@@ -27,19 +27,23 @@ const Dashboard = ({}) => {
     };
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
 
-  useEffect(()=>{
-    socket.on("sendMessage", (message)=>{
-      setMessages([...messages, currentMsg])
-    })
-    console.log(messages)
-  },[currentMsg])
+  // useEffect(()=>{
+  //   socket.on("sendMessage", (message)=>{
+  //     setMessages([...messages, message])
+  //   })
+  //   console.log(messages)
+  // },[currentMsg])
   
   const sendMessage = e => {
     e.preventDefault();
     if (currentMsg) {
-      socket.emit("chat message", currentMsg, () => {
+      socket.on('chat message', (currentMsg)=>{
         setMessages([...messages, currentMsg])
+        console.log(currentMsg, messages)
         setCurrentMsg("");
+      })
+      socket.emit("chat message", currentMsg, () => {
+
       });
     }
   };
