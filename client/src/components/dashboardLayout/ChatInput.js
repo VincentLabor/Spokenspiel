@@ -24,6 +24,7 @@ const ChatInput = ({currentMsg, setCurrentMsg, sendMessage}) => {
             name="msg"
             placeholder="Send a message"
             autoComplete = "off"
+            autoFocus
           ></input>
           <button type="submit" className="chatboxBtn ">
             Enter

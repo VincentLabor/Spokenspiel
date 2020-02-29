@@ -88,15 +88,6 @@ router.post(
         friendStatus: 1
       });
 
-      //Update the requester and recipients friend request list
-      // const updateRequester = await User.findByIdAndUpdate(req.user._id, {
-      //   $push: { friends: findingFriend[0]._id }
-      // });
-      // const updateRecipient = await User.findByIdAndUpdate(
-      //   findingFriend[0]._id,
-      //   { $push: { friends: req.user._id } }
-      // );
-
       const newFriend = await friender.save();
       const getFriendReq = await friendRequester.save();
 
