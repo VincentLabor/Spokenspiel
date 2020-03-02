@@ -33,20 +33,35 @@ const Dashboard = ({}) => {
   //   })
   //   console.log(messages)
   // },[currentMsg])
-  
-  const sendMessage = e => {
-    e.preventDefault();
-    if (currentMsg) {
-      socket.on('chat message', (currentMsg)=>{
-        setMessages([...messages, currentMsg])
-        console.log(currentMsg, messages)
-        setCurrentMsg("");
-      })
-      socket.emit("chat message", currentMsg, () => {
 
-      });
+  // const sendMessage = e => {
+  //   e.preventDefault();
+  //   if (currentMsg) {
+  //     socket.on('chat message', (currentMsg)=>{
+  //       setMessages([...messages, currentMsg])
+  //       console.log(currentMsg, messages)
+  //       setCurrentMsg("");
+  //     })
+  //     socket.emit("chat message", currentMsg, () => {
+  //       setMessages([...messages, currentMsg])
+  //     });
+  //   }
+  // };
+
+  useEffect(()=>{
+    socket.on('chat message', (currentMsg)=>{
+      setMessages([...messages, currentMsg]);
+    })
+  }, [messages]);
+
+  const sendMessage = (e)=>{
+    e.preventDefault();
+    if(currentMsg){
+      socket.emit("chat message", currentMsg, ()=>{
+        setCurrentMsg('');
+      })
     }
-  };
+  }
 
   return (
     <Fragment>

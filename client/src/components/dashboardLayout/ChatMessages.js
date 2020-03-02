@@ -3,8 +3,6 @@ import io from "socket.io-client";
 //import scrolltobottom react-scroll-to-the-bottom 1:30
 import Message from "./Message";
 
-let socket;
-
 const ChatMessages = ({ messages }) => {
   return (
     <div>
