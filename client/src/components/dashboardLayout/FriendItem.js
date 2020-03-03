@@ -1,8 +1,9 @@
 import React,{useEffect} from "react";
 import {connect} from "react-redux";
 import {deleteFriend, getFriends} from '../../actions/friendActions';
+import {addChatroom, getUsersChatrooms} from '../../actions/chatroomActions';
 
-const FriendItem = ({ friend, deleteFriend, getFriends }) => {
+const FriendItem = ({ friend, deleteFriend, getFriends, addChatroom, getUsersChatrooms }) => {
 
   useEffect(()=>{
     
@@ -14,8 +15,13 @@ const FriendItem = ({ friend, deleteFriend, getFriends }) => {
     window.location.reload();
   }
 
+  const openConvo =()=>{
+     addChatroom(friend._id);
+     getUsersChatrooms();
+  }
+
   const giveCode = () =>{
-    console.log(friend._id);
+  //  This may be used to extend csswise and show the options available
   }
 
   return (
@@ -25,7 +31,7 @@ const FriendItem = ({ friend, deleteFriend, getFriends }) => {
           <p className="friendName" onClick={giveCode}>
             {friend.userName}
           </p>
-          <i className="fas fa-comment-alt trashIcon"></i>
+          <i className="fas fa-comment-alt trashIcon" onClick={openConvo}></i>
           <i className="fas fa-trash-alt trashIcon" onClick={onClick}></i>
         </div>
       ) : null}
@@ -34,7 +40,8 @@ const FriendItem = ({ friend, deleteFriend, getFriends }) => {
 };
 
 const mapStateToProps = state=>({
-  auth:state.auth
+  auth:state.auth,
+  chatroom: state.chatroom
 })
 
-export default connect(mapStateToProps,{deleteFriend, getFriends})(FriendItem);
+export default connect(mapStateToProps,{deleteFriend, getFriends, addChatroom, getUsersChatrooms})(FriendItem);
