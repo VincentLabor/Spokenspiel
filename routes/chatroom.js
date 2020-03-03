@@ -18,26 +18,23 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.post("/", auth, async (req, res) => {
-  const { _id } = req.body;
 
-  const checkRoomExists = User.find({ user1: req.user._id, user2: _id });
-  const checkRoomExistsTwice = User.find({ user2: _id, user1: req.user._id });
-
-  if (checkRoomExists || checkRoomExistsTwice) {
-    return res.sendStatus(500);
-  }
+router.post("/:id", auth, async (req, res) => {
+  const getUsersInChatroom = Friend.findById(req.params.id);
 
   try {
     const addingUsersToRoom = new Chatroom({
-      user1: req.user._id,
-      user2: req.body._id
+      user1: getUsersInChatroom.requester,
+      user2: getUsersInChatroom.recipient
     });
 
     const newChatroom = addingUsersToRoom.save();
     res.json(addingUsersToRoom);
 
     // if(createRoomUser1 || createRoomUser2) This is for a check to see if they already have a room where they are talking
-  } catch (err) {}
+  } catch (err) {
+    console.log(err)
+  }
 });
+
 module.exports = router;

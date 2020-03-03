@@ -9,6 +9,7 @@ const User = require("../models/User");
 //@desc     Grabs all of the users Friends
 //@access   Private - Need to be logged/Auth to see Friends
 router.get("/", auth, async (req, res) => {
+  console.log("/")
   try {
     let usersFriendsList = await User.find({ friends: req.user._id });
 
