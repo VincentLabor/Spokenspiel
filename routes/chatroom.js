@@ -10,30 +10,30 @@ const User = require("../models/User");
 //@desc     This is to get users in the chatroom
 //@access   Private: To only be seen by those within the room
 router.get("/", auth, async (req, res) => {
+
+  //Here these will be used as conditionals to send to front end the name of the friend in the conversation
+  let userInChatroom1 = await User.find({ user1: req.user._id });
+  let userInChatroom2 = await User.find({user2: req.user._id});
+
   try {
-    let userInChatroom1 = await User.find({ chatrooms: req.user._id });
+    
     res.json(userInChatroom1);
   } catch (err) {
     console.log(err);
   }
 });
 
-
 router.post("/:id", auth, async (req, res) => {
-  const getUsersInChatroom = Friend.findById(req.params.id);
-
   try {
     const addingUsersToRoom = new Chatroom({
-      user1: getUsersInChatroom.requester,
-      user2: getUsersInChatroom.recipient
+      user1: req.user._id,
+      user2: req.params.id
     });
 
     const newChatroom = addingUsersToRoom.save();
     res.json(addingUsersToRoom);
-
-    // if(createRoomUser1 || createRoomUser2) This is for a check to see if they already have a room where they are talking
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 });
 

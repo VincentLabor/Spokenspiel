@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 import {connect} from "react-redux";
-import {deleteFriend, getFriends} from '../../actions/friendActions';
-import {addChatroom, getUsersChatrooms} from '../../actions/chatroomActions';
+import {deleteFriend, getFriends} from '../../../actions/friendActions';
+import {addChatroom, getUsersChatrooms} from '../../../actions/chatroomActions';
 
 const FriendItem = ({ friend, deleteFriend, getFriends, addChatroom, getUsersChatrooms }) => {
 
@@ -17,6 +17,7 @@ const FriendItem = ({ friend, deleteFriend, getFriends, addChatroom, getUsersCha
 
   const openConvo =()=>{
      addChatroom(friend._id);
+     console.log(friend._id);
      getUsersChatrooms();
   }
 

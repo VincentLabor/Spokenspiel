@@ -26,7 +26,7 @@ export const addChatroom = (friendData) => async dispatch =>{
           "Content-Type": "application/json"
         }
       };
-
+console.log("This is the friendData" + friendData)
     try {
         const res = await axios.post(`/api/chatroom/${friendData}`, config);
         dispatch({type: ADD_CHATROOM, payload: res.data})

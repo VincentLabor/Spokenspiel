@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {acceptFriendReq, getFriendRequests, declineFriendReq} from "../../actions/friendActions";
+import {acceptFriendReq, getFriendRequests, declineFriendReq} from "../../../actions/friendActions";
 
 
 const FriendRequests = ({ friendReqs, auth, acceptFriendReq, getFriendRequests,declineFriendReq }) => {
