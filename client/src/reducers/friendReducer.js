@@ -59,7 +59,6 @@ export default (state = initialState, action) => {
         )
       };
     case GET_FRIEND_REQS:
-      console.log(action.payload);
       return {
         ...state,
         currentFriendReqs: action.payload

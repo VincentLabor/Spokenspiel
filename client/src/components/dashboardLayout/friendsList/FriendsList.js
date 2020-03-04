@@ -5,7 +5,7 @@ import {
   getFriends,
   addFriend,
   getFriendRequests
-} from "../../actions/friendActions";
+} from "../../../actions/friendActions";
 import FriendRequests from "./FriendRequests";
 
 const FriendsList = ({
