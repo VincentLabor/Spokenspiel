@@ -1,22 +1,47 @@
-import React,{useState} from 'react'
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import ConversationalItems from "./ConversationalItems";
+import {getUsersChatrooms} from "../../../actions/chatroomActions";
+import { connect } from "react-redux";
 
+const Conversations = ({
+  generalChatStatus,
+  setGeneralChatStatus,
+  chatroom: { chatrooms },
+  getUsersChatrooms
+}) => {
 
-const Conversations = ({generalChatStatus, setGeneralChatStatus}) => {
+  const [name, setName] = useState("");
+  const [conversation, setConversation] = useState("");
 
-    const [name,setName] = useState('');
-    const [conversation,setConversation] = useState('');
+  useEffect(()=>{
+    getUsersChatrooms();
+    
+  },[]);
 
+useEffect(()=>{
+  console.log(chatrooms);
+})
 
-    // Link to= {/chat?name=${name}&room=${room}} 
+  return (
+    <div>
+      Conversations
+      {generalChatStatus ? <h3 className="cursorChg">General Chat</h3> : null}
+      {/*TODO CSS class that makes a separate block for discerning different convos  */}
+      {chatrooms
+        ? chatrooms.map(conversation =>( 
+            <ConversationalItems
+              conversation={conversation}
+              key={conversation._id}
+            />
+          ))
+        : null}
+    </div>
+  );
+};
 
-    return (
-        <div>
-            Conversations
-           {generalChatStatus ? (<h3 className="cursorChg">General Chat</h3>) : null}
-            {/*TODO CSS class that makes a separate block for discerning different convos  */}
-        </div>
-    )
-}
+const mapStateToProps = state => ({
+  chatroom: state.chatroom
+});
 
-export default Conversations;
+export default connect(mapStateToProps, {getUsersChatrooms})(Conversations);

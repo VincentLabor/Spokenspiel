@@ -1,9 +1,9 @@
 import React from 'react'
 
-const conversationItems = () => {
+const conversationItems = ({conversation}) => {
     return (
         <div>
-            
+            {<h3 className="cursorChg">conversation</h3>}
         </div>
     )
 }
