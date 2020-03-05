@@ -26,10 +26,15 @@ router.get("/", auth, async (req, res) => {
 //@desc     This is to create a room and add 2 users to it.
 //@access   Private: To only be seen by those within the room
 router.post("/:id", auth, async (req, res) => {
+  let currentUserName =await User.findById(req.user._id);
+  let otherUsersName = await User.findById(req.params.id);
+
   try {
     const addingUsersToRoom = new Chatroom({
       user1: req.user._id,
-      user2: req.params.id
+      user1Name: currentUserName.userName,
+      user2: req.params.id,
+      user2Name: otherUsersName.userName
     });
 
     const newChatroom = addingUsersToRoom.save();

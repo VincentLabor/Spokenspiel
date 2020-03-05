@@ -95,7 +95,6 @@ router.post(
       res.json({ friendA: newFriend, friendB: getFriendReq }); //This allows for both of the objects to be sent via res.json
     } catch (error) {
       console.log(error);
-      // res.sendStatus(500);
       return res.sendStatus(400);
     }
   }
