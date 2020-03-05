@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
+import React from "react";
+
 //import scrolltobottom react-scroll-to-the-bottom 1:30
 import Message from "./Message";
 

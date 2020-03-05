@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import Navbar from "../layout/Navbar";
 import { connect } from "react-redux";
 import FriendsList from "../dashboardLayout/friendsList/FriendsList";
-import addFriendModal from "../layout/addFriend/addFriendModal";
+// import addFriendModal from "../layout/addFriend/addFriendModal";
 import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";

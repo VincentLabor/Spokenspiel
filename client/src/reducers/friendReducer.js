@@ -7,7 +7,7 @@ import {
   GET_FRIEND_REQS,
   CLEAR_FRIEND_STATE,
   REMOVE_FRIEND_REQ,
-  DECLINE_FRIEND_REQ
+
 } from "../actions/types";
 
 const initialState = {

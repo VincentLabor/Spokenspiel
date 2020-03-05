@@ -10,6 +10,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case GET_CHATROOM:
+      return{
+        ...state,
+        chatrooms:[...action.payload]
+      }
       case ADD_CHATROOM:
         console.log(action.payload)
           return{
