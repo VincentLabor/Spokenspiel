@@ -10,7 +10,7 @@ import io from "socket.io-client";
 
 let socket;
 
-const Dashboard = ({}) => {
+const Dashboard = ({chatroom:{currentChatroomName}}) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [messages, setMessages] = useState([]); //The whole array of messsages
   const [generalChatStatus, setGeneralChatStatus]= useState(true);
@@ -18,14 +18,14 @@ const Dashboard = ({}) => {
 
   useEffect(() => {
     socket = io(endpoint);
-     socket.emit("join", ()=>{
+    //  socket.emit("join", ()=>{
        
-     });
+    //  });
 
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
+    // return () => {
+    //   socket.emit("disconnect");
+    //   socket.off();
+    // };
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
 
   useEffect(()=>{
@@ -52,6 +52,7 @@ const Dashboard = ({}) => {
           {/* <div className="chat"> */}
           <div className="chatting">
             Chat
+            {currentChatroomName}
             <ChatMessages messages={messages} setMessages={setMessages}/>
           </div>
 
@@ -76,7 +77,8 @@ const Dashboard = ({}) => {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  chatroom: state.chatroom
 });
 
 export default connect(mapStateToProps, {})(Dashboard);

@@ -30,9 +30,10 @@ const getApiAndEmit = 'Hello World';
 
 io.on("connection", (socket)=>{
   console.log("A user has joined!");
-   socket.on('join', (callback)=>{
-    socket.emit('welcome', "Welcome to the room")
-
+   socket.on('join', ({name,room},callback)=>{
+    socket.join(room);
+    
+    console.log("room")
    });
 
   const error = false;

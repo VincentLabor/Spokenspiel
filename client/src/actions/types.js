@@ -14,6 +14,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 //Chatroom Related
 export const GET_CHATROOM = "GET_CHATROOM";
+export const GET_NAME_CHATROOM = "GET_NAME_CHATROOM";
 export const ADD_CHATROOM = "ADD_CHATROOM";
 export const REMOVE_CHATROOM = "REMOVE_CHATROOM";
 //ETC
@@ -26,5 +27,6 @@ export const SET_ALERT = "SET_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 export const CLEAR_STATE = "CLEAR_STATE";
 export const CLEAR_FRIEND_STATE = "CLEAR_FRIEND_STATE";
+
 
 

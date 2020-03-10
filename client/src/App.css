@@ -420,6 +420,18 @@ nav li {
   height: 100%;
 }
 
+/* Conversation CSS */
+
+.convoItem{
+  padding: 10px;
+
+  border-bottom: lightgray .5px solid;
+}
+
+.convoItem:hover{
+  background-color: whitesmoke;
+}
+
 /* Alerts */
 .alert {
   padding: 0.7rem;
