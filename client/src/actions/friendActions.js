@@ -40,7 +40,7 @@ export const getFriendRequests = () => async dispatch => {
     }
   };
   try {
-    loadUser();
+    dispatch(loadUser());
     const res = await axios.get("/api/friends/friendRequests/", config);
     dispatch({
       type: GET_FRIEND_REQS,

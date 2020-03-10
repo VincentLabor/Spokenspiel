@@ -20,7 +20,7 @@ const Conversations = ({
   },[]);
 
 useEffect(()=>{
-  console.log(chatrooms);
+  // console.log(chatrooms);
 })
 
   return (
