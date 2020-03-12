@@ -45,3 +45,9 @@ router.post("/:id", auth, async (req, res) => {
 });
 
 module.exports = router;
+
+//@route    PUT /api/chatroom/:id
+//@desc     This is to save the messages between 2 users.
+//@access   Private: To only be seen by those within the room!
+
+router.put("")

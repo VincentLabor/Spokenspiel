@@ -17,6 +17,9 @@ export const GET_CHATROOM = "GET_CHATROOM";
 export const GET_NAME_CHATROOM = "GET_NAME_CHATROOM";
 export const ADD_CHATROOM = "ADD_CHATROOM";
 export const REMOVE_CHATROOM = "REMOVE_CHATROOM";
+export const STORE_MSGS = "STORE_MSGS";
+export const REMOVE_MSGS = "REMOVE_MSGS";
+
 //ETC
 export const SET_LOADING = "SET_LOADING";
 export const GET_ERRORS = "GET_ERRORS";

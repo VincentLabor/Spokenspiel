@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_CHATROOM, GET_CHATROOM,GET_NAME_CHATROOM } from "./types";
+import { ADD_CHATROOM, GET_CHATROOM,GET_NAME_CHATROOM, STORE_MSGS, REMOVE_MSGS} from "./types";
 
 export const getUsersChatrooms = () => async dispatch => {
   const config = {
@@ -31,6 +31,22 @@ export const addChatroom = friendData => async dispatch => {
     console.log(err);
   }
 };
+
+export const saveMsgs = chatData => async dispatch =>{
+  try {
+    dispatch({type: STORE_MSGS, payload: chatData})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const clearMsgs = () => async dispatch =>{
+  try {
+    dispatch({type: REMOVE_MSGS})
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const getChatroomName = friendData => async dispatch => {
     const nameOfRoom = friendData;
