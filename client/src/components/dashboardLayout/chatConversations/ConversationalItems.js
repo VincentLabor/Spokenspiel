@@ -2,51 +2,49 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
 import { Link } from "react-router-dom";
-import {getChatroomName} from '../../../actions/chatroomActions';
+import { getChatroomName, clearMsgs } from "../../../actions/chatroomActions";
 
 let socket;
 
-const ConversationItems = ({ conversation, auth: { user } }) => {
+const ConversationItems = ({ conversation, auth: { user }, clearMsgs }) => {
   const endpoint = "localhost:5000";
   const [room, setRoomName] = useState("");
   const [userName, setUsername] = useState("");
   const [chatName, setChatName] = useState("");
 
-  useEffect(
-    () => {
-      socket = io(endpoint);
-      socket.emit("join", (name, room) => {
-        // console.log(room);
-      });
+  useEffect(() => {
+    socket = io(endpoint);
+    socket.emit("join", (name, room) => {
+      // console.log(room);
+    });
 
-      return () => {
-        socket.emit("disconnect");
-        socket.off();
-      };
-    },
-    [endpoint]
-  );
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
+  }, [endpoint]);
 
   useEffect(() => {
-    // console.log(room); //On first click, it's already established
+    console.log(room); //On first click, it's already established
   }, [room]);
 
   const onClick = () => {
     setUsername(user.userName);
     setRoomName(conversation._id);
-    getChatroomName(user.userName === conversation.user1Name
-      ? conversation.user2Name
-      : conversation.user1Name)
-    if (!room || !userName) {
-      console.log("There is an error");
-    }
-    // console.log(room);
+    getChatroomName(
+      user.userName === conversation.user1Name
+        ? conversation.user2Name
+        : conversation.user1Name
+    );
+    socket.emit("join room");
+      //This should clear the current chatroom
+      clearMsgs();
   };
 
   return (
     <div>
       {conversation ? (
-        <h3 className="cursorChg convoItem">
+        <h3 className="cursorChg convoItem" onClick={onClick}>
           {(user && user.userName) === conversation.user1Name
             ? conversation.user2Name
             : conversation.user1Name}
@@ -56,10 +54,9 @@ const ConversationItems = ({ conversation, auth: { user } }) => {
   );
 };
 
-//
 const mapStateToProps = state => ({
   auth: state.auth,
   chatroom: state.chatroom
 });
 
-export default connect(mapStateToProps, {getChatroomName})(ConversationItems);
+export default connect(mapStateToProps, { getChatroomName, clearMsgs })(ConversationItems);

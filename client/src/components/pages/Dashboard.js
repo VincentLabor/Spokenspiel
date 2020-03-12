@@ -7,10 +7,11 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "socket.io-client";
+import {saveMsgs} from '../../actions/chatroomActions';
 
 let socket;
 
-const Dashboard = ({chatroom:{currentChatroomName}}) => {
+const Dashboard = ({chatroom:{currentChatroomName}, saveMsgs}) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [messages, setMessages] = useState([]); //The whole array of messsages
   const [generalChatStatus, setGeneralChatStatus]= useState(true);
@@ -18,19 +19,12 @@ const Dashboard = ({chatroom:{currentChatroomName}}) => {
 
   useEffect(() => {
     socket = io(endpoint);
-    //  socket.emit("join", ()=>{
-       
-    //  });
-
-    // return () => {
-    //   socket.emit("disconnect");
-    //   socket.off();
-    // };
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
 
   useEffect(()=>{
     socket.on('chat message', (currentMsg)=>{
-      setMessages([...messages, currentMsg]);
+      // setMessages([...messages, currentMsg]);
+       saveMsgs(currentMsg);
     })
   }, [messages]);
 
@@ -49,7 +43,6 @@ const Dashboard = ({chatroom:{currentChatroomName}}) => {
         <Navbar />
         <div className="gridContainer">
           <FriendsList />
-          {/* <div className="chat"> */}
           <div className="chatting">
             Chat
             {currentChatroomName}
@@ -81,4 +74,4 @@ const mapStateToProps = state => ({
   chatroom: state.chatroom
 });
 
-export default connect(mapStateToProps, {})(Dashboard);
+export default connect(mapStateToProps, {saveMsgs})(Dashboard);
