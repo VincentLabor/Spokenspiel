@@ -3,13 +3,15 @@ import {
   GET_CHATROOM,
   GET_NAME_CHATROOM,
   STORE_MSGS,
-  REMOVE_MSGS
+  REMOVE_MSGS,
+  GET_CHATROOM_ID
 } from "../actions/types";
 
 const initialState = {
   chatrooms: [],
   loading: false,
   current: null,
+  currentChatroomId: null,
   // filtered: null, Maybe will include
   usersInvolved: null,
   currentChatroomName: null,
@@ -23,6 +25,12 @@ export default (state = initialState, action) => {
         ...state,
         chatrooms: [...action.payload]
       };
+    case GET_CHATROOM_ID:
+      return {
+        ...state,
+        currentChatroomId: action.payload
+      };
+
     case ADD_CHATROOM:
       console.log(action.payload);
       return {

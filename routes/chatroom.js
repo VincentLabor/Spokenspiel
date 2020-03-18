@@ -22,11 +22,28 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+//@route    GET /api/chatroom/msgs/${chatroomData}
+//@desc     This is to grab the specific chatroom ID from clicking on a conversation
+//@access   Private: To only be seen by those logged in
+router.get("/msgs/:id", auth, async (req, res) => {
+  //Here these will be used as conditionals to send to front end the name of the friend in the conversation
+  const { currentMsgSent } = req.body;
+  let userInChatroom = await Chatroom.findByIdAndUpdate(req.params.id, {
+    $push: { messages: currentMsgSent }
+  });
+
+  try {
+    res.json(userInChatroom);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //@route    POST /api/chatroom/:id
 //@desc     This is to create a room and add 2 users to it.
 //@access   Private: To only be seen by those within the room
 router.post("/:id", auth, async (req, res) => {
-  let currentUserName =await User.findById(req.user._id);
+  let currentUserName = await User.findById(req.user._id);
   let otherUsersName = await User.findById(req.params.id);
 
   try {
@@ -37,7 +54,12 @@ router.post("/:id", auth, async (req, res) => {
       user2Name: otherUsersName.userName
     });
 
+    // const chatForAll = new Chatroom({
+    //   messages: "Greetings!"
+    // });
+
     const newChatroom = addingUsersToRoom.save();
+    // const genChat = chatForAll.save();
     res.json(addingUsersToRoom);
   } catch (err) {
     console.log(err);
@@ -45,9 +67,3 @@ router.post("/:id", auth, async (req, res) => {
 });
 
 module.exports = router;
-
-//@route    PUT /api/chatroom/:id
-//@desc     This is to save the messages between 2 users.
-//@access   Private: To only be seen by those within the room!
-
-router.put("")

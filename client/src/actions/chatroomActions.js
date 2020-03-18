@@ -1,5 +1,13 @@
 import axios from "axios";
-import { ADD_CHATROOM, GET_CHATROOM,GET_NAME_CHATROOM, STORE_MSGS, REMOVE_MSGS} from "./types";
+import {
+  ADD_CHATROOM,
+  GET_CHATROOM_ID,
+  GET_CHATROOM,
+  GET_NAME_CHATROOM,
+  STORE_MSGS,
+  REMOVE_MSGS,
+  STORE_SENT_MSGS
+} from "./types";
 
 export const getUsersChatrooms = () => async dispatch => {
   const config = {
@@ -32,28 +40,66 @@ export const addChatroom = friendData => async dispatch => {
   }
 };
 
-export const saveMsgs = chatData => async dispatch =>{
+export const saveMsgs = chatData => async dispatch => {
   try {
-    dispatch({type: STORE_MSGS, payload: chatData})
+    dispatch({ type: STORE_MSGS, payload: chatData });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-export const clearMsgs = () => async dispatch =>{
+export const clearMsgs = () => async dispatch => {
   try {
-    dispatch({type: REMOVE_MSGS})
+    dispatch({ type: REMOVE_MSGS });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const getChatroomName = friendData => async dispatch => {
-    const nameOfRoom = friendData;
-    console.log(friendData)
-    try {
-        dispatch({type: GET_NAME_CHATROOM, payload: friendData})
-    } catch (error) {
-        console.log(error)
+  console.log(friendData);
+  try {
+    dispatch({ type: GET_NAME_CHATROOM, payload: friendData });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//This is a setup towards another action. May be subject to deletion.
+export const setCurrentChatroomId = chatroomData => async dispatch => {
+  const config = {
+    header: {
+      "Content-Type": "application/json"
     }
+  };
+
+  try {
+    const res = await axios.get(`/api/chatroom/${chatroomData}`, config);
+
+    dispatch({ type: GET_CHATROOM_ID, payload: res.data._id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//This will save messages typed by the user into the database
+export const saveSentMsgs = msgData => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  console.log(msgData.currentChatroomId);
+
+  try {
+    // const res = await axios.put(
+    //   `/api/chatroom/msgs/${msgData.currentChatroomId}`,
+    //   msgData,
+    //   config
+    // );
+    // dispatch({ type: STORE_SENT_MSGS, payload: res.data });
+  } catch (error) {
+    console.log(error);
+  }
 };

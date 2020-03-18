@@ -1,27 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, {useEffect } from "react";
+
 import ConversationalItems from "./ConversationalItems";
 import {getUsersChatrooms} from "../../../actions/chatroomActions";
 import { connect } from "react-redux";
 
 const Conversations = ({
   generalChatStatus,
-  setGeneralChatStatus,
   chatroom: { chatrooms },
   getUsersChatrooms
 }) => {
 
-  const [name, setName] = useState("");
-  const [conversation, setConversation] = useState("");
-
   useEffect(()=>{
     getUsersChatrooms();
-    
-  },[]);
-
-useEffect(()=>{
-  // console.log(chatrooms);
-})
+  },[getUsersChatrooms]);
 
   return (
     <div>

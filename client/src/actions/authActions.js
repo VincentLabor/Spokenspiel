@@ -6,7 +6,7 @@ import {
   USER_LOADED,
   GET_ERRORS,
   CLEAR_STATE,
-  GET_FRIENDS
+  // GET_FRIENDS
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alertActions";

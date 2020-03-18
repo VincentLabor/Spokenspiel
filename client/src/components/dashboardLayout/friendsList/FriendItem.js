@@ -5,10 +5,6 @@ import {addChatroom, getUsersChatrooms} from '../../../actions/chatroomActions';
 
 const FriendItem = ({ friend, deleteFriend, getFriends, addChatroom, getUsersChatrooms }) => {
 
-  useEffect(()=>{
-    
-  },[])
-
   const onClick= () =>{
     deleteFriend(friend._id)
     getFriends();

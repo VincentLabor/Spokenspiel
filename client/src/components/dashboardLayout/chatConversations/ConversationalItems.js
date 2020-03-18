@@ -1,35 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import io from "socket.io-client";
-import { Link } from "react-router-dom";
-import { getChatroomName, clearMsgs } from "../../../actions/chatroomActions";
+import {
+  getChatroomName,
+  clearMsgs,
+  setCurrentChatroomId
+} from "../../../actions/chatroomActions";
 
 let socket;
-
-const ConversationItems = ({ conversation, auth: { user }, clearMsgs }) => {
+//Conversation may also refer to the chatrooms from the reducer
+const ConversationItems = ({ conversation, auth: { user }, clearMsgs, setCurrentChatroomId }) => {
   const endpoint = "localhost:5000";
   const [room, setRoomName] = useState("");
-  const [userName, setUsername] = useState("");
-  const [chatName, setChatName] = useState("");
+  // const [userName, setUsername] = useState("");
 
   useEffect(() => {
     socket = io(endpoint);
     socket.emit("join", (name, room) => {
-      // console.log(room);
+
     });
 
     return () => {
       socket.emit("disconnect");
       socket.off();
     };
-  }, [endpoint]);
+  },[endpoint]); //May need to change this
 
   useEffect(() => {
-    console.log(room); //On first click, it's already established
+    setCurrentChatroomId(room);
   }, [room]);
 
   const onClick = () => {
-    setUsername(user.userName);
+    // setUsername(user.userName);
     setRoomName(conversation._id);
     getChatroomName(
       user.userName === conversation.user1Name
@@ -37,8 +39,8 @@ const ConversationItems = ({ conversation, auth: { user }, clearMsgs }) => {
         : conversation.user1Name
     );
     socket.emit("join room");
-      //This should clear the current chatroom
-      clearMsgs();
+    //This should clear the current chatroom
+    clearMsgs();
   };
 
   return (
@@ -59,4 +61,8 @@ const mapStateToProps = state => ({
   chatroom: state.chatroom
 });
 
-export default connect(mapStateToProps, { getChatroomName, clearMsgs })(ConversationItems);
+export default connect(mapStateToProps, {
+  getChatroomName,
+  clearMsgs,
+  setCurrentChatroomId
+})(ConversationItems);
