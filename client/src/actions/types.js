@@ -14,10 +14,12 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 //Chatroom Related
 export const GET_CHATROOM = "GET_CHATROOM";
+export const GET_CHATROOM_ID = "GET_CHATROOM_ID";
 export const GET_NAME_CHATROOM = "GET_NAME_CHATROOM";
 export const ADD_CHATROOM = "ADD_CHATROOM";
 export const REMOVE_CHATROOM = "REMOVE_CHATROOM";
 export const STORE_MSGS = "STORE_MSGS";
+export const STORE_SENT_MSGS = "STORE_SENT_MSGS";
 export const REMOVE_MSGS = "REMOVE_MSGS";
 
 //ETC

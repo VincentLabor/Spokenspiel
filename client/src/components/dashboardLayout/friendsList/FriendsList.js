@@ -17,7 +17,7 @@ const FriendsList = ({
   useEffect(() => {
     getFriends();
     getFriendRequests();
-  }, [getFriends]); //Nothing in the brackets mean that these functions will only run once
+  }, [getFriendRequests, getFriends]); //Nothing in the brackets mean that these functions will only run once
 
   const [friendTab, setFriendTab] = useState(true);
   const [friendReqTab, setFriendReqTab] = useState(false);

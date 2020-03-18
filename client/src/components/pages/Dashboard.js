@@ -7,35 +7,36 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "socket.io-client";
-import {saveMsgs} from '../../actions/chatroomActions';
+import { saveMsgs, saveSentMsgs } from "../../actions/chatroomActions";
 
 let socket;
 
-const Dashboard = ({chatroom:{currentChatroomName}, saveMsgs}) => {
+const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [messages, setMessages] = useState([]); //The whole array of messsages
-  const [generalChatStatus, setGeneralChatStatus]= useState(true);
+  const [generalChatStatus, setGeneralChatStatus] = useState(true);
+
   const endpoint = "localhost:5000";
 
   useEffect(() => {
     socket = io(endpoint);
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
 
-  useEffect(()=>{
-    socket.on('chat message', (currentMsg)=>{
-      // setMessages([...messages, currentMsg]);
-       saveMsgs(currentMsg);
-    })
-  }, [messages]);
+  useEffect(() => {
+    socket.on("chat message", currentMsg => {
+      saveMsgs(currentMsg);
+    });
+  }, [messages]); //Check back on this
 
-  const sendMessage = (e)=>{
+  const sendMessage = e => {
     e.preventDefault();
-    if(currentMsg){
-      socket.emit("chat message", currentMsg, ()=>{
-        setCurrentMsg('');
-      })
+
+    if (currentMsg) {
+      socket.emit("chat message", currentMsg, () => {
+        setCurrentMsg("");
+      });
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -46,7 +47,7 @@ const Dashboard = ({chatroom:{currentChatroomName}, saveMsgs}) => {
           <div className="chatting">
             Chat
             {currentChatroomName}
-            <ChatMessages messages={messages} setMessages={setMessages}/>
+            <ChatMessages messages={messages} setMessages={setMessages} />
           </div>
 
           <div className="chatbox">
@@ -58,7 +59,7 @@ const Dashboard = ({chatroom:{currentChatroomName}, saveMsgs}) => {
           </div>
 
           <div className="conversations">
-            <Conversations 
+            <Conversations
               generalChatStatus={generalChatStatus}
               setGeneralChatStatus={setGeneralChatStatus}
             />
@@ -74,4 +75,4 @@ const mapStateToProps = state => ({
   chatroom: state.chatroom
 });
 
-export default connect(mapStateToProps, {saveMsgs})(Dashboard);
+export default connect(mapStateToProps, { saveMsgs, saveSentMsgs })(Dashboard);
