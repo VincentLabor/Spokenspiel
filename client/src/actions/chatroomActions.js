@@ -72,11 +72,11 @@ export const setCurrentChatroomId = chatroomData => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-
+   console.log(chatroomData);
   try {
-    const res = await axios.get(`/api/chatroom/${chatroomData}`, config);
-
-    dispatch({ type: GET_CHATROOM_ID, payload: res.data._id });
+    //  const res = await axios.get(`/api/chatroom/msgs/${chatroomData}`, config);
+    // console.log(res.data)
+     dispatch({ type: GET_CHATROOM_ID, payload: chatroomData});
   } catch (error) {
     console.log(error);
   }
@@ -89,16 +89,14 @@ export const saveSentMsgs = msgData => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-
-  console.log(msgData.currentChatroomId);
-
+  console.log(msgData.currentMsgSent);
   try {
-    // const res = await axios.put(
-    //   `/api/chatroom/msgs/${msgData.currentChatroomId}`,
-    //   msgData,
-    //   config
-    // );
-    // dispatch({ type: STORE_SENT_MSGS, payload: res.data });
+     const res = await axios.put(
+       `/api/chatroom/msgs/${msgData.currentChatroomId}`,
+       msgData.currentMsgSent,
+       config
+     );
+     dispatch({ type: STORE_SENT_MSGS, payload: res.data });
   } catch (error) {
     console.log(error);
   }
