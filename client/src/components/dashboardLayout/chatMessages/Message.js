@@ -24,19 +24,16 @@ const Message = ({
     socket.on("send Username", data => {
       setTestArray(testArray.concat(data + ": " + message));
       setCurrentMsgSent(data + ": " + message);
-
     });
-  }, [user]);//May need to double check on this one
+  }, [user]); //May need to double check on this one
 
-   useEffect(() => {
-     let msgPacket = {
-       currentMsgSent,
-       currentChatroomId
-     };
-
-      saveSentMsgs(msgPacket)
-
-   },[currentMsgSent]);
+  useEffect(() => {
+    let msgPacket = {
+      currentMsgSent,
+      currentChatroomId
+    };
+    saveSentMsgs(msgPacket);
+  }, [currentMsgSent]);
 
   return (
     <div className="messageContainer backgroundBlue">

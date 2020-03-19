@@ -20,10 +20,10 @@ const ConversationItems = ({ conversation, auth: { user }, clearMsgs, setCurrent
 
     });
 
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
+    // return () => {
+    //   socket.emit("disconnect");
+    //   socket.off();
+    // };
   },[endpoint]); //May need to change this
 
   useEffect(() => {
