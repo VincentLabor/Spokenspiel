@@ -34,9 +34,9 @@ const Message = ({
        currentChatroomId
      };
 
-     // saveSentMsgs(msgPacket)
+      saveSentMsgs(msgPacket)
 
-   },[testArray]);
+   },[currentMsgSent]);
 
   return (
     <div className="messageContainer backgroundBlue">

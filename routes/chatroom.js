@@ -22,10 +22,10 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-//@route    GET /api/chatroom/msgs/${chatroomData}
+//@route    PUT /api/chatroom/msgs/${chatroomData}
 //@desc     This is to grab the specific chatroom ID from clicking on a conversation
 //@access   Private: To only be seen by those logged in
-router.get("/msgs/:id", auth, async (req, res) => {
+router.put("/msgs/:id", auth, async (req, res) => {
   //Here these will be used as conditionals to send to front end the name of the friend in the conversation
   const { currentMsgSent } = req.body;
   let userInChatroom = await Chatroom.findByIdAndUpdate(req.params.id, {
@@ -54,6 +54,7 @@ router.post("/:id", auth, async (req, res) => {
       user2Name: otherUsersName.userName
     });
 
+    //To delete later. Reference for creating general chat
     // const chatForAll = new Chatroom({
     //   messages: "Greetings!"
     // });
