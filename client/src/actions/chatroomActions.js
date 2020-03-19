@@ -91,13 +91,12 @@ export const saveSentMsgs = msgData => async dispatch => {
   };
   console.log(msgData.currentMsgSent);
   try {
-     const res = await axios.put(
-       `/api/chatroom/msgs/${msgData.currentChatroomId}`,
-       msgData.currentMsgSent,
-       config
-     );
+     const res = await axios.put(`/api/chatroom/msgs/${msgData.currentChatroomId}`,msgData,config);
+
+     console.log(res.data)
      dispatch({ type: STORE_SENT_MSGS, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
+

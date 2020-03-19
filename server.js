@@ -31,26 +31,25 @@ const getApiAndEmit = "Hello World";
 const users = [];
 io.on("connection", socket => {
   let addedUser = false;
-  // console.log("A user has joined!");
+  console.log("A user has joined!");
   //  socket.on('join', ({name,room},callback)=>{
   //   socket.join(room);
 
   //   console.log(room)
   //  });
 
-  
   socket.on("send Username", username => {
     if (addedUser) return;
     socket.username = username;
     users.push(socket.username);
-     addedUser = true;
+    addedUser = true;
     console.log(socket.username);
     socket.emit("send Username", socket.username); //can do last of array. How to make separate element based on the username
   });
 
   socket.on("chat message", (msg, callback) => {
     io.emit("chat message", msg);
-     console.log("sending msg from " + socket.username + ": " + msg);
+    console.log("sending msg from " + socket.username + ": " + msg);
     callback(); //Having this enables the frontend to have a callbackfunction.
   });
 
@@ -76,5 +75,3 @@ app.use(index);
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-
-
