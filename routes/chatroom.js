@@ -55,12 +55,12 @@ router.post("/:id", auth, async (req, res) => {
     });
 
     //To delete later. Reference for creating general chat
-    // const chatForAll = new Chatroom({
-    //   messages: "Greetings!"
-    // });
+     const chatForAll = new Chatroom({
+       messages: " "
+     });
 
     const newChatroom = addingUsersToRoom.save();
-    // const genChat = chatForAll.save();
+     const genChat = chatForAll.save();
     res.json(addingUsersToRoom);
   } catch (err) {
     console.log(err);

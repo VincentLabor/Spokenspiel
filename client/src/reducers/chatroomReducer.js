@@ -4,7 +4,8 @@ import {
   GET_NAME_CHATROOM,
   STORE_MSGS,
   REMOVE_MSGS,
-  GET_CHATROOM_ID
+  GET_CHATROOM_ID,
+  SET_LOADING
 } from "../actions/types";
 
 const initialState = {
@@ -23,36 +24,47 @@ export default (state = initialState, action) => {
     case GET_CHATROOM:
       return {
         ...state,
-        chatrooms: [...action.payload]
+        chatrooms: [...action.payload],
+        loading: false
       };
     case GET_CHATROOM_ID:
       return {
         ...state,
-        currentChatroomId: action.payload
+        currentChatroomId: action.payload,
+        loading: false
       };
 
     case ADD_CHATROOM:
       console.log(action.payload);
       return {
         ...state,
-        chatrooms: [...state.chatrooms, action.payload]
+        chatrooms: [...state.chatrooms, action.payload],
+        loading: false
       };
     case GET_NAME_CHATROOM:
       console.log(action.payload);
       return {
         ...state,
-        currentChatroomName: action.payload
+        currentChatroomName: action.payload,
+        loading: false
       };
     case STORE_MSGS:
       return {
         ...state,
-        msgs: [...state.msgs, action.payload]
+        msgs: [...state.msgs, action.payload],
+        loading: false
       };
     case REMOVE_MSGS:
       return {
         ...state,
-        msgs: []
+        msgs: [],
+        loading: false
       };
+      case SET_LOADING :
+        return{
+          ...state,
+          loading: true
+        }
     default:
       return state;
   }

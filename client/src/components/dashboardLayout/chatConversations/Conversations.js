@@ -1,7 +1,7 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 
 import ConversationalItems from "./ConversationalItems";
-import {getUsersChatrooms} from "../../../actions/chatroomActions";
+import { getUsersChatrooms } from "../../../actions/chatroomActions";
 import { connect } from "react-redux";
 
 const Conversations = ({
@@ -9,10 +9,9 @@ const Conversations = ({
   chatroom: { chatrooms },
   getUsersChatrooms
 }) => {
-
-  useEffect(()=>{
+  useEffect(() => {
     getUsersChatrooms();
-  },[getUsersChatrooms]);
+  });
 
   return (
     <div>
@@ -20,7 +19,7 @@ const Conversations = ({
       {generalChatStatus ? <h3 className="cursorChg">General Chat</h3> : null}
       {/*TODO CSS class that makes a separate block for discerning different convos  */}
       {chatrooms
-        ? chatrooms.map(conversation =>( 
+        ? chatrooms.map(conversation => (
             <ConversationalItems
               conversation={conversation}
               key={conversation._id}
@@ -35,4 +34,4 @@ const mapStateToProps = state => ({
   chatroom: state.chatroom
 });
 
-export default connect(mapStateToProps, {getUsersChatrooms})(Conversations);
+export default connect(mapStateToProps, { getUsersChatrooms })(Conversations);

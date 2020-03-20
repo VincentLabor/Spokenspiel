@@ -14,31 +14,28 @@ const ConversationItems = ({ conversation, auth: { user }, clearMsgs, setCurrent
   const [room, setRoomName] = useState("");
   // const [userName, setUsername] = useState("");
 
+  socket = io(endpoint);
   useEffect(() => {
-    socket = io(endpoint);
-    socket.emit("join", (name, room) => {
 
-    });
+    // socket.emit("join", (name, room) => {
 
-    // return () => {
-    //   socket.emit("disconnect");
-    //   socket.off();
-    // };
+    // });
   },[endpoint]); //May need to change this
 
   useEffect(() => {
     setCurrentChatroomId(room);
-  }, [room]);
-
-  const onClick = () => {
-    // setUsername(user.userName);
-    setRoomName(conversation._id);
     getChatroomName(
       user.userName === conversation.user1Name
         ? conversation.user2Name
         : conversation.user1Name
     );
-    socket.emit("join room");
+  }, [room]);
+
+  const onClick = () => {
+    // setUsername(user.userName);
+    setRoomName(conversation._id);
+
+    // socket.emit("join room");
     //This should clear the current chatroom
     clearMsgs();
   };
