@@ -22,7 +22,7 @@ const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs }) => {
     socket = io(endpoint);
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
 
-  useEffect(() => {
+  useEffect(() => { //This causes the socketio connection to trigger a new user joining after sending msg
     socket.on("chat message", currentMsg => {
       saveMsgs(currentMsg);
     });
@@ -30,7 +30,6 @@ const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs }) => {
 
   const sendMessage = e => {
     e.preventDefault();
-
     if (currentMsg) {
       socket.emit("chat message", currentMsg, () => {
         setCurrentMsg("");

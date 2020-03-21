@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
 const connectDB = require("./config/db");
 const index = require("./routes/index");
@@ -26,7 +25,6 @@ const axios = require("axios");
 
 const server = http.createServer(app);
 const io = socketIo(server);
-const getApiAndEmit = "Hello World";
 
 const users = [];
 io.on("connection", socket => {
@@ -36,14 +34,14 @@ io.on("connection", socket => {
   //   socket.join(room);
   //  });
 
- socket.on("send Username", username => {
-   if (addedUser) return;
-   socket.username = username;
-   users.push(socket.username);
-   addedUser = true;
-   console.log(socket.username);
-   socket.emit("send Username", socket.username); //can do last of array. How to make separate element based on the username
-  });
+//  socket.on("send Username", username => {
+//    if (addedUser) return;
+//    socket.username = username;
+//    users.push(socket.username);
+//    addedUser = true;
+//    console.log(socket.username);
+//    socket.emit("send Username", socket.username); //can do last of array. How to make separate element based on the username
+//   });
 
   socket.on("chat message", (msg, callback) => {
     io.emit("chat message", msg); //This allows for both users to see the message
@@ -54,14 +52,6 @@ io.on("connection", socket => {
   // socket.on("join room", () => {
   //   // io.to('join room').emit("chat message");
   //   console.log("Someone has joined the room!!!!!!!!!@!@!!!");
-  // });
-
-  const error = false;
-
-  // socket.on("sendMessage", (message, callback) => {
-  //   //Here the backend will be waiting for the front end
-  //   io.emit("message", message);
-  //   callback();
   // });
 
   socket.on("disconnect", () => {
