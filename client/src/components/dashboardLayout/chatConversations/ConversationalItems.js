@@ -7,7 +7,6 @@ import {
   setCurrentChatroomId
 } from "../../../actions/chatroomActions";
 
-let socket;
 //Conversation may also refer to the chatrooms from the reducer
 const ConversationItems = ({
   conversation,
@@ -15,21 +14,7 @@ const ConversationItems = ({
   clearMsgs,
   setCurrentChatroomId
 }) => {
-  const endpoint = "localhost:5000";
   const [room, setRoomName] = useState("");
-  // const [userName, setUsername] = useState("");
-
-  // socket = io(endpoint);
-  useEffect(() => {
-    socket = io(endpoint);
-    // socket.emit("join", (name, room) => {
-    // });
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
-
-  }, [endpoint]); //May need to change this
 
   useEffect(() => {
     setCurrentChatroomId(room);

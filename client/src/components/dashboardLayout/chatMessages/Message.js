@@ -15,9 +15,7 @@ const Message = ({
   const [testArray, setTestArray] = useState([]);
   const [currentMsgSent, setCurrentMsgSent] = useState(null);
   const endpoint = "localhost:5000";
-  socket = io(endpoint);
-  const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     setCurrentMsgSent(user.userName + ": " + message);
   }, [user]); //May need to double check on this one
@@ -34,12 +32,9 @@ const Message = ({
   }, [currentMsgSent]);
 
   return (
+    //This needs to be mapped out like an array
     <div className="messageContainer backgroundBlue">
-      {!testArray
-        ? null
-        : testArray.map((separateMsg, i) => {
-            return <p key={i}>{separateMsg}</p>;
-          })}
+      <p>This needs</p>;
     </div>
   );
 };
