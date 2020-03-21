@@ -44,7 +44,7 @@ io.on("connection", socket => {
 //   });
 
   socket.on("chat message", (msg, callback) => {
-    io.emit("chat message", msg); //This allows for both users to see the message
+    socket.emit("chat message", msg); //This allows for both users to see the message
     console.log("sending msg from " + socket.username + ": " + msg);
     callback(); //Having this enables the frontend to have a callbackfunction.
   });
