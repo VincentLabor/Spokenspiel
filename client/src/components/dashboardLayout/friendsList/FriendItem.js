@@ -17,15 +17,11 @@ const FriendItem = ({ friend, deleteFriend, getFriends, addChatroom, getUsersCha
      getUsersChatrooms();
   }
 
-  const giveCode = () =>{
-  //  This may be used to extend csswise and show the options available
-  }
-
   return (
     <div className="cursorChg">
       {friend ? (
         <div className="friendContainer">
-          <p className="friendName" onClick={giveCode}>
+          <p className="friendName">
             {friend.userName}
           </p>
           <i className="fas fa-comment-alt trashIcon" onClick={openConvo}></i>

@@ -6,7 +6,8 @@ import {
   GET_NAME_CHATROOM,
   STORE_MSGS,
   REMOVE_MSGS,
-  STORE_SENT_MSGS
+  STORE_SENT_MSGS,
+  SET_LOADING
 } from "./types";
 
 export const getUsersChatrooms = () => async dispatch => {
@@ -72,11 +73,11 @@ export const setCurrentChatroomId = chatroomData => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-   console.log(chatroomData);
+  console.log(chatroomData);
   try {
     //  const res = await axios.get(`/api/chatroom/msgs/${chatroomData}`, config);
     // console.log(res.data)
-     dispatch({ type: GET_CHATROOM_ID, payload: chatroomData});
+    dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
   } catch (error) {
     console.log(error);
   }
@@ -89,14 +90,24 @@ export const saveSentMsgs = msgData => async dispatch => {
       "Content-Type": "application/json"
     }
   };
+  // dispatch(loading());
   console.log(msgData.currentMsgSent);
   try {
-     const res = await axios.put(`/api/chatroom/msgs/${msgData.currentChatroomId}`,msgData,config);
+    const res = await axios.put(
+      `/api/chatroom/msgs/${msgData.currentChatroomId}`,
+      msgData,
+      config
+    );
+    console.log(res.data);
 
-     console.log(res.data)
-     dispatch({ type: STORE_SENT_MSGS, payload: res.data });
+    dispatch({ type: STORE_SENT_MSGS, payload: res.data });
   } catch (error) {
     console.log(error);
   }
 };
 
+export const loading = () => {
+  return {
+    type: SET_LOADING
+  };
+};

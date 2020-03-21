@@ -34,21 +34,19 @@ io.on("connection", socket => {
   console.log("A user has joined!");
   //  socket.on('join', ({name,room},callback)=>{
   //   socket.join(room);
-
-  //   console.log(room)
   //  });
 
-  socket.on("send Username", username => {
-    if (addedUser) return;
-    socket.username = username;
-    users.push(socket.username);
-    addedUser = true;
-    console.log(socket.username);
-    socket.emit("send Username", socket.username); //can do last of array. How to make separate element based on the username
+ socket.on("send Username", username => {
+   if (addedUser) return;
+   socket.username = username;
+   users.push(socket.username);
+   addedUser = true;
+   console.log(socket.username);
+   socket.emit("send Username", socket.username); //can do last of array. How to make separate element based on the username
   });
 
   socket.on("chat message", (msg, callback) => {
-    io.emit("chat message", msg);
+    io.emit("chat message", msg); //This allows for both users to see the message
     console.log("sending msg from " + socket.username + ": " + msg);
     callback(); //Having this enables the frontend to have a callbackfunction.
   });
@@ -60,11 +58,11 @@ io.on("connection", socket => {
 
   const error = false;
 
-  socket.on("sendMessage", (message, callback) => {
-    //Here the backend will be waiting for the front end
-    io.emit("message", message);
-    callback();
-  });
+  // socket.on("sendMessage", (message, callback) => {
+  //   //Here the backend will be waiting for the front end
+  //   io.emit("message", message);
+  //   callback();
+  // });
 
   socket.on("disconnect", () => {
     console.log("client has disconnected");
