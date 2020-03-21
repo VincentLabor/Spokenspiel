@@ -34,8 +34,6 @@ io.on("connection", socket => {
   console.log("A user has joined!");
   //  socket.on('join', ({name,room},callback)=>{
   //   socket.join(room);
-
-  //   console.log(room)
   //  });
 
  socket.on("send Username", username => {
@@ -60,11 +58,11 @@ io.on("connection", socket => {
 
   const error = false;
 
-  socket.on("sendMessage", (message, callback) => {
-    //Here the backend will be waiting for the front end
-    io.emit("message", message);
-    callback();
-  });
+  // socket.on("sendMessage", (message, callback) => {
+  //   //Here the backend will be waiting for the front end
+  //   io.emit("message", message);
+  //   callback();
+  // });
 
   socket.on("disconnect", () => {
     console.log("client has disconnected");

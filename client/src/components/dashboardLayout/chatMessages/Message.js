@@ -17,16 +17,8 @@ const Message = ({
   const endpoint = "localhost:5000";
   socket = io(endpoint);
   const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
-    // //This sends the username to the backend
-    // socket.emit("send Username", user.userName);
-    // //This receives the username from the backend.
-    // socket.on("send Username", username => {
-    //   // setTestArray(testArray.concat(username + ": " + message));
-    //   // if(message){}
-      
-    // });
-
     setCurrentMsgSent(user.userName + ": " + message);
   }, [user]); //May need to double check on this one
 
@@ -36,10 +28,9 @@ const Message = ({
       currentChatroomId
     };
 
- if(currentMsgSent !== null && currentChatroomId !== null){
-   saveSentMsgs(msgPacket);
- }
- 
+    if (currentMsgSent !== null && currentChatroomId !== null) {
+      saveSentMsgs(msgPacket);
+    }
   }, [currentMsgSent]);
 
   return (

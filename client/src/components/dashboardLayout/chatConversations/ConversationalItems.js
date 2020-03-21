@@ -9,18 +9,27 @@ import {
 
 let socket;
 //Conversation may also refer to the chatrooms from the reducer
-const ConversationItems = ({ conversation, auth: { user }, clearMsgs, setCurrentChatroomId }) => {
+const ConversationItems = ({
+  conversation,
+  auth: { user },
+  clearMsgs,
+  setCurrentChatroomId
+}) => {
   const endpoint = "localhost:5000";
   const [room, setRoomName] = useState("");
   // const [userName, setUsername] = useState("");
 
-  socket = io(endpoint);
+  // socket = io(endpoint);
   useEffect(() => {
-
+    socket = io(endpoint);
     // socket.emit("join", (name, room) => {
-
     // });
-  },[endpoint]); //May need to change this
+    return () => {
+      socket.emit("disconnect");
+      socket.off();
+    };
+
+  }, [endpoint]); //May need to change this
 
   useEffect(() => {
     setCurrentChatroomId(room);
@@ -32,11 +41,9 @@ const ConversationItems = ({ conversation, auth: { user }, clearMsgs, setCurrent
   }, [room]);
 
   const onClick = () => {
-    // setUsername(user.userName);
     setRoomName(conversation._id);
 
-    // socket.emit("join room");
-    //This should clear the current chatroom
+    //Clears the chatroom
     clearMsgs();
   };
 

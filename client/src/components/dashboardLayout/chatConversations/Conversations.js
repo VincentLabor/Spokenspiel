@@ -9,9 +9,10 @@ const Conversations = ({
   chatroom: { chatrooms },
   getUsersChatrooms
 }) => {
+
   useEffect(() => {
     getUsersChatrooms();
-  });
+  }, [chatrooms]);
 
   return (
     <div>
