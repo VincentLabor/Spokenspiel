@@ -22,6 +22,12 @@ export const STORE_MSGS = "STORE_MSGS";
 export const STORE_SENT_MSGS = "STORE_SENT_MSGS";
 export const REMOVE_MSGS = "REMOVE_MSGS";
 
+//Specifically General Chat
+export const GENERAL_CHAT = "GENERAL_CHAT";
+export const ENTERING_GENERAL_CHAT = "ENTERING_GENERAL_CHAT";
+export const LEAVING_GENERAL_CHAT = "LEAVING_GENERAL_CHAT";
+
+
 //ETC
 export const SET_LOADING = "SET_LOADING";
 export const GET_ERRORS = "GET_ERRORS";

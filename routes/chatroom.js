@@ -22,6 +22,19 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+//@route    GET /api/chatroom/genChat
+//@desc     This entesr user into the general chat
+//@access   Public: To only be seen by those within the room
+router.get("/genChat", auth, async (req, res) => {
+  let findGenChat = await Chatroom.find({user1:null});
+
+  try {
+    res.json(findGenChat);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //@route    PUT /api/chatroom/msgs/${chatroomData}
 //@desc     This is to grab the specific chatroom ID from clicking on a conversation
 //@access   Private: To only be seen by those logged in
@@ -56,7 +69,7 @@ router.post("/:id", auth, async (req, res) => {
 
     //To delete later. Reference for creating general chat
      const chatForAll = new Chatroom({
-       messages: " "
+       messages: "Please be respectful to eachother"
      });
 
     const newChatroom = addingUsersToRoom.save();

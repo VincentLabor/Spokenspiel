@@ -5,7 +5,9 @@ import {
   STORE_MSGS,
   REMOVE_MSGS,
   GET_CHATROOM_ID,
-  SET_LOADING
+  SET_LOADING,
+  GENERAL_CHAT,
+  ENTERING_GENERAL_CHAT
 } from "../actions/types";
 
 const initialState = {
@@ -16,7 +18,8 @@ const initialState = {
   // filtered: null, Maybe will include
   usersInvolved: null,
   currentChatroomName: null,
-  msgs: []
+  msgs: [],
+  isTheUserInGeneralChat: true
 };
 
 export default (state = initialState, action) => {
@@ -33,7 +36,16 @@ export default (state = initialState, action) => {
         currentChatroomId: action.payload,
         loading: false
       };
-
+    case GENERAL_CHAT:
+      return {
+        ...state,
+        isTheUserInGeneralChat: state.isTheUserInGeneralChat
+      };
+     case ENTERING_GENERAL_CHAT:
+       return {
+         ...state
+    
+       };
     case ADD_CHATROOM:
       console.log(action.payload);
       return {
@@ -60,11 +72,11 @@ export default (state = initialState, action) => {
         msgs: [],
         loading: false
       };
-      case SET_LOADING :
-        return{
-          ...state,
-          loading: true
-        }
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: true
+      };
     default:
       return state;
   }

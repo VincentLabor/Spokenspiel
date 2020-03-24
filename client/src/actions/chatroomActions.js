@@ -7,7 +7,9 @@ import {
   STORE_MSGS,
   REMOVE_MSGS,
   STORE_SENT_MSGS,
-  SET_LOADING
+  SET_LOADING,
+  GENERAL_CHAT,
+  ENTERING_GENERAL_CHAT
 } from "./types";
 
 export const getUsersChatrooms = () => async dispatch => {
@@ -75,8 +77,6 @@ export const setCurrentChatroomId = chatroomData => async dispatch => {
   };
   console.log(chatroomData);
   try {
-    //  const res = await axios.get(`/api/chatroom/msgs/${chatroomData}`, config);
-    // console.log(res.data)
     dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
   } catch (error) {
     console.log(error);
@@ -104,6 +104,30 @@ export const saveSentMsgs = msgData => async dispatch => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const enterGeneralChat = () => async dispatch => {
+  try {
+     const res = await axios.get("/api/chatroom/genChat");
+     console.log(res.data);
+     dispatch({ type: ENTERING_GENERAL_CHAT, payload: res.data });
+  } catch (error) {
+    console.log("There is an error within enter General Chat" + error);
+  }
+};
+
+export const postInGeneralChat = async dispatch => {
+  try {
+    // const res = await axios.
+  } catch (error) {
+    console.log("There is an error within enter General Chat" + error);
+  }
+};
+
+export const userIsInGeneralChat = async dispatch => {
+  return {
+    type: GENERAL_CHAT
+  };
 };
 
 export const loading = () => {
