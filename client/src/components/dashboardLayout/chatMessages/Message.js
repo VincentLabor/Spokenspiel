@@ -4,8 +4,6 @@ import io from "socket.io-client";
 import { saveSentMsgs } from "../../../actions/chatroomActions";
 //we have to import users username here later
 
-let socket;
-
 const Message = ({
   message,
   auth: { user },
@@ -14,7 +12,7 @@ const Message = ({
 }) => {
   const [testArray, setTestArray] = useState([]);
   const [currentMsgSent, setCurrentMsgSent] = useState(null);
-  const endpoint = "localhost:5000";
+
 
   useEffect(() => {
     setCurrentMsgSent(user.userName + ": " + message);

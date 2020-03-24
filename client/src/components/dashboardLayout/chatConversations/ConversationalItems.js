@@ -27,8 +27,6 @@ const ConversationItems = ({
 
   const onClick = () => {
     setRoomName(conversation._id);
-
-    //Clears the chatroom
     clearMsgs();
   };
 
