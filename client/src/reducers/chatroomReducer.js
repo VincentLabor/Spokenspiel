@@ -43,8 +43,8 @@ export default (state = initialState, action) => {
       };
      case ENTERING_GENERAL_CHAT:
        return {
-         ...state
-    
+         ...state,
+        currentChatroomId: action.payload
        };
     case ADD_CHATROOM:
       console.log(action.payload);
