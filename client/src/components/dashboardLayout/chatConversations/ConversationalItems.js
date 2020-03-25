@@ -18,15 +18,18 @@ const ConversationItems = ({
 
   useEffect(() => {
     setCurrentChatroomId(room);
-    getChatroomName(
-      user.userName === conversation.user1Name
-        ? conversation.user2Name
-        : conversation.user1Name
-    );
+    if (user) {
+      getChatroomName(
+        user.userName === conversation.user1Name
+          ? conversation.user2Name
+          : conversation.user1Name
+      );
+    }
   }, [room]);
 
   const onClick = () => {
     setRoomName(conversation._id);
+
     clearMsgs();
   };
 

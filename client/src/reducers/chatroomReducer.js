@@ -7,7 +7,8 @@ import {
   GET_CHATROOM_ID,
   SET_LOADING,
   GENERAL_CHAT,
-  ENTERING_GENERAL_CHAT
+  ENTERING_GENERAL_CHAT,
+  REMOVE_ALL_CHATROOM
 } from "../actions/types";
 
 const initialState = {
@@ -19,7 +20,7 @@ const initialState = {
   usersInvolved: null,
   currentChatroomName: null,
   msgs: [],
-  isTheUserInGeneralChat: true
+  isTheUserInGeneralChat: true,
 };
 
 export default (state = initialState, action) => {
@@ -72,6 +73,18 @@ export default (state = initialState, action) => {
         msgs: [],
         loading: false
       };
+      case REMOVE_ALL_CHATROOM: 
+      return{
+        ...state,
+        chatrooms: [],
+        loading: false,
+        current: null,
+        currentChatroomId: null,
+        usersInvolved: null,
+        currentChatroomName: null,
+        msgs: [],
+        isTheUserInGeneralChat: true,
+      }
     case SET_LOADING:
       return {
         ...state,

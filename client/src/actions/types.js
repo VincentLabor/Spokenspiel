@@ -21,12 +21,12 @@ export const REMOVE_CHATROOM = "REMOVE_CHATROOM";
 export const STORE_MSGS = "STORE_MSGS";
 export const STORE_SENT_MSGS = "STORE_SENT_MSGS";
 export const REMOVE_MSGS = "REMOVE_MSGS";
+export const REMOVE_ALL_CHATROOM = "REMOVE_ALL_CHATROOM";
 
 //Specifically General Chat
 export const GENERAL_CHAT = "GENERAL_CHAT";
 export const ENTERING_GENERAL_CHAT = "ENTERING_GENERAL_CHAT";
 export const LEAVING_GENERAL_CHAT = "LEAVING_GENERAL_CHAT";
-
 
 //ETC
 export const SET_LOADING = "SET_LOADING";

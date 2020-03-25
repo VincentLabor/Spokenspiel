@@ -7,7 +7,7 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "socket.io-client";
-import { saveMsgs, saveSentMsgs } from "../../actions/chatroomActions";
+import { saveMsgs, saveSentMsgs, enterGeneralChat } from "../../actions/chatroomActions";
 
 let socket;
 
@@ -20,6 +20,7 @@ const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs }) => {
 
   useEffect(() => {
     socket = io(endpoint);
+
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
 
   useEffect(() => { //This causes the socketio connection to trigger a new user joining after sending msg
@@ -74,4 +75,4 @@ const mapStateToProps = state => ({
   chatroom: state.chatroom
 });
 
-export default connect(mapStateToProps, { saveMsgs, saveSentMsgs })(Dashboard);
+export default connect(mapStateToProps, { saveMsgs, saveSentMsgs, enterGeneralChat })(Dashboard);

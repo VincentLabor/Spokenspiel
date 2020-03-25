@@ -25,7 +25,7 @@ router.get("/", auth, async (req, res) => {
 //@route    GET /api/chatroom/genChat
 //@desc     This entesr user into the general chat
 //@access   Public: To only be seen by those within the room
-router.get("/genChat", auth, async (req, res) => {
+router.get("/genChat", async (req, res) => {
   let findGenChat = await Chatroom.find({user1:null});
 
   try {
