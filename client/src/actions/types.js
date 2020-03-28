@@ -14,6 +14,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 //Chatroom Related
 export const GET_CHATROOM = "GET_CHATROOM";
+export const GET_CHATROOM_MSGS = "GET_CHATROOM_MSGS";
 export const GET_CHATROOM_ID = "GET_CHATROOM_ID";
 export const GET_NAME_CHATROOM = "GET_NAME_CHATROOM";
 export const ADD_CHATROOM = "ADD_CHATROOM";

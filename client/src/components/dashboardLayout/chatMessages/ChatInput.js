@@ -1,14 +1,36 @@
-import React from "react";
+import React,{useState} from "react";
+import { connect } from "react-redux";
+import {saveSentMsgs} from '../../../actions/chatroomActions';
 
-const ChatInput = ({currentMsg, setCurrentMsg, sendMessage}) => {
+const ChatInput = ({
+  auth: { user },
+  currentMsg,
+  setCurrentMsg,
+  sendMessage,
+  chatroom:{currentChatroomId},
+  saveSentMsgs
+}) => {
+
+  const [currentMsgSent, setCurrentMsgSent] = useState("")
 
   const onChange = e => {
     setCurrentMsg(e.target.value);
+    setCurrentMsgSent(user.userName + " : "+ e.target.value)
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    sendMessage(e);
+    // sendMessage(e);
+    sendMessage(user.userName + " : " + e);
+     let msgPacket = {
+       currentMsgSent,
+       currentChatroomId
+     };
+
+     if (currentMsgSent !== null && currentChatroomId !== null) {
+      saveSentMsgs(msgPacket);
+    }
+
   };
 
   return (
@@ -19,10 +41,10 @@ const ChatInput = ({currentMsg, setCurrentMsg, sendMessage}) => {
             type="text"
             className="chatboxInput"
             value={currentMsg}
-            onChange = {onChange}
+            onChange={onChange}
             name="msg"
             placeholder="Send a message"
-            autoComplete = "off"
+            autoComplete="off"
             autoFocus
           ></input>
           <button type="submit" className="chatboxBtn ">
@@ -34,4 +56,9 @@ const ChatInput = ({currentMsg, setCurrentMsg, sendMessage}) => {
   );
 };
 
-export default ChatInput;
+const mapStateToProps = state => ({
+  auth: state.auth,
+  chatroom: state.chatroom
+});
+
+export default connect(mapStateToProps, {saveSentMsgs})(ChatInput);

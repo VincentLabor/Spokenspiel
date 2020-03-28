@@ -23,5 +23,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(ChatMessages);
-
-//1:29 what we need input

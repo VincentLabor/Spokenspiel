@@ -24,6 +24,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_FRIENDS:
+      console.log(action.payload)
       return {
         ...state,
         friends: action.payload

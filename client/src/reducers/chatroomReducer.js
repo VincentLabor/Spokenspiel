@@ -8,7 +8,9 @@ import {
   SET_LOADING,
   GENERAL_CHAT,
   ENTERING_GENERAL_CHAT,
-  REMOVE_ALL_CHATROOM
+  REMOVE_ALL_CHATROOM,
+  GET_CHATROOM_MSGS,
+  STORE_SENT_MSGS
 } from "../actions/types";
 
 const initialState = {
@@ -61,16 +63,27 @@ export default (state = initialState, action) => {
         currentChatroomName: action.payload,
         loading: false
       };
-    case STORE_MSGS:
-      return {
-        ...state,
-        msgs: [...state.msgs, action.payload],
-        loading: false
-      };
+     case STORE_MSGS:
+       return {
+         ...state,
+         msgs: [...state.msgs, action.payload],
+         loading: false
+       };
+    //  case STORE_SENT_MSGS: 
+    //  return {
+    //    ...state,
+    //    msgs:[...state.msgs, action.payload]
+    //  }  
+     case GET_CHATROOM_MSGS: 
+     console.log(action.payload)
+     return{
+       ...state,
+       msgs: action.payload
+     }  //I have to figure out how to synch this with the other reducer that affects the state
     case REMOVE_MSGS:
       return {
         ...state,
-        msgs: [],
+        msgs: null,
         loading: false
       };
       case REMOVE_ALL_CHATROOM: 
