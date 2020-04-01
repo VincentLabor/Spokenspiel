@@ -2,7 +2,6 @@ import React from "react";
 
 import { connect} from "react-redux";
 
-//import scrolltobottom react-scroll-to-the-bottom 1:30
 import Message from "./Message";
 
 const ChatMessages = ({chatroom: { msgs } }) => {
@@ -23,5 +22,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(ChatMessages);
-
-//1:29 what we need input

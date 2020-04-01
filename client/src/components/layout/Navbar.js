@@ -3,32 +3,39 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
+import { clearAllChatroomState } from "../../actions/chatroomActions";
 
-import {clearAll} from "../../actions/friendActions";
+import { clearAll } from "../../actions/friendActions";
 
-const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser,clearAll }) => {
+const Navbar = ({
+  auth: { token, user, isAuthenticated },
+  clearState,
+  loadUser,
+  clearAll,
+  clearAllChatroomState
+}) => {
   const history = useHistory();
 
   const onClick = e => {
     if (token) {
       clearState();
       clearAll();
+      clearAllChatroomState();
       history.push("/login");
     } else {
       console.log("nothing happened");
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     // if(token && !isAuthenticated){
     //   loadUser();
     //     };
     //Temporary code for development. please remove after development
-    if(token){
+    if (token) {
       loadUser();
     }
-
-  },[loadUser,isAuthenticated, token])
+  }, [loadUser, isAuthenticated, token]);
 
   const guestLinks = (
     <Fragment>
@@ -47,7 +54,7 @@ const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser,c
 
   // const greetUser = () => (
   //   <Fragment>
-      
+
   //   </Fragment>
   // );
 
@@ -72,7 +79,7 @@ const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser,c
         </h1>
       </div>
       <ul className="flexRight">
-      <li> {user ? ("Greetings, " + user.userName): null }</li> 
+        <li> {user ? "Greetings, " + user.userName : null}</li>
         <li>
           <Link to="/about" className="clear">
             About
@@ -80,7 +87,11 @@ const Navbar = ({ auth: { token, user, isAuthenticated }, clearState, loadUser,c
         </li>
 
         {!token ? guestLinks : null}
-        {!token ? null : <li onClick={onClick} className="clear">Logout</li>}
+        {!token ? null : (
+          <li onClick={onClick} className="clear">
+            Logout
+          </li>
+        )}
       </ul>
     </nav>
   );
@@ -90,4 +101,9 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { clearState, loadUser,clearAll })(Navbar);
+export default connect(mapStateToProps, {
+  clearState,
+  loadUser,
+  clearAll,
+  clearAllChatroomState
+})(Navbar);

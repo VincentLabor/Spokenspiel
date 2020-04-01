@@ -9,7 +9,9 @@ import {
   STORE_SENT_MSGS,
   SET_LOADING,
   GENERAL_CHAT,
-  ENTERING_GENERAL_CHAT
+  ENTERING_GENERAL_CHAT,
+  REMOVE_ALL_CHATROOM,
+  GET_CHATROOM_MSGS
 } from "./types";
 
 export const getUsersChatrooms = () => async dispatch => {
@@ -18,13 +20,55 @@ export const getUsersChatrooms = () => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-
   try {
     const res = await axios.get("/api/chatroom/", config);
     dispatch({ type: GET_CHATROOM, payload: res.data });
     // console.log(res.data);
   } catch (err) {
     console.log(err);
+  }
+};
+
+//This will grab the messages from the chatroom
+export const getMessagesFromDB = (chatId) => async dispatch => {
+  try {
+    console.log(chatId);
+    const res = await axios.get(`/api/chatroom/msgs/${chatId}`);
+    console.log(res.data);
+     dispatch(clearMsgs());
+     dispatch({ type: GET_CHATROOM_MSGS, payload: res.data.messages });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//This will save messages typed by the user into the database
+export const saveSentMsgs = msgData => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+  // dispatch(loading());
+  // console.log(msgData.currentMsgSent);
+  try {
+    const res = await axios.put(
+      `/api/chatroom/msgs/${msgData.currentChatroomId}`,
+      msgData,
+      config
+    );
+    // console.log(res.data);
+    dispatch({ type: STORE_SENT_MSGS, payload: res.data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveMsgs = chatData => async dispatch => {
+  try {
+    dispatch({ type: STORE_MSGS, payload: chatData });
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -43,17 +87,17 @@ export const addChatroom = friendData => async dispatch => {
   }
 };
 
-export const saveMsgs = chatData => async dispatch => {
+export const clearMsgs = () => async dispatch => {
   try {
-    dispatch({ type: STORE_MSGS, payload: chatData });
+    dispatch({ type: REMOVE_MSGS });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const clearMsgs = () => async dispatch => {
+export const clearAllChatroomState = () => async dispatch => {
   try {
-    dispatch({ type: REMOVE_MSGS });
+    dispatch({ type: REMOVE_ALL_CHATROOM });
   } catch (error) {
     console.log(error);
   }
@@ -75,7 +119,6 @@ export const setCurrentChatroomId = chatroomData => async dispatch => {
       "Content-Type": "application/json"
     }
   };
-  console.log(chatroomData);
   try {
     dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
   } catch (error) {
@@ -83,34 +126,10 @@ export const setCurrentChatroomId = chatroomData => async dispatch => {
   }
 };
 
-//This will save messages typed by the user into the database
-export const saveSentMsgs = msgData => async dispatch => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-  // dispatch(loading());
-  console.log(msgData.currentMsgSent);
-  try {
-    const res = await axios.put(
-      `/api/chatroom/msgs/${msgData.currentChatroomId}`,
-      msgData,
-      config
-    );
-    console.log(res.data);
-
-    dispatch({ type: STORE_SENT_MSGS, payload: res.data });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const enterGeneralChat = () => async dispatch => {
   try {
-     const res = await axios.get("/api/chatroom/genChat");
-     console.log(res.data);
-     dispatch({ type: ENTERING_GENERAL_CHAT, payload: res.data });
+    const res = await axios.get("/api/chatroom/genChat");
+    dispatch({ type: ENTERING_GENERAL_CHAT, payload: res.data[0]._id });
   } catch (error) {
     console.log("There is an error within enter General Chat" + error);
   }

@@ -14,6 +14,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 //Chatroom Related
 export const GET_CHATROOM = "GET_CHATROOM";
+export const GET_CHATROOM_MSGS = "GET_CHATROOM_MSGS";
 export const GET_CHATROOM_ID = "GET_CHATROOM_ID";
 export const GET_NAME_CHATROOM = "GET_NAME_CHATROOM";
 export const ADD_CHATROOM = "ADD_CHATROOM";
@@ -21,12 +22,12 @@ export const REMOVE_CHATROOM = "REMOVE_CHATROOM";
 export const STORE_MSGS = "STORE_MSGS";
 export const STORE_SENT_MSGS = "STORE_SENT_MSGS";
 export const REMOVE_MSGS = "REMOVE_MSGS";
+export const REMOVE_ALL_CHATROOM = "REMOVE_ALL_CHATROOM";
 
 //Specifically General Chat
 export const GENERAL_CHAT = "GENERAL_CHAT";
 export const ENTERING_GENERAL_CHAT = "ENTERING_GENERAL_CHAT";
 export const LEAVING_GENERAL_CHAT = "LEAVING_GENERAL_CHAT";
-
 
 //ETC
 export const SET_LOADING = "SET_LOADING";

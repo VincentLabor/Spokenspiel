@@ -7,11 +7,11 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "socket.io-client";
-import { saveMsgs, saveSentMsgs } from "../../actions/chatroomActions";
+import { saveMsgs, saveSentMsgs} from "../../actions/chatroomActions";
 
 let socket;
 
-const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs }) => {
+const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs, auth:{user} }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [messages, setMessages] = useState([]); //The whole array of messsages
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
@@ -20,18 +20,18 @@ const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs }) => {
 
   useEffect(() => {
     socket = io(endpoint);
+
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
 
-  useEffect(() => { //This causes the socketio connection to trigger a new user joining after sending msg
+  useEffect(() => {
     socket.on("chat message", currentMsg => {
       saveMsgs(currentMsg);
     });
   }, [messages]); //Check back on this
 
   const sendMessage = e => {
-    e.preventDefault();
     if (currentMsg) {
-      socket.emit("chat message", currentMsg, () => {
+      socket.emit("chat message", (user.userName + " : " + currentMsg), () => {
         setCurrentMsg("");
       });
     }
@@ -74,4 +74,4 @@ const mapStateToProps = state => ({
   chatroom: state.chatroom
 });
 
-export default connect(mapStateToProps, { saveMsgs, saveSentMsgs })(Dashboard);
+export default connect(mapStateToProps, { saveMsgs, saveSentMsgs})(Dashboard);

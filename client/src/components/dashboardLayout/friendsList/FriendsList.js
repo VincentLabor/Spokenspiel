@@ -111,11 +111,13 @@ const FriendsList = ({
         {friendTab === true ? (
           <div className="flexWrapperRow">
             {/*Checks if user has friends and displays them*/}
+
             {friends
               ? friends.map(friend => (
                   <FriendItem friend={friend} key={friend._id} />
                 ))
               : "Add some friends to get started."}
+              
           </div>
         ) : null}
 

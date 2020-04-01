@@ -4,34 +4,59 @@ import io from "socket.io-client";
 import {
   getChatroomName,
   clearMsgs,
-  setCurrentChatroomId
+  setCurrentChatroomId,
+  getMessagesFromDB,
+  enterGeneralChat
 } from "../../../actions/chatroomActions";
 
 //Conversation may also refer to the chatrooms from the reducer
 const ConversationItems = ({
   conversation,
   auth: { user },
+  chatroom: { currentChatroomId },
   clearMsgs,
-  setCurrentChatroomId
+  setCurrentChatroomId,
+  getMessagesFromDB,
+  generalChatStatus,
+  enterGeneralChat
 }) => {
   const [room, setRoomName] = useState("");
+  const [currentRoom, setCurrentRoom] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setCurrentChatroomId(room);
-    getChatroomName(
-      user.userName === conversation.user1Name
-        ? conversation.user2Name
-        : conversation.user1Name
-    );
+    if (user) {
+      getChatroomName(
+        user.userName === conversation.user1Name
+          ? conversation.user2Name
+          : conversation.user1Name
+      );
+    }
   }, [room]);
 
   const onClick = () => {
-    setRoomName(conversation._id);
     clearMsgs();
+    setRoomName(conversation._id);
+    getMessagesFromDB(conversation._id);
+  };
+
+  const enteringGenChat = () => {
+    clearMsgs();
+    if (conversation) {
+      enterGeneralChat();
+    }
+    if (currentChatroomId) {
+      getMessagesFromDB(currentChatroomId);
+    }
+    //here i should change where the messages get posted to?
   };
 
   return (
     <div>
+      {/* <h3 className="cursorChg" onClick={enteringGenChat}>
+        General Chat
+      </h3> */}
       {conversation ? (
         <h3 className="cursorChg convoItem" onClick={onClick}>
           {(user && user.userName) === conversation.user1Name
@@ -51,5 +76,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getChatroomName,
   clearMsgs,
-  setCurrentChatroomId
+  setCurrentChatroomId,
+  getMessagesFromDB,
+  enterGeneralChat
 })(ConversationItems);

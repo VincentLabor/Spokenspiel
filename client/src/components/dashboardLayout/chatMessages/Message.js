@@ -7,32 +7,19 @@ import { saveSentMsgs } from "../../../actions/chatroomActions";
 const Message = ({
   message,
   auth: { user },
-  chatroom: { currentChatroomId },
+  chatroom: { currentChatroomId,msgs },
   saveSentMsgs
 }) => {
-  const [testArray, setTestArray] = useState([]);
   const [currentMsgSent, setCurrentMsgSent] = useState(null);
 
-
-  useEffect(() => {
-    setCurrentMsgSent(user.userName + ": " + message);
-  }, [user]); //May need to double check on this one
-
-  useEffect(() => {
-    let msgPacket = {
-      currentMsgSent,
-      currentChatroomId
-    };
-
-    if (currentMsgSent !== null && currentChatroomId !== null) {
-      saveSentMsgs(msgPacket);
-    }
-  }, [currentMsgSent]);
+  // useEffect(()=>{
+  //   setCurrentMsgSent(message)
+  // })
 
   return (
     //This needs to be mapped out like an array
     <div className="messageContainer backgroundBlue">
-      <p>This needs</p>;
+      <p>{message}</p>
     </div>
   );
 };
