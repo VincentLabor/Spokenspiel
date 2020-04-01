@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import {getMessagesFromDB} from "../../../actions/chatroomActions"
 import ConversationalItems from "./ConversationalItems";
 import {
   getUsersChatrooms,
@@ -13,27 +13,31 @@ const Conversations = ({
   chatroom: { chatrooms,currentChatroomId },
   getUsersChatrooms,
   clearMsgs,
-  enterGeneralChat
+  enterGeneralChat,
+  getMessagesFromDB
 }) => {
 
   useEffect(() => {
     getUsersChatrooms();
   }, [chatrooms]);
 
-  // const enteringGenChat = () => {
-  //   clearMsgs();
-  //   enterGeneralChat();
-  //   getMessagesFromDB(conversation._id);
-  //   //here i should change where the messages get posted to?
-  // };
-
-// if(!currentChatroomId){
-//   enterGeneralChat();
-// }
+  const enteringGenChat = () => {
+    clearMsgs();
+    
+      enterGeneralChat();
+    
+    if (currentChatroomId) {
+      getMessagesFromDB(currentChatroomId);
+    }
+    //here i should change where the messages get posted to?
+  };
 
   return (
     <div>
       Conversations
+      <h3 className="cursorChg" onClick={enteringGenChat}>
+        General Chat
+      </h3> 
       {/*TODO CSS class that makes a separate block for discerning different convos  */}
       {chatrooms
         ? chatrooms.map(conversation => (
@@ -41,7 +45,6 @@ const Conversations = ({
             generalChatStatus={generalChatStatus}
               conversation={conversation}
               key={conversation._id}
-
             />
           ))
         : null}
@@ -56,5 +59,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getUsersChatrooms,
   clearMsgs,
-  enterGeneralChat
+  enterGeneralChat,
+  getMessagesFromDB
 })(Conversations);

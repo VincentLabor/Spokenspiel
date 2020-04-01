@@ -86,7 +86,7 @@ router.post("/:id", auth, async (req, res) => {
        });
 
     const newChatroom = addingUsersToRoom.save();
-    const genChat = chatForAll.save();
+  //  const genChat = chatForAll.save();
     res.json(addingUsersToRoom);
   } catch (err) {
     console.log(err);

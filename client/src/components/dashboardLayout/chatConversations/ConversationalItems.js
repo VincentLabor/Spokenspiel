@@ -13,6 +13,7 @@ import {
 const ConversationItems = ({
   conversation,
   auth: { user },
+  chatroom: { currentChatroomId },
   clearMsgs,
   setCurrentChatroomId,
   getMessagesFromDB,
@@ -21,7 +22,7 @@ const ConversationItems = ({
 }) => {
   const [room, setRoomName] = useState("");
   const [currentRoom, setCurrentRoom] = useState("");
-
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setCurrentChatroomId(room);
@@ -31,7 +32,6 @@ const ConversationItems = ({
           ? conversation.user2Name
           : conversation.user1Name
       );
-        
     }
   }, [room]);
 
@@ -43,21 +43,20 @@ const ConversationItems = ({
 
   const enteringGenChat = () => {
     clearMsgs();
-   if(conversation){
-    enterGeneralChat();
-    getMessagesFromDB(conversation._id);
-   }
+    if (conversation) {
+      enterGeneralChat();
+    }
+    if (currentChatroomId) {
+      getMessagesFromDB(currentChatroomId);
+    }
     //here i should change where the messages get posted to?
   };
 
-
   return (
     <div>
-      {generalChatStatus ? (
-        <h3 className="cursorChg" onClick={enteringGenChat}>
-          General Chat
-        </h3>
-      ) : null}
+      {/* <h3 className="cursorChg" onClick={enteringGenChat}>
+        General Chat
+      </h3> */}
       {conversation ? (
         <h3 className="cursorChg convoItem" onClick={onClick}>
           {(user && user.userName) === conversation.user1Name
