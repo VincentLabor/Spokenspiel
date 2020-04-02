@@ -22,7 +22,7 @@ const ConversationItems = ({
 }) => {
   const [room, setRoomName] = useState("");
   const [currentRoom, setCurrentRoom] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setCurrentChatroomId(room);
@@ -36,27 +36,35 @@ const ConversationItems = ({
   }, [room]);
 
   const onClick = () => {
-    clearMsgs();
-    setRoomName(conversation._id);
-    getMessagesFromDB(conversation._id);
+    setLoaded(false); //This prevents the users from constantly reloading the chat. May remove for testing purposes.
+    if (loaded === false) {
+      setLoaded(true);
+      clearMsgs();
+      setRoomName(conversation._id);
+      getMessagesFromDB(conversation._id);
+    }
   };
 
-  const enteringGenChat = () => {
-    clearMsgs();
-    if (conversation) {
-      enterGeneralChat();
-    }
-    if (currentChatroomId) {
-      getMessagesFromDB(currentChatroomId);
-    }
-    //here i should change where the messages get posted to?
-  };
+  // const enteringGenChat = () => {
+  //   clearMsgs();
+  //   if (conversation) {
+  //     enterGeneralChat();
+  //   }
+  //   if(currentChatroomId){
+  //     setRoomName(currentChatroomId)
+  //     getMessagesFromDB(currentChatroomId);
+
+  //   }
+  //   //here i should change where the messages get posted to?
+  // };
+
+  //What if i changed where actions sent their payloads. like what if all the payloads went to the same state
 
   return (
     <div>
       {/* <h3 className="cursorChg" onClick={enteringGenChat}>
-        General Chat
-      </h3> */}
+          General Chat
+        </h3> */}
       {conversation ? (
         <h3 className="cursorChg convoItem" onClick={onClick}>
           {(user && user.userName) === conversation.user1Name
