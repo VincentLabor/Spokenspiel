@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getMessagesFromDB } from "../../../actions/chatroomActions";
+import {
+  getMessagesFromDB,
+  setCurrentChatroomId
+} from "../../../actions/chatroomActions";
 import ConversationalItems from "./ConversationalItems";
 import {
   getUsersChatrooms,
@@ -14,19 +17,24 @@ const Conversations = ({
   getUsersChatrooms,
   clearMsgs,
   enterGeneralChat,
-  getMessagesFromDB
+  getMessagesFromDB,
+  setCurrentChatroomId
 }) => {
+
+  const [genRoom, setGenRoom] = useState("");
+
   useEffect(() => {
     getUsersChatrooms();
   }, [chatrooms]);
 
-  const enteringGenChat = () => {
-    clearMsgs();
+  useEffect(() => {
     enterGeneralChat();
+   
+  }, [currentChatroomId]);
 
+  const enteringGenChat = () => {
     getMessagesFromDB(currentChatroomId);
-
-    //here i should change where the messages get posted to?
+    console.log(currentChatroomId);
   };
 
   return (
@@ -35,7 +43,7 @@ const Conversations = ({
       <h3 className="cursorChg" onClick={enteringGenChat}>
         General Chat
       </h3>
-      {/*TODO CSS class that makes a separate block for discerning different convos  */}
+      {/*TODO CSS class that makes a separate block for discerning different convos*/}
       {chatrooms
         ? chatrooms.map(conversation => (
             <ConversationalItems
@@ -57,5 +65,6 @@ export default connect(mapStateToProps, {
   getUsersChatrooms,
   clearMsgs,
   enterGeneralChat,
-  getMessagesFromDB
+  getMessagesFromDB,
+  setCurrentChatroomId
 })(Conversations);

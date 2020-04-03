@@ -114,13 +114,16 @@ export const getChatroomName = friendData => async dispatch => {
 
 //This is a setup towards another action. May be subject to deletion.
 export const setCurrentChatroomId = chatroomData => async dispatch => {
-  const config = {
-    header: {
-      "Content-Type": "application/json"
-    }
-  };
+  // const config = {
+  //   header: {
+  //     "Content-Type": "application/json"
+  //   }
+  // };
+
+  const chatter = chatroomData;
+
   try {
-    dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
+    dispatch({ type: GET_CHATROOM_ID, payload: chatter });
   } catch (error) {
     console.log(error);
   }

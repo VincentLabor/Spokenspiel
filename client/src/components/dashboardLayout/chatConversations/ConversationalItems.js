@@ -22,7 +22,7 @@ const ConversationItems = ({
 }) => {
   const [room, setRoomName] = useState("");
   const [currentRoom, setCurrentRoom] = useState("");
-  const [loaded, setLoaded] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     setCurrentChatroomId(room);
@@ -36,27 +36,10 @@ const ConversationItems = ({
   }, [room]);
 
   const onClick = () => {
-    setLoaded(false); //This prevents the users from constantly reloading the chat. May remove for testing purposes.
-    if (loaded === false) {
-      setLoaded(true);
-      clearMsgs();
+    //This prevents the users from
       setRoomName(conversation._id);
       getMessagesFromDB(conversation._id);
-    }
   };
-
-  // const enteringGenChat = () => {
-  //   clearMsgs();
-  //   if (conversation) {
-  //     enterGeneralChat();
-  //   }
-  //   if(currentChatroomId){
-  //     setRoomName(currentChatroomId)
-  //     getMessagesFromDB(currentChatroomId);
-
-  //   }
-  //   //here i should change where the messages get posted to?
-  // };
 
   //What if i changed where actions sent their payloads. like what if all the payloads went to the same state
 
@@ -66,7 +49,7 @@ const ConversationItems = ({
           General Chat
         </h3> */}
       {conversation ? (
-        <h3 className="cursorChg convoItem" onClick={onClick}>
+        <h3 className="cursorChg convoItem"  onClick={onClick}>
           {(user && user.userName) === conversation.user1Name
             ? conversation.user2Name
             : conversation.user1Name}
@@ -88,3 +71,23 @@ export default connect(mapStateToProps, {
   getMessagesFromDB,
   enterGeneralChat
 })(ConversationItems);
+
+
+  // const enteringGenChat = () => {
+  //   clearMsgs();
+  //   if (conversation) {
+  //     enterGeneralChat();
+  //   }
+  //   if(currentChatroomId){
+  //     setRoomName(currentChatroomId)
+  //     getMessagesFromDB(currentChatroomId);
+
+  //   }
+  //   //here i should change where the messages get posted to?
+  // };
+
+
+
+  // className={
+  //   selected ? "cursorChg convoItem highlight" : "cursorChg convoItem"
+  // }
