@@ -432,6 +432,11 @@ nav li {
   background-color: whitesmoke;
 }
 
+
+.highlight{
+  background-color: whitesmoke;
+}
+
 /* Alerts */
 .alert {
   padding: 0.7rem;
