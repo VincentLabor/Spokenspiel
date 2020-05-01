@@ -79,7 +79,7 @@ const Navbar = ({
         </h1>
       </div>
       <ul className="flexRight">
-        <li> {user ? "Greetings, " + user.userName : null}</li>
+        <li> {user ? (<h4>Greetings, {user.userName}</h4>) : null}</li>
         <li>
           <Link to="/about" className="clear">
             About

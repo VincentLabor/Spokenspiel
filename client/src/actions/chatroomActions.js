@@ -11,7 +11,8 @@ import {
   GENERAL_CHAT,
   ENTERING_GENERAL_CHAT,
   REMOVE_ALL_CHATROOM,
-  GET_CHATROOM_MSGS
+  GET_CHATROOM_MSGS,
+  GET_SPECIFIC_CHATROOM
 } from "./types";
 
 export const getUsersChatrooms = () => async dispatch => {
@@ -72,13 +73,29 @@ export const saveMsgs = chatData => async dispatch => {
   }
 };
 
+export const chatroomCheck = friendData => async dispatch =>{
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+};
+
+try {
+  const res = await axios.get(`api/chatroom/${friendData}`, config);
+  console.log(res.data)
+  dispatch({type: GET_SPECIFIC_CHATROOM, payload: res.data})
+} catch (error) {
+  console.log(error)
+}
+}
+
 export const addChatroom = friendData => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json"
     }
   };
-  console.log("This is the friendData" + friendData);
+  console.log("This is the friendData " + friendData);
   try {
     const res = await axios.post(`/api/chatroom/${friendData}`, config);
     dispatch({ type: ADD_CHATROOM, payload: res.data });

@@ -49,11 +49,11 @@ const ConversationItems = ({
           General Chat
         </h3> */}
       {conversation ? (
-        <h3 className="cursorChg convoItem"  onClick={onClick}>
+        <p className="cursorChg convoItem"  onClick={onClick}>
           {(user && user.userName) === conversation.user1Name
             ? conversation.user2Name
             : conversation.user1Name}
-        </h3>
+        </p>
       ) : null}
     </div>
   );

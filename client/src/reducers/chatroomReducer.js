@@ -10,6 +10,7 @@ import {
   ENTERING_GENERAL_CHAT,
   REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
+  GET_SPECIFIC_CHATROOM
 } from "../actions/types";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
   currentChatroomName: null,
   msgs: [],
   isTheUserInGeneralChat: true,
+  chatRoomExists: null
 };
 
 export default (state = initialState, action) => {
@@ -44,13 +46,17 @@ export default (state = initialState, action) => {
         isTheUserInGeneralChat: state.isTheUserInGeneralChat
       };
      case ENTERING_GENERAL_CHAT:
-       console.log(action.payload)
        return {
          ...state,
         currentChatroomId: action.payload
        };
-    case ADD_CHATROOM:
+    case GET_SPECIFIC_CHATROOM:
       console.log(action.payload);
+      return {
+        ...state,
+        chatRoomExists: action.payload
+      }   
+    case ADD_CHATROOM:
       return {
         ...state,
         chatrooms: [...state.chatrooms, action.payload],
