@@ -26,7 +26,7 @@ const FriendItem = ({
     //create a convoCheck
     chatroomCheck(friend._id);
     console.log(chatroomCheck(friend._id)) //The if statement does not work for some reason. The functiopn works properly
-    if(!chatRoomExists){
+    if(chatRoomExists === false){
       return null;
     } else {
       addChatroom(friend._id);
