@@ -65,12 +65,33 @@ router.put("/msgs/:id", auth, async (req, res) => {
   }
 });
 
+//@route    GET /api/chatroom/:id
+//@desc     This is search for a chatroom.
+//@access   Private: To only be seen by those within the room
+router.get("/:id", auth, async (req, res) => {
+  let currentUserName = await User.findById(req.user._id);
+  let otherUsersName = await User.findById(req.params.id);
+
+  let chatroomExists = await Chatroom.find({
+    $cond: { if: 
+      {user1: { $in: [req.user._id, req.params._id] },
+      user2: { $in: [req.user._id, req.params._id] }}, then: res.json(false)
+    }
+  });
+
+  res.json(chatroomExists);
+
+  //This works but I need to make this work in conjuction
+});
+
 //@route    POST /api/chatroom/:id
 //@desc     This is to create a room and add 2 users to it.
 //@access   Private: To only be seen by those within the room
 router.post("/:id", auth, async (req, res) => {
   let currentUserName = await User.findById(req.user._id);
   let otherUsersName = await User.findById(req.params.id);
+
+  // let alreadyExists = await
 
   try {
     const addingUsersToRoom = new Chatroom({
@@ -81,12 +102,12 @@ router.post("/:id", auth, async (req, res) => {
     });
 
     //To delete later. Reference for creating general chat
-      const chatForAll = new Chatroom({
-       messages: "Please be respectful to eachother"
-       });
+    const chatForAll = new Chatroom({
+      messages: "Please be respectful to eachother"
+    });
 
     const newChatroom = addingUsersToRoom.save();
-  //  const genChat = chatForAll.save();
+    //  const genChat = chatForAll.save();
     res.json(addingUsersToRoom);
   } catch (err) {
     console.log(err);

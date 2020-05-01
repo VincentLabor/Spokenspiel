@@ -15,13 +15,9 @@ const Conversations = ({
   generalChatStatus,
   chatroom: { chatrooms, currentChatroomId },
   getUsersChatrooms,
-  clearMsgs,
   enterGeneralChat,
   getMessagesFromDB,
-  setCurrentChatroomId
 }) => {
-
-  const [genRoom, setGenRoom] = useState("");
 
   useEffect(() => {
     getUsersChatrooms();
@@ -29,20 +25,21 @@ const Conversations = ({
 
   useEffect(() => {
     enterGeneralChat();
-   
   }, [currentChatroomId]);
+  //Will load the genchat id and will only reload if the other chat ID's are loaded in the state
+
+  //Find a way to load general chat first using useEffect
 
   const enteringGenChat = () => {
-    getMessagesFromDB(currentChatroomId);
-    console.log(currentChatroomId);
+    getMessagesFromDB(currentChatroomId); //On click, the general Chat should now load properly
   };
 
   return (
     <div>
-      Conversations
-      <h3 className="cursorChg" onClick={enteringGenChat}>
+      <h2>Conversations</h2>
+      <p className="cursorChg convoItem" onClick={enteringGenChat}>
         General Chat
-      </h3>
+      </p>
       {/*TODO CSS class that makes a separate block for discerning different convos*/}
       {chatrooms
         ? chatrooms.map(conversation => (
