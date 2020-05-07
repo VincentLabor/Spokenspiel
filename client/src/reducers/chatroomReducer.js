@@ -51,7 +51,6 @@ export default (state = initialState, action) => {
         currentChatroomId: action.payload
        };
     case GET_SPECIFIC_CHATROOM:
-      console.log(action.payload);
       return {
         ...state,
         chatRoomExists: action.payload
@@ -63,7 +62,6 @@ export default (state = initialState, action) => {
         loading: false
       };
     case GET_NAME_CHATROOM:
-      console.log(action.payload);
       return {
         ...state,
         currentChatroomName: action.payload,
@@ -76,11 +74,10 @@ export default (state = initialState, action) => {
          loading: false
        }; 
      case GET_CHATROOM_MSGS: 
-     console.log(action.payload)
      return{
        ...state,
        msgs: action.payload
-     }  //I have to figure out how to synch this with the other reducer that affects the state
+     }  //I have to figure out how to sync this with the other reducer that affects the state
     case REMOVE_MSGS:
       return {
         ...state,

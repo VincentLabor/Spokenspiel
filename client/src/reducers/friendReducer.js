@@ -7,7 +7,6 @@ import {
   GET_FRIEND_REQS,
   CLEAR_FRIEND_STATE,
   REMOVE_FRIEND_REQ,
-
 } from "../actions/types";
 
 const initialState = {
@@ -18,51 +17,49 @@ const initialState = {
   friendRequested: null,
   acceptedFriend: null,
   user: null,
-  currentFriendReqs: null
+  currentFriendReqs: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_FRIENDS:
-      console.log(action.payload)
       return {
         ...state,
-        friends: action.payload
+        friends: action.payload,
       };
     case ADD_FRIEND:
       return {
         ...state,
-        friendRequested: action.payload
+        friendRequested: action.payload,
       };
     case DELETE_FRIEND:
       return {
         ...state,
-        friends: state.friends.filter(unWantedFriend => 
-          unWantedFriend._id === action.payload
-      )
+        friends: state.friends.filter(
+          (unWantedFriend) => unWantedFriend._id === action.payload
+        ),
       };
     case USER_LOADED:
       return {
         ...state,
-        user: action.payload
+        user: action.payload,
       };
     case ACCEPT_FRIEND_REQ:
-      console.log(action.payload)
       return {
         ...state,
-        friends: [...state.friends, action.payload] //This allows you to add to already established friendslist array
+        friends: [...state.friends, action.payload], //This allows you to add to already established friendslist array
       };
     case REMOVE_FRIEND_REQ:
       return {
         ...state,
         currentFriendReqs: state.currentFriendReqs.filter(
-          friendRequest => friendRequest._id === action.payload
-        )
+          (friendRequest) => friendRequest._id === action.payload
+        ),
       };
     case GET_FRIEND_REQS:
       return {
         ...state,
-        currentFriendReqs: action.payload
+        currentFriendReqs: action.payload,
       };
     case CLEAR_FRIEND_STATE:
       return {
@@ -74,7 +71,7 @@ export default (state = initialState, action) => {
         friendRequested: null,
         acceptedFriend: null,
         user: null,
-        currentFriendReqs: null
+        currentFriendReqs: null,
       };
     default:
       return state;
