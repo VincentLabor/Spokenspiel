@@ -4,7 +4,7 @@ import { deleteFriend, getFriends } from "../../../actions/friendActions";
 import {
   addChatroom,
   getUsersChatrooms,
-  chatroomCheck
+  chatroomCheck,
 } from "../../../actions/chatroomActions";
 
 const FriendItem = ({
@@ -14,26 +14,27 @@ const FriendItem = ({
   addChatroom,
   getUsersChatrooms,
   chatroomCheck,
-  chatRoomExists
+  chatroom: { chatRoomExists },
 }) => {
-  const onClick = () => {
+  const removeFriendFromFriendsList = () => {
     deleteFriend(friend._id);
     getFriends();
     window.location.reload();
   };
 
-  const openConvo = () => {
+  const openConversation = () => {
     //create a convoCheck
     chatroomCheck(friend._id);
-    console.log(chatroomCheck(friend._id)) //The if statement does not work for some reason. The functiopn works properly
-    if(chatRoomExists === false){
-      return null;
-    } else {
-      addChatroom(friend._id);
-      console.log(friend._id);
-      getUsersChatrooms();
-    }
-
+     console.log(chatRoomExists); //The if statement does not work for some reason. The functiopn works properly
+    //   if (chatRoomExists === false || null) {
+    //     return null
+    //   }
+    //  else {
+    //     addChatroom(friend._id);
+    //     console.log(friend._id);
+    //     console.log("It didnt work")
+    //     getUsersChatrooms();
+    //  }
   };
 
   return (
@@ -43,10 +44,10 @@ const FriendItem = ({
           <p className="friendName">{friend.userName}</p>
           <i
             className="fas fa-comment-alt trashIcon"
-            onClick={openConvo}
+            onClick={openConversation}
           ></i>{" "}
           {/*Messaging Icon*/}
-          <i className="fas fa-trash-alt trashIcon" onClick={onClick}></i>{" "}
+          <i className="fas fa-trash-alt trashIcon" onClick={removeFriendFromFriendsList}></i>{" "}
           {/*Trash Icon*/}
         </div>
       ) : null}
@@ -54,9 +55,9 @@ const FriendItem = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  chatroom: state.chatroom
+  chatroom: state.chatroom,
 });
 
 export default connect(mapStateToProps, {

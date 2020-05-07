@@ -12,14 +12,14 @@ import {
   ENTERING_GENERAL_CHAT,
   REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
-  GET_SPECIFIC_CHATROOM
+  GET_SPECIFIC_CHATROOM,
 } from "./types";
 
-export const getUsersChatrooms = () => async dispatch => {
+export const getUsersChatrooms = () => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
   try {
     const res = await axios.get("/api/chatroom/", config);
@@ -31,24 +31,24 @@ export const getUsersChatrooms = () => async dispatch => {
 };
 
 //This will grab the messages from the chatroom
-export const getMessagesFromDB = (chatId) => async dispatch => {
+export const getMessagesFromDB = (chatId) => async (dispatch) => {
   try {
     console.log(chatId);
     const res = await axios.get(`/api/chatroom/msgs/${chatId}`);
     console.log(res.data);
-     dispatch(clearMsgs());
-     dispatch({ type: GET_CHATROOM_MSGS, payload: res.data.messages });
+    dispatch(clearMsgs());
+    dispatch({ type: GET_CHATROOM_MSGS, payload: res.data.messages });
   } catch (err) {
     console.log(err);
   }
 };
 
 //This will save messages typed by the user into the database
-export const saveSentMsgs = msgData => async dispatch => {
+export const saveSentMsgs = (msgData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
   // dispatch(loading());
   // console.log(msgData.currentMsgSent);
@@ -65,7 +65,7 @@ export const saveSentMsgs = msgData => async dispatch => {
   }
 };
 
-export const saveMsgs = chatData => async dispatch => {
+export const saveMsgs = (chatData) => async (dispatch) => {
   try {
     dispatch({ type: STORE_MSGS, payload: chatData });
   } catch (error) {
@@ -73,27 +73,27 @@ export const saveMsgs = chatData => async dispatch => {
   }
 };
 
-export const chatroomCheck = friendData => async dispatch =>{
+export const chatroomCheck = (friendData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.get(`api/chatroom/${friendData}`, config);
+    console.log(res.data);
+    dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-try {
-  const res = await axios.get(`api/chatroom/${friendData}`, config);
-  console.log(res.data)
-  dispatch({type: GET_SPECIFIC_CHATROOM, payload: res.data})
-} catch (error) {
-  console.log(error)
-}
-}
-
-export const addChatroom = friendData => async dispatch => {
+export const addChatroom = (friendData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
   console.log("This is the friendData " + friendData);
   try {
@@ -104,7 +104,7 @@ export const addChatroom = friendData => async dispatch => {
   }
 };
 
-export const clearMsgs = () => async dispatch => {
+export const clearMsgs = () => async (dispatch) => {
   try {
     dispatch({ type: REMOVE_MSGS });
   } catch (error) {
@@ -112,7 +112,7 @@ export const clearMsgs = () => async dispatch => {
   }
 };
 
-export const clearAllChatroomState = () => async dispatch => {
+export const clearAllChatroomState = () => async (dispatch) => {
   try {
     dispatch({ type: REMOVE_ALL_CHATROOM });
   } catch (error) {
@@ -120,7 +120,7 @@ export const clearAllChatroomState = () => async dispatch => {
   }
 };
 
-export const getChatroomName = friendData => async dispatch => {
+export const getChatroomName = (friendData) => async (dispatch) => {
   console.log(friendData);
   try {
     dispatch({ type: GET_NAME_CHATROOM, payload: friendData });
@@ -130,7 +130,7 @@ export const getChatroomName = friendData => async dispatch => {
 };
 
 //This is a setup towards another action. May be subject to deletion.
-export const setCurrentChatroomId = chatroomData => async dispatch => {
+export const setCurrentChatroomId = (chatroomData) => async (dispatch) => {
   // const config = {
   //   header: {
   //     "Content-Type": "application/json"
@@ -146,7 +146,7 @@ export const setCurrentChatroomId = chatroomData => async dispatch => {
   }
 };
 
-export const enterGeneralChat = () => async dispatch => {
+export const enterGeneralChat = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/chatroom/genChat");
     dispatch({ type: ENTERING_GENERAL_CHAT, payload: res.data[0]._id });
@@ -155,7 +155,7 @@ export const enterGeneralChat = () => async dispatch => {
   }
 };
 
-export const postInGeneralChat = async dispatch => {
+export const postInGeneralChat = async (dispatch) => {
   try {
     // const res = await axios.
   } catch (error) {
@@ -163,14 +163,14 @@ export const postInGeneralChat = async dispatch => {
   }
 };
 
-export const userIsInGeneralChat = async dispatch => {
+export const userIsInGeneralChat = async (dispatch) => {
   return {
-    type: GENERAL_CHAT
+    type: GENERAL_CHAT,
   };
 };
 
 export const loading = () => {
   return {
-    type: SET_LOADING
+    type: SET_LOADING,
   };
 };

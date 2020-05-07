@@ -81,7 +81,6 @@ router.get("/:id", auth, async (req, res) => {
 
   res.json(chatroomExists);
 
-  //This works but I need to make this work in conjuction
 });
 
 //@route    POST /api/chatroom/:id
