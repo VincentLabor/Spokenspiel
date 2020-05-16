@@ -21,7 +21,7 @@ const Conversations = ({
 
    useEffect(() => {
      getUsersChatrooms();
-   }, [currentChatroomId]);
+   }, [currentChatroomId]); //Will refresh the chatrooms if opens a new chatroom
 
   //  useEffect(() => {
   //    enterGeneralChat();

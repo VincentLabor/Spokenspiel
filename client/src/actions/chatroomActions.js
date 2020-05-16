@@ -65,7 +65,7 @@ export const saveSentMsgs = (msgData) => async (dispatch) => {
   }
 };
 
-export const saveMsgs = (chatData) => async (dispatch) => {
+export const saveMsgs = (chatData) => (dispatch) => {
   try {
     dispatch({ type: STORE_MSGS, payload: chatData });
   } catch (error) {
@@ -83,7 +83,7 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
   try {
     const res = await axios.get(`api/chatroom/${friendData}`, config);
     console.log(res.data);
-    dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data });
+    dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
   } catch (error) {
     console.log(error);
   }
@@ -95,7 +95,7 @@ export const addChatroom = (friendData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log("This is the friendData " + friendData);
+  
   try {
     const res = await axios.post(`/api/chatroom/${friendData}`, config);
     dispatch({ type: ADD_CHATROOM, payload: res.data });
@@ -104,7 +104,7 @@ export const addChatroom = (friendData) => async (dispatch) => {
   }
 };
 
-export const clearMsgs = () => async (dispatch) => {
+export const clearMsgs = () => (dispatch) => {
   try {
     dispatch({ type: REMOVE_MSGS });
   } catch (error) {
@@ -112,7 +112,7 @@ export const clearMsgs = () => async (dispatch) => {
   }
 };
 
-export const clearAllChatroomState = () => async (dispatch) => {
+export const clearAllChatroomState = () => (dispatch) => {
   try {
     dispatch({ type: REMOVE_ALL_CHATROOM });
   } catch (error) {
@@ -120,7 +120,7 @@ export const clearAllChatroomState = () => async (dispatch) => {
   }
 };
 
-export const getChatroomName = (friendData) => async (dispatch) => {
+export const getChatroomName = (friendData) => (dispatch) => {
   console.log(friendData);
   try {
     dispatch({ type: GET_NAME_CHATROOM, payload: friendData });
@@ -130,7 +130,7 @@ export const getChatroomName = (friendData) => async (dispatch) => {
 };
 
 //This is a setup towards another action. May be subject to deletion.
-export const setCurrentChatroomId = (chatroomData) => async (dispatch) => {
+export const setCurrentChatroomId = (chatroomData) => (dispatch) => {
   // const config = {
   //   header: {
   //     "Content-Type": "application/json"

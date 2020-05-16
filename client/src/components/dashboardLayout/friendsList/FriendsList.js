@@ -4,7 +4,7 @@ import FriendItem from "./FriendItem";
 import {
   getFriends,
   addFriend,
-  getFriendRequests
+  getFriendRequests,
 } from "../../../actions/friendActions";
 import FriendRequests from "./FriendRequests";
 
@@ -12,12 +12,12 @@ const FriendsList = ({
   friend: { friends, currentFriendReqs, friendRequested },
   getFriendRequests,
   getFriends,
-  addFriend
+  addFriend,
 }) => {
   useEffect(() => {
-    getFriends();
+     getFriends();
     getFriendRequests();
-  }, [getFriendRequests, getFriends]); //Nothing in the brackets mean that these functions will only run once
+  }, [getFriendRequests]); //Nothing in the brackets mean that these functions will only run once. I removed getFriends() from the brackets
 
   const [friendTab, setFriendTab] = useState(true);
   const [friendReqTab, setFriendReqTab] = useState(false);
@@ -25,11 +25,11 @@ const FriendsList = ({
   const [sentFriendRequest, setSentFriendRequest] = useState(false);
   const [userName, setUserName] = useState("");
 
-  const onChange = e => {
+  const onChange = (e) => {
     setUserName(e.target.value);
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const friendUserName = { userName };
     addFriend(friendUserName);
@@ -52,7 +52,7 @@ const FriendsList = ({
               setFriendTab(true);
               setFriendReqTab(false);
               setAddFriendTab(false);
-              getFriends();
+               getFriends();
             }}
             className={friendTab ? "friendOption underline" : "friendOption"}
           >
@@ -113,11 +113,10 @@ const FriendsList = ({
             {/*Checks if user has friends and displays them*/}
 
             {friends
-              ? friends.map(friend => (
+              ? friends.map((friend) => (
                   <FriendItem friend={friend} key={friend._id} />
                 ))
               : "Add some friends to get started."}
-              
           </div>
         ) : null}
 
@@ -126,7 +125,7 @@ const FriendsList = ({
           <div className="flexWrapperRow">
             {/*Checks if user has friends and displays them*/}
             {currentFriendReqs
-              ? currentFriendReqs.map(friendReqs => (
+              ? currentFriendReqs.map((friendReqs) => (
                   <FriendRequests
                     friendReqs={friendReqs}
                     key={friendReqs._id}
@@ -140,12 +139,12 @@ const FriendsList = ({
   );
 };
 
-const mapStateToProps = state => ({
-  friend: state.friend
+const mapStateToProps = (state) => ({
+  friend: state.friend,
 });
 
 export default connect(mapStateToProps, {
   getFriends,
   addFriend,
-  getFriendRequests
+  getFriendRequests,
 })(FriendsList);

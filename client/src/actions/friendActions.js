@@ -13,7 +13,24 @@ import {
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 
-//Getting friends of logged in User
+//Grabbing the users friends
+export const getFriends = () => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  };
+
+  try {
+    loadUser();
+    const res = await axios.get("/api/friends/", config);
+    dispatch({ type: GET_FRIENDS, payload: res.data });
+  } catch (err) {
+    // console.log(err.response.data);
+    console.log(err)
+  }
+};
+
 
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
@@ -121,23 +138,6 @@ export const deleteFriend = friendData => async dispatch => {
     dispatch({ type: DELETE_FRIEND, payload: res.data });
   } catch (err) {
     console.log(err);
-  }
-};
-
-//Grabbing the users friends
-export const getFriends = () => async dispatch => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-
-  try {
-    loadUser();
-    const res = await axios.get("/api/friends/", config);
-    dispatch({ type: GET_FRIENDS, payload: res.data });
-  } catch (err) {
-    console.log(err.response.data);
   }
 };
 

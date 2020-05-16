@@ -13,8 +13,6 @@ router.get("/", auth, async (req, res) => {
   try {
     let usersFriendsList = await User.find({ friends: req.user._id });
 
-    // let usersFriends = await Friend.find({recipient: req.user._id, friendStatus: 3});
-
     res.json(usersFriendsList);
   } catch (error) {
     console.log(error);

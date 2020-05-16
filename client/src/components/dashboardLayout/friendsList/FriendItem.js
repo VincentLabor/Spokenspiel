@@ -16,6 +16,11 @@ const FriendItem = ({
   chatroomCheck,
   chatroom: { chatRoomExists },
 }) => {
+  
+  // useEffect(() => {
+  //   chatroomCheck();
+  // });
+
   const removeFriendFromFriendsList = () => {
     deleteFriend(friend._id);
     getFriends();
@@ -25,16 +30,15 @@ const FriendItem = ({
   const openConversation = () => {
     //create a convoCheck
     chatroomCheck(friend._id);
-     console.log(chatRoomExists); //The if statement does not work for some reason. The functiopn works properly
-    //   if (chatRoomExists === false || null) {
-    //     return null
-    //   }
-    //  else {
-    //     addChatroom(friend._id);
-    //     console.log(friend._id);
-    //     console.log("It didnt work")
-    //     getUsersChatrooms();
-    //  }
+    console.log(chatRoomExists)
+    if (chatRoomExists == null) {
+      return null;
+    } else {
+      addChatroom(friend._id);
+      console.log(friend._id);
+      console.log("It didnt work");
+      getUsersChatrooms();
+    }
   };
 
   return (
@@ -47,7 +51,10 @@ const FriendItem = ({
             onClick={openConversation}
           ></i>{" "}
           {/*Messaging Icon*/}
-          <i className="fas fa-trash-alt trashIcon" onClick={removeFriendFromFriendsList}></i>{" "}
+          <i
+            className="fas fa-trash-alt trashIcon"
+            onClick={removeFriendFromFriendsList}
+          ></i>{" "}
           {/*Trash Icon*/}
         </div>
       ) : null}
@@ -65,5 +72,5 @@ export default connect(mapStateToProps, {
   getFriends,
   addChatroom,
   getUsersChatrooms,
-  chatroomCheck
+  chatroomCheck,
 })(FriendItem);
