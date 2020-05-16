@@ -73,13 +73,15 @@ router.get("/:id", auth, async (req, res) => {
   let otherUsersName = await User.findById(req.params.id);
 
   let chatroomExists = await Chatroom.find({
-    $cond: { if: 
-      {user1: { $in: [req.user._id, req.params._id] },
-      user2: { $in: [req.user._id, req.params._id] }}, then: res.json(false)
-    }
-  });
+    $and:[{usersWithinChatroom: currentUserName.userName},{usersWithinChatroom: otherUsersName.userName}]
+  })
 
-  res.json(chatroomExists);
+  //This returns an array which includes the entire chatroom information.
+  try {
+    res.json(chatroomExists);
+  } catch (error) {
+    console.log(error)
+  }
 
 });
 
@@ -97,7 +99,8 @@ router.post("/:id", auth, async (req, res) => {
       user1: req.user._id,
       user1Name: currentUserName.userName,
       user2: req.params.id,
-      user2Name: otherUsersName.userName
+      user2Name: otherUsersName.userName,
+      usersWithinChatroom: [currentUserName.userName, otherUsersName.userName]
     });
 
     //To delete later. Reference for creating general chat

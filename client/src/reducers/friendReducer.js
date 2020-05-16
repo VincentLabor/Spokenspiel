@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
     case GET_FRIENDS:
       return {
         ...state,
-        friends: action.payload,
+        friends: action.payload
       };
     case ADD_FRIEND:
       return {

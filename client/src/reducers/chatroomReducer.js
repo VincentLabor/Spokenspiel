@@ -51,9 +51,10 @@ export default (state = initialState, action) => {
         currentChatroomId: action.payload
        };
     case GET_SPECIFIC_CHATROOM:
+      console.log(action.payload)
       return {
         ...state,
-        chatRoomExists: action.payload
+        chatRoomExists: [action.payload]
       }   
     case ADD_CHATROOM:
       return {
