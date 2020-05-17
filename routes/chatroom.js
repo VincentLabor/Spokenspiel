@@ -100,7 +100,8 @@ router.post("/:id", auth, async (req, res) => {
       user1Name: currentUserName.userName,
       user2: req.params.id,
       user2Name: otherUsersName.userName,
-      usersWithinChatroom: [currentUserName.userName, otherUsersName.userName]
+      usersWithinChatroom: [currentUserName.userName, otherUsersName.userName],
+      isHidden: false
     });
 
     //To delete later. Reference for creating general chat

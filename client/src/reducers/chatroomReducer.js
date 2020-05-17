@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
       console.log(action.payload)
       return {
         ...state,
-        chatRoomExists: [action.payload]
+        chatRoomExists: action.payload
       }   
     case ADD_CHATROOM:
       return {

@@ -6,7 +6,7 @@ import {
   clearMsgs,
   setCurrentChatroomId,
   getMessagesFromDB,
-  enterGeneralChat
+  enterGeneralChat,
 } from "../../../actions/chatroomActions";
 
 //Conversation may also refer to the chatrooms from the reducer
@@ -18,7 +18,7 @@ const ConversationItems = ({
   setCurrentChatroomId,
   getMessagesFromDB,
   generalChatStatus,
-  enterGeneralChat
+  enterGeneralChat,
 }) => {
   const [room, setRoomName] = useState("");
   const [currentRoom, setCurrentRoom] = useState("");
@@ -37,9 +37,13 @@ const ConversationItems = ({
 
   const onClick = () => {
     //This prevents the users from
-      setRoomName(conversation._id);
-      getMessagesFromDB(conversation._id);
+    setRoomName(conversation._id);
+    getMessagesFromDB(conversation._id);
   };
+
+  const removeConvoRoom =()=>{
+    
+  }
 
   //What if i changed where actions sent their payloads. like what if all the payloads went to the same state
 
@@ -49,19 +53,23 @@ const ConversationItems = ({
           General Chat
         </h3> */}
       {conversation ? (
-        <p className="cursorChg convoItem"  onClick={onClick}>
-          {(user && user.userName) === conversation.user1Name
-            ? conversation.user2Name
-            : conversation.user1Name}
-        </p>
+        <div className="convoContainer">
+          {" "}
+          <p className="cursorChg convoItem" onClick={onClick}>
+            {(user && user.userName) === conversation.user1Name
+              ? conversation.user2Name
+              : conversation.user1Name}
+          </p>
+          <i className="fas fa-times closeConversation" onClick={removeConvoRoom}></i>  
+        </div>
       ) : null}
     </div>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  chatroom: state.chatroom
+  chatroom: state.chatroom,
 });
 
 export default connect(mapStateToProps, {
@@ -69,25 +77,22 @@ export default connect(mapStateToProps, {
   clearMsgs,
   setCurrentChatroomId,
   getMessagesFromDB,
-  enterGeneralChat
+  enterGeneralChat,
 })(ConversationItems);
 
+// const enteringGenChat = () => {
+//   clearMsgs();
+//   if (conversation) {
+//     enterGeneralChat();
+//   }
+//   if(currentChatroomId){
+//     setRoomName(currentChatroomId)
+//     getMessagesFromDB(currentChatroomId);
 
-  // const enteringGenChat = () => {
-  //   clearMsgs();
-  //   if (conversation) {
-  //     enterGeneralChat();
-  //   }
-  //   if(currentChatroomId){
-  //     setRoomName(currentChatroomId)
-  //     getMessagesFromDB(currentChatroomId);
+//   }
+//   //here i should change where the messages get posted to?
+// };
 
-  //   }
-  //   //here i should change where the messages get posted to?
-  // };
-
-
-
-  // className={
-  //   selected ? "cursorChg convoItem highlight" : "cursorChg convoItem"
-  // }
+// className={
+//   selected ? "cursorChg convoItem highlight" : "cursorChg convoItem"
+// }

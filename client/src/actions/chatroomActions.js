@@ -81,9 +81,13 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.get(`api/chatroom/${friendData}`, config);
-    console.log(res.data);
-    dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
+    try {
+      const res = await axios.get(`api/chatroom/${friendData}`, config);
+      console.log(res.data);
+      dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
+    } catch (error) {
+     dispatch(addChatroom(friendData)); 
+    }
   } catch (error) {
     console.log(error);
   }
@@ -95,7 +99,7 @@ export const addChatroom = (friendData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  
+
   try {
     const res = await axios.post(`/api/chatroom/${friendData}`, config);
     dispatch({ type: ADD_CHATROOM, payload: res.data });
@@ -153,6 +157,10 @@ export const enterGeneralChat = () => async (dispatch) => {
   } catch (error) {
     console.log("There is an error within enter General Chat" + error);
   }
+};
+
+export const removeChatroomfromSight = () => async (dispatch) => {
+  
 };
 
 export const postInGeneralChat = async (dispatch) => {

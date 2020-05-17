@@ -387,6 +387,17 @@ nav li {
   border-left: solid 0.5px lightgray;
 }
 
+.convoContainer{
+  display: flex;
+  justify-content: space-between;
+  padding: .5em 0;
+  border-bottom: .5px solid gray;
+}
+
+.closeConversation:hover{
+  cursor: pointer;
+}
+
 .chatboxInput{
   box-shadow: none;
   border: 1px solid lightgray;

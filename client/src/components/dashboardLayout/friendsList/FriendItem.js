@@ -16,29 +16,18 @@ const FriendItem = ({
   chatroomCheck,
   chatroom: { chatRoomExists },
 }) => {
-  
-  // useEffect(() => {
-  //   chatroomCheck();
-  // });
-
   const removeFriendFromFriendsList = () => {
     deleteFriend(friend._id);
     getFriends();
     window.location.reload();
   };
 
-  const openConversation = () => {
+  const openConversation = async () => {
     //create a convoCheck
     chatroomCheck(friend._id);
-    console.log(chatRoomExists)
-    if (chatRoomExists == null) {
-      return null;
-    } else {
-      addChatroom(friend._id);
-      console.log(friend._id);
-      console.log("It didnt work");
-      getUsersChatrooms();
-    }
+    // console.log(chatroomCheck(friend._id));
+    // addChatroom(friend._id);
+    // getUsersChatrooms();
   };
 
   return (
