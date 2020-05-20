@@ -7,7 +7,8 @@ import {
   setCurrentChatroomId,
   getMessagesFromDB,
   enterGeneralChat,
-  removeChatroomfromSight
+  removeChatroomfromSight,
+  getUsersChatrooms,
 } from "../../../actions/chatroomActions";
 
 //Conversation may also refer to the chatrooms from the reducer
@@ -20,7 +21,8 @@ const ConversationItems = ({
   getMessagesFromDB,
   generalChatStatus,
   enterGeneralChat,
-  removeChatroomfromSight
+  getUsersChatrooms,
+  removeChatroomfromSight,
 }) => {
   const [room, setRoomName] = useState("");
   const [currentRoom, setCurrentRoom] = useState("");
@@ -43,16 +45,17 @@ const ConversationItems = ({
     getMessagesFromDB(conversation._id);
   };
 
-  const removeConvoRoom = () =>{
-    //Take the conversationId and change the state in the reducer from isHidden: true to false
-    removeChatroomfromSight(conversation._id)
-  }
+  const removeConvoRoom = () => {
+    removeChatroomfromSight(conversation._id);
+    getUsersChatrooms();
+  };
 
   //What if i changed where actions sent their payloads. like what if all the payloads went to the same state
 
   return (
     <div>
-      {conversation && conversation.isHidden === false ? (
+      {/* {conversation && conversation.isHidden === false ? ( */}
+      {conversation.isHidden === false ? (
         <div className="convoContainer">
           {" "}
           <p className="cursorChg convoItem" onClick={onClick}>
@@ -60,7 +63,10 @@ const ConversationItems = ({
               ? conversation.user2Name
               : conversation.user1Name}
           </p>
-          <i className="fas fa-times closeConversation" onClick={removeConvoRoom}></i>  
+          <i
+            className="fas fa-times closeConversation"
+            onClick={removeConvoRoom}
+          ></i>
         </div>
       ) : null}
     </div>
@@ -78,7 +84,8 @@ export default connect(mapStateToProps, {
   setCurrentChatroomId,
   getMessagesFromDB,
   enterGeneralChat,
-  removeChatroomfromSight
+  removeChatroomfromSight,
+  getUsersChatrooms,
 })(ConversationItems);
 
 // const enteringGenChat = () => {

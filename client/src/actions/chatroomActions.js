@@ -183,13 +183,12 @@ export const removeChatroomfromSight = (chatroomData) => async (dispatch) => {
       "Content-Type": "application/json"
     }
   };
-  console.log(chatroomData); //The parameter passed in works soo...
-  
+ //The parameter passed in works soo...
+    console.log(chatroomData);
   try {
-   
     const res = await axios.put(`/api/chatroom/${chatroomData}`, config);
+    console.log(res.data)
     dispatch({type: HIDE_CHAT, payload: res.data})
-
   } catch (error) {
     console.log(error)
   }

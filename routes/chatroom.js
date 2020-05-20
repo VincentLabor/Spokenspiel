@@ -145,12 +145,13 @@ router.post("/:id", auth, async (req, res) => {
 //@desc     This is change the visibility of a chatroom
 //@access   To only be seen between the users involved with the chatroom
 
-router.put("/:chatroomID", auth, async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
+  //seems like id is a saved name?
+  let chatroomToBeEdited = await Chatroom.findByIdAndUpdate(req.params.id, {
+    $set: { isHidden: true },
+  });
+
   try {
-    let chatroomToBeEdited = await Chatroom.findByIdAndUpdate(
-      req.params.id,
-      { $set: { isHidden: true } } // This is the location of the bug. I need a break
-    );
     res.json(chatroomToBeEdited);
   } catch (error) {
     console.log(error);

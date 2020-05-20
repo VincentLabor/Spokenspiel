@@ -124,7 +124,7 @@ export const declineFriendReq = friendData => async dispatch => {
   }
 };
 
-export const deleteFriend = friendData => async dispatch => {
+export const deleteFriend = friendData => async dispatch => { //This needs a refresh on deleting a friend
   const config = {
     headers: {
       "Content-Type": "application/json"

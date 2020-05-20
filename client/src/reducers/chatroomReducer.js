@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
       case HIDE_CHAT:
         return{
           ...state,
-          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id === action.payload)
+          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id === action.payload._id),
         }
     case GET_CHATROOM_ID:
       return {
