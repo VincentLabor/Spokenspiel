@@ -10,7 +10,8 @@ import {
   ENTERING_GENERAL_CHAT,
   REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
-  GET_SPECIFIC_CHATROOM
+  GET_SPECIFIC_CHATROOM,
+  HIDE_CHAT
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +35,11 @@ export default (state = initialState, action) => {
         chatrooms: [...action.payload],
         loading: false
       };
+      case HIDE_CHAT:
+        return{
+          ...state,
+          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id === action.payload)
+        }
     case GET_CHATROOM_ID:
       return {
         ...state,

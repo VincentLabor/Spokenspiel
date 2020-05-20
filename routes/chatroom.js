@@ -12,7 +12,7 @@ const User = require("../models/User");
 router.get("/", auth, async (req, res) => {
   //Here these will be used as conditionals to send to front end the name of the friend in the conversation
   let userInChatroom = await Chatroom.find({
-    $or: [{ user1: req.user._id }, { user2: req.user._id }]
+    $or: [{ user1: req.user._id }, { user2: req.user._id }],
   });
 
   try {
@@ -55,7 +55,7 @@ router.put("/msgs/:id", auth, async (req, res) => {
   //Here these will be used as conditionals to send to front end the name of the friend in the conversation
   const { currentMsgSent } = req.body;
   let userInChatroom = await Chatroom.findByIdAndUpdate(req.params.id, {
-    $push: { messages: currentMsgSent }
+    $push: { messages: currentMsgSent },
   });
 
   try {
@@ -73,16 +73,40 @@ router.get("/:id", auth, async (req, res) => {
   let otherUsersName = await User.findById(req.params.id);
 
   let chatroomExists = await Chatroom.find({
-    $and:[{usersWithinChatroom: currentUserName.userName},{usersWithinChatroom: otherUsersName.userName}]
-  })
+    $and: [
+      { usersWithinChatroom: currentUserName.userName },
+      { usersWithinChatroom: otherUsersName.userName },
+    ],
+  });
 
   //This returns an array which includes the entire chatroom information.
   try {
     res.json(chatroomExists);
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
+});
 
+//@route    GET /api/chatroom/friend/:friendId
+//@desc     This is search for a chatroom.
+//@access   Private: To only be seen by those within the room
+router.get("/friend/:friendId", auth, async (req, res) => {
+  let currentUserName = await User.findById(req.user._id);
+  let otherUsersName = await User.findById(req.params.id);
+
+  let chatroomExists = await Chatroom.find({
+    $and: [
+      { usersWithinChatroom: currentUserName.userName },
+      { usersWithinChatroom: otherUsersName.userName },
+    ],
+  });
+
+  //This returns an array which includes the entire chatroom information.
+  try {
+    res.json(chatroomExists);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 //@route    POST /api/chatroom/:id
@@ -101,12 +125,12 @@ router.post("/:id", auth, async (req, res) => {
       user2: req.params.id,
       user2Name: otherUsersName.userName,
       usersWithinChatroom: [currentUserName.userName, otherUsersName.userName],
-      isHidden: false
+      isHidden: false,
     });
 
     //To delete later. Reference for creating general chat
     const chatForAll = new Chatroom({
-      messages: "Please be respectful to eachother"
+      messages: "Please be respectful to eachother",
     });
 
     const newChatroom = addingUsersToRoom.save();
@@ -114,6 +138,22 @@ router.post("/:id", auth, async (req, res) => {
     res.json(addingUsersToRoom);
   } catch (err) {
     console.log(err);
+  }
+});
+
+//@route    PUT /api/chatroom/:chatroomID
+//@desc     This is change the visibility of a chatroom
+//@access   To only be seen between the users involved with the chatroom
+
+router.put("/:chatroomID", auth, async (req, res) => {
+  try {
+    let chatroomToBeEdited = await Chatroom.findByIdAndUpdate(
+      req.params.id,
+      { $set: { isHidden: true } } // This is the location of the bug. I need a break
+    );
+    res.json(chatroomToBeEdited);
+  } catch (error) {
+    console.log(error);
   }
 });
 

@@ -6,12 +6,14 @@ export const ACCEPT_FRIEND_REQ = "ACCEPT_FRIEND_REQ";
 export const REMOVE_FRIEND_REQ = "REMOVE_FRIEND_REQ";
 export const DECLINE_FRIEND_REQ = "DECLINE_FRIEND_REQ";
 export const DELETE_FRIEND = "DELETE_FRIEND";
+
 //Login and Auth related
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const REGISTER_FAILURE = "REGISTER_FAILURE";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
+
 //Chatroom Related
 export const GET_CHATROOM = "GET_CHATROOM";
 export const GET_SPECIFIC_CHATROOM = "GET_SPECIFIC_CHATROOM";
@@ -24,6 +26,7 @@ export const STORE_MSGS = "STORE_MSGS";
 export const STORE_SENT_MSGS = "STORE_SENT_MSGS";
 export const REMOVE_MSGS = "REMOVE_MSGS";
 export const REMOVE_ALL_CHATROOM = "REMOVE_ALL_CHATROOM";
+export const HIDE_CHAT = "HIDE_CHAT";
 
 //Specifically General Chat
 export const GENERAL_CHAT = "GENERAL_CHAT";
@@ -40,6 +43,3 @@ export const SET_ALERT = "SET_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 export const CLEAR_STATE = "CLEAR_STATE";
 export const CLEAR_FRIEND_STATE = "CLEAR_FRIEND_STATE";
-
-
-

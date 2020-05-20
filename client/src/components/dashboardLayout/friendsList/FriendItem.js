@@ -5,6 +5,7 @@ import {
   addChatroom,
   getUsersChatrooms,
   chatroomCheck,
+  returnToConversation
 } from "../../../actions/chatroomActions";
 
 const FriendItem = ({
@@ -14,20 +15,17 @@ const FriendItem = ({
   addChatroom,
   getUsersChatrooms,
   chatroomCheck,
+  returnToConversation,
   chatroom: { chatRoomExists },
 }) => {
   const removeFriendFromFriendsList = () => {
     deleteFriend(friend._id);
     getFriends();
-    window.location.reload();
   };
 
   const openConversation = async () => {
-    //create a convoCheck
-    chatroomCheck(friend._id);
-    // console.log(chatroomCheck(friend._id));
-    // addChatroom(friend._id);
-    // getUsersChatrooms();
+    chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
+    returnToConversation(friend._id);
   };
 
   return (
@@ -62,4 +60,5 @@ export default connect(mapStateToProps, {
   addChatroom,
   getUsersChatrooms,
   chatroomCheck,
+  returnToConversation
 })(FriendItem);

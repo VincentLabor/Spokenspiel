@@ -7,6 +7,7 @@ import {
   setCurrentChatroomId,
   getMessagesFromDB,
   enterGeneralChat,
+  removeChatroomfromSight
 } from "../../../actions/chatroomActions";
 
 //Conversation may also refer to the chatrooms from the reducer
@@ -19,6 +20,7 @@ const ConversationItems = ({
   getMessagesFromDB,
   generalChatStatus,
   enterGeneralChat,
+  removeChatroomfromSight
 }) => {
   const [room, setRoomName] = useState("");
   const [currentRoom, setCurrentRoom] = useState("");
@@ -41,18 +43,16 @@ const ConversationItems = ({
     getMessagesFromDB(conversation._id);
   };
 
-  const removeConvoRoom =()=>{
-    
+  const removeConvoRoom = () =>{
+    //Take the conversationId and change the state in the reducer from isHidden: true to false
+    removeChatroomfromSight(conversation._id)
   }
 
   //What if i changed where actions sent their payloads. like what if all the payloads went to the same state
 
   return (
     <div>
-      {/* <h3 className="cursorChg" onClick={enteringGenChat}>
-          General Chat
-        </h3> */}
-      {conversation ? (
+      {conversation && conversation.isHidden === false ? (
         <div className="convoContainer">
           {" "}
           <p className="cursorChg convoItem" onClick={onClick}>
@@ -78,6 +78,7 @@ export default connect(mapStateToProps, {
   setCurrentChatroomId,
   getMessagesFromDB,
   enterGeneralChat,
+  removeChatroomfromSight
 })(ConversationItems);
 
 // const enteringGenChat = () => {

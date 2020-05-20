@@ -13,6 +13,7 @@ import {
   REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
+  HIDE_CHAT
 } from "./types";
 
 export const getUsersChatrooms = () => async (dispatch) => {
@@ -32,11 +33,12 @@ export const getUsersChatrooms = () => async (dispatch) => {
 
 //This will grab the messages from the chatroom
 export const getMessagesFromDB = (chatId) => async (dispatch) => {
+  //This is how we get the messages and display them to the page.
   try {
     console.log(chatId);
     const res = await axios.get(`/api/chatroom/msgs/${chatId}`);
     console.log(res.data);
-    dispatch(clearMsgs());
+    dispatch(clearMsgs()); // This will clear whatever is currently left within the page/chatroom
     dispatch({ type: GET_CHATROOM_MSGS, payload: res.data.messages });
   } catch (err) {
     console.log(err);
@@ -73,6 +75,22 @@ export const saveMsgs = (chatData) => (dispatch) => {
   }
 };
 
+export const returnToConversation = (friendId) => async (dispatch) => {
+  //When clicking on the msg icon, if there already exists a conversation between the 2 users, this will just open the page
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.get(`/api/chatroom/${friendId}`, config);
+    //This is currently waiting on a deletion option that needs to happen on the coversation
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const chatroomCheck = (friendData) => async (dispatch) => {
   const config = {
     headers: {
@@ -86,7 +104,7 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
       console.log(res.data);
       dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
     } catch (error) {
-     dispatch(addChatroom(friendData)); 
+      dispatch(addChatroom(friendData));
     }
   } catch (error) {
     console.log(error);
@@ -159,8 +177,23 @@ export const enterGeneralChat = () => async (dispatch) => {
   }
 };
 
-export const removeChatroomfromSight = () => async (dispatch) => {
+export const removeChatroomfromSight = (chatroomData) => async (dispatch) => {
+  const config = {
+    header: {
+      "Content-Type": "application/json"
+    }
+  };
+  console.log(chatroomData); //The parameter passed in works soo...
   
+  try {
+   
+    const res = await axios.put(`/api/chatroom/${chatroomData}`, config);
+    dispatch({type: HIDE_CHAT, payload: res.data})
+
+  } catch (error) {
+    console.log(error)
+  }
+
 };
 
 export const postInGeneralChat = async (dispatch) => {
