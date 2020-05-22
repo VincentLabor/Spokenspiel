@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
       case HIDE_CHAT:
         return{
           ...state,
-          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id === action.payload._id),
+          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id === action.payload),
         }
     case GET_CHATROOM_ID:
       return {
@@ -84,7 +84,7 @@ export default (state = initialState, action) => {
      return{
        ...state,
        msgs: action.payload
-     }  //I have to figure out how to sync this with the other reducer that affects the state
+     } 
     case REMOVE_MSGS:
       return {
         ...state,

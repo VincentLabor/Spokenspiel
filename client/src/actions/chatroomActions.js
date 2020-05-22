@@ -13,7 +13,7 @@ import {
   REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
-  HIDE_CHAT
+  HIDE_CHAT,
 } from "./types";
 
 export const getUsersChatrooms = () => async (dispatch) => {
@@ -52,8 +52,7 @@ export const saveSentMsgs = (msgData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  // dispatch(loading());
-  // console.log(msgData.currentMsgSent);
+  
   try {
     const res = await axios.put(
       `/api/chatroom/msgs/${msgData.currentChatroomId}`,
@@ -75,22 +74,6 @@ export const saveMsgs = (chatData) => (dispatch) => {
   }
 };
 
-export const returnToConversation = (friendId) => async (dispatch) => {
-  //When clicking on the msg icon, if there already exists a conversation between the 2 users, this will just open the page
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  try {
-    const res = await axios.get(`/api/chatroom/${friendId}`, config);
-    //This is currently waiting on a deletion option that needs to happen on the coversation
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const chatroomCheck = (friendData) => async (dispatch) => {
   const config = {
     headers: {
@@ -101,7 +84,6 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
   try {
     try {
       const res = await axios.get(`api/chatroom/${friendData}`, config);
-      console.log(res.data);
       dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
     } catch (error) {
       dispatch(addChatroom(friendData));
@@ -151,22 +133,32 @@ export const getChatroomName = (friendData) => (dispatch) => {
   }
 };
 
-//This is a setup towards another action. May be subject to deletion.
-export const setCurrentChatroomId = (chatroomData) => (dispatch) => {
-  // const config = {
-  //   header: {
-  //     "Content-Type": "application/json"
-  //   }
-  // };
 
-  const chatter = chatroomData;
-
+export const findChatroom = (friendId) => async (dispatch) => {
+  //clicking on the msg icon will open the msgs
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   try {
-    dispatch({ type: GET_CHATROOM_ID, payload: chatter });
+    const res = await axios.get(`/api/chatroom/${friendId}`, config);
+    dispatch(getMessagesFromDB(res.data._id)) //This needs to call the grab message with the res.data that we just got
+   console.log(res.data)
   } catch (error) {
     console.log(error);
   }
 };
+
+
+export const setCurrentChatroomId = (chatroomData) => (dispatch) => { //This is utilized for setting the Chat messagesin the dashboard
+  try {
+    dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 export const enterGeneralChat = () => async (dispatch) => {
   try {
@@ -180,19 +172,16 @@ export const enterGeneralChat = () => async (dispatch) => {
 export const removeChatroomfromSight = (chatroomData) => async (dispatch) => {
   const config = {
     header: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
- //The parameter passed in works soo...
-    console.log(chatroomData);
   try {
     const res = await axios.put(`/api/chatroom/${chatroomData}`, config);
     console.log(res.data)
-    dispatch({type: HIDE_CHAT, payload: res.data})
+    dispatch({ type: HIDE_CHAT, payload: res.data._id });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
 };
 
 export const postInGeneralChat = async (dispatch) => {

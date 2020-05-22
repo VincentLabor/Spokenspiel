@@ -5,7 +5,8 @@ import {
   addChatroom,
   getUsersChatrooms,
   chatroomCheck,
-  returnToConversation
+  setCurrentChatroomId,
+  getMessagesFromDB
 } from "../../../actions/chatroomActions";
 
 const FriendItem = ({
@@ -15,17 +16,20 @@ const FriendItem = ({
   addChatroom,
   getUsersChatrooms,
   chatroomCheck,
-  returnToConversation,
-  chatroom: { chatRoomExists },
+  setCurrentChatroomId,
+  getMessagesFromDB,
+  chatroom: { chatRoomExists, currentChatroomId },
 }) => {
   const removeFriendFromFriendsList = () => {
     deleteFriend(friend._id);
-    getFriends();
+    console.log(currentChatroomId)
+    getFriends(currentChatroomId);
   };
 
   const openConversation = async () => {
     chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
-    returnToConversation(friend._id);
+    setCurrentChatroomId(friend._id);
+    // getMessagesFromDB(currentChatroomId);
   };
 
   return (
@@ -60,5 +64,6 @@ export default connect(mapStateToProps, {
   addChatroom,
   getUsersChatrooms,
   chatroomCheck,
-  returnToConversation
+  setCurrentChatroomId,
+  getMessagesFromDB
 })(FriendItem);

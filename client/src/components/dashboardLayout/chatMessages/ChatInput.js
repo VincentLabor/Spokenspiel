@@ -1,42 +1,39 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import {saveSentMsgs} from '../../../actions/chatroomActions';
+import { saveSentMsgs } from "../../../actions/chatroomActions";
 
 const ChatInput = ({
   auth: { user },
   currentMsg,
   setCurrentMsg,
   sendMessage,
-  chatroom:{currentChatroomId},
-  saveSentMsgs
+  chatroom: { currentChatroomId },
+  saveSentMsgs,
 }) => {
+  const [currentMsgSent, setCurrentMsgSent] = useState("");
 
-  const [currentMsgSent, setCurrentMsgSent] = useState("")
-
-  const onChange = e => {
+  const onChange = (e) => {
     setCurrentMsg(e.target.value);
-    setCurrentMsgSent(user.userName + " : "+ e.target.value)
+    setCurrentMsgSent(user.userName + " : " + e.target.value);
   };
 
-  const onSubmit = e => {
-    e.preventDefault();
-    // sendMessage(e);
+  const sendMsgToChatroom = (e) => {
+    e.preventDefault(); //Prevents page from opening after sending message
     sendMessage(user.userName + " : " + e);
-     let msgPacket = {
-       currentMsgSent,
-       currentChatroomId
-     };
+    let msgPacket = {
+      currentMsgSent,
+      currentChatroomId,
+    };
 
-     if (currentMsgSent !== null && currentChatroomId !== null) {
+    if (currentMsgSent !== null && currentChatroomId !== null) {
       saveSentMsgs(msgPacket);
     }
-
   };
 
   return (
     <div className="wrapper">
       <div className="chatboxDisplay">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={sendMsgToChatroom}>
           <input
             type="text"
             className="chatboxInput"
@@ -56,9 +53,9 @@ const ChatInput = ({
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  chatroom: state.chatroom
+  chatroom: state.chatroom,
 });
 
-export default connect(mapStateToProps, {saveSentMsgs})(ChatInput);
+export default connect(mapStateToProps, { saveSentMsgs })(ChatInput);
