@@ -52,8 +52,7 @@ router.get("/msgs/:id", auth, async (req, res) => {
 //@desc     This is to grab the specific chatroom ID from clicking on a conversation
 //@access   Private: To only be seen by those logged in
 router.put("/msgs/:id", auth, async (req, res) => {
-  //Here these will be used as conditionals to send to front end the name of the friend in the conversation
-  const { currentMsgSent } = req.body;
+  const { currentMsgSent } = req.body; //This is being accessed through the parameter JSON object
   let userInChatroom = await Chatroom.findByIdAndUpdate(req.params.id, {
     $push: { messages: currentMsgSent },
   });

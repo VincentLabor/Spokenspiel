@@ -45,7 +45,7 @@ const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs, auth:{user} })
           <FriendsList />
           <div className="chatting">
             Chat
-            {currentChatroomName}
+            {currentChatroomName} {/*This currently does nothing*/}
             <ChatMessages messages={messages} setMessages={setMessages} />
           </div>
 

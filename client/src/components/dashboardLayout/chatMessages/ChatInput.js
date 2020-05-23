@@ -24,7 +24,7 @@ const ChatInput = ({
       currentMsgSent,
       currentChatroomId,
     };
-
+    
     if (currentMsgSent !== null && currentChatroomId !== null) {
       saveSentMsgs(msgPacket);
     }

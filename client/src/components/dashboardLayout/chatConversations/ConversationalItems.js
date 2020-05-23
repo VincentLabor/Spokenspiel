@@ -25,8 +25,6 @@ const ConversationItems = ({
   removeChatroomfromSight,
 }) => {
   const [room, setRoomName] = useState("");
-  const [currentRoom, setCurrentRoom] = useState("");
-  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     setCurrentChatroomId(room);

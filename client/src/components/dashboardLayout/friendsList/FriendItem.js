@@ -6,7 +6,8 @@ import {
   getUsersChatrooms,
   chatroomCheck,
   setCurrentChatroomId,
-  getMessagesFromDB
+  getMessagesFromDB,
+  findChatroom
 } from "../../../actions/chatroomActions";
 
 const FriendItem = ({
@@ -28,7 +29,7 @@ const FriendItem = ({
 
   const openConversation = async () => {
     chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
-    setCurrentChatroomId(friend._id);
+    // findChatroom(friend._id);
     // getMessagesFromDB(currentChatroomId);
   };
 
