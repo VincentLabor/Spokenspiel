@@ -7,7 +7,7 @@ import {
   chatroomCheck,
   setCurrentChatroomId,
   getMessagesFromDB,
-  findChatroom
+  findChatroom,
 } from "../../../actions/chatroomActions";
 
 const FriendItem = ({
@@ -23,13 +23,14 @@ const FriendItem = ({
 }) => {
   const removeFriendFromFriendsList = () => {
     deleteFriend(friend._id);
-    console.log(currentChatroomId)
+    console.log(currentChatroomId);
     getFriends(currentChatroomId);
   };
 
   const openConversation = async () => {
     chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
-    // findChatroom(friend._id);
+    // 80
+    //findChatroom(friend._id); //143 This is not triggering for some reason?
     // getMessagesFromDB(currentChatroomId);
   };
 
@@ -66,5 +67,5 @@ export default connect(mapStateToProps, {
   getUsersChatrooms,
   chatroomCheck,
   setCurrentChatroomId,
-  getMessagesFromDB
+  getMessagesFromDB,
 })(FriendItem);

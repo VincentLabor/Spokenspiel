@@ -11,7 +11,8 @@ import {
   REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
-  HIDE_CHAT
+  HIDE_CHAT,
+  UNHIDE_CHATROOM
 } from "../actions/types";
 
 const initialState = {
@@ -38,7 +39,7 @@ export default (state = initialState, action) => {
       case HIDE_CHAT:
         return{
           ...state,
-          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id === action.payload),
+          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id !== action.payload),
         }
     case GET_CHATROOM_ID:
       return {
@@ -57,7 +58,6 @@ export default (state = initialState, action) => {
         currentChatroomId: action.payload
        };
     case GET_SPECIFIC_CHATROOM:
-      console.log(action.payload)
       return {
         ...state,
         chatRoomExists: action.payload

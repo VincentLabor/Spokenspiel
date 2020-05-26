@@ -154,5 +154,19 @@ router.put("/:id", auth, async (req, res) => {
     console.log(error);
   }
 });
+//@route    PUT /api/chatroom/show/:chatroomID
+//@desc     This is change the visibility of a chatroom
+//@access   To only be seen between the users involved with the chatroom
+router.put("/show/:id", auth, async (req, res) => {
+  let chatroomToBeEdited = await Chatroom.findByIdAndUpdate(req.params.id, {
+    $set: { isHidden: false },
+  });
+
+  try {
+    res.json(chatroomToBeEdited);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;

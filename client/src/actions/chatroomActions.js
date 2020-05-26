@@ -14,6 +14,7 @@ import {
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
   HIDE_CHAT,
+  UNHIDE_CHATROOM,
 } from "./types";
 
 export const getUsersChatrooms = () => async (dispatch) => {
@@ -35,9 +36,7 @@ export const getUsersChatrooms = () => async (dispatch) => {
 export const getMessagesFromDB = (chatId) => async (dispatch) => {
   //This is how we get the messages and display them to the page.
   try {
-    console.log(chatId)
     const res = await axios.get(`/api/chatroom/msgs/${chatId}`);
-    console.log(res.data);
     dispatch(clearMsgs()); // This will clear the page/chatroom
     dispatch({ type: GET_CHATROOM_MSGS, payload: res.data.messages });
   } catch (err) {
@@ -87,15 +86,37 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
   try {
     try {
       const res = await axios.get(`api/chatroom/${friendData}`, config);
+      //console.log(res.data)
       dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
-      // dispatch(getMessagesFromDB(res.data._id)); 
+      dispatch(getMessagesFromDB(res.data[0]._id));
+      //dispatch(bringChatroomIntoSight(res.data._id));
     } catch (error) {
+      console.log("Could not find any relevant chatrooms");
       dispatch(addChatroom(friendData));
     }
   } catch (error) {
     console.log(error);
   }
 };
+
+//New action that is supposed to grab the chatroomId and proceed to send it to getmessages from chtroom
+export const findChatroom = (friendId) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.get(`/api/chatroom/${friendId}`, config);
+    console.log(friendId);
+    // dispatch(setCurrentChatroomId(res.data._id));
+    dispatch(getMessagesFromDB(res.data._id)); //This needs to call the grab message with the res.data that we just got
+    dispatch({ type: GET_CHATROOM_ID, payload: res.data._id });
+  } catch (error) {
+    console.log(error);
+  }
+}; //The dispatches don't seem to be working as intended?
 
 //This is to add a new chatroom entire which starts from the previous action
 export const addChatroom = (friendData) => async (dispatch) => {
@@ -138,36 +159,14 @@ export const getChatroomName = (friendData) => (dispatch) => {
   }
 };
 
-//New action that is supposed to grab the chatroomId and proceed to send it to getmessages from chtroom
-export const findChatroom = (friendId) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  try {
-    const res = await axios.get(`/api/chatroom/${friendId}`, config);
-    // dispatch(setCurrentChatroomId(res.data._id));
-    dispatch(getMessagesFromDB(res.data._id)); //This needs to call the grab message with the res.data that we just got
-    dispatch({ type: GET_CHATROOM_ID, payload: res.data._id });
-    console.log(res.data._id);
-  } catch (error) {
-    console.log(error);
-  }
-}; //The dispatches don't seem to be working as intended?
-
 export const setCurrentChatroomId = (chatroomData) => (dispatch) => {
   //This is utilized for setting the Chat messages in the dashboard
   try {
-    console.log(chatroomData)
     dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
   } catch (error) {
     console.log(error);
   }
 };
-
-export const viewMessagesInChatroom = () => async (dispatch) => {};
 
 export const enterGeneralChat = () => async (dispatch) => {
   try {
@@ -175,6 +174,21 @@ export const enterGeneralChat = () => async (dispatch) => {
     dispatch({ type: ENTERING_GENERAL_CHAT, payload: res.data[0]._id });
   } catch (error) {
     console.log("There is an error within enter General Chat" + error);
+  }
+};
+
+export const bringChatroomIntoSight = (chatroomID) => async (dispatch) => {
+  const config = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const res = await axios.put("/api/chatroom/show/:chatroomID", config); // This is breaking the prog
+    console.log(res.data.isHidden);
+    // dispatch({ type: SOMETHING, payload: res.data });
+  } catch (error) {
+    console.log(error);
   }
 };
 
