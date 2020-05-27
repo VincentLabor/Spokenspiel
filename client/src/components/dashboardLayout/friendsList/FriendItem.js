@@ -19,6 +19,7 @@ const FriendItem = ({
   chatroomCheck,
   setCurrentChatroomId,
   getMessagesFromDB,
+  findChatroom,
   chatroom: { chatRoomExists, currentChatroomId },
 }) => {
   const removeFriendFromFriendsList = () => {
@@ -28,9 +29,9 @@ const FriendItem = ({
   };
 
   const openConversation = async () => {
-    chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
+    //chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
     // 80
-    //findChatroom(friend._id); //143 This is not triggering for some reason?
+    findChatroom(friend._id); //143 This is not triggering for some reason?
     // getMessagesFromDB(currentChatroomId);
   };
 
@@ -57,7 +58,7 @@ const FriendItem = ({
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  chatroom: state.chatroom,
+  chatroom: state.chatroom
 });
 
 export default connect(mapStateToProps, {
@@ -68,4 +69,5 @@ export default connect(mapStateToProps, {
   chatroomCheck,
   setCurrentChatroomId,
   getMessagesFromDB,
+  findChatroom
 })(FriendItem);

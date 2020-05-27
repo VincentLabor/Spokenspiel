@@ -86,8 +86,9 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
   try {
     try {
       const res = await axios.get(`api/chatroom/${friendData}`, config);
-      //console.log(res.data)
+      //console.log(res.data[0]._id); This is the chatroom._id
       dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
+      
       dispatch(getMessagesFromDB(res.data[0]._id));
       //dispatch(bringChatroomIntoSight(res.data._id));
     } catch (error) {
@@ -109,10 +110,11 @@ export const findChatroom = (friendId) => async (dispatch) => {
 
   try {
     const res = await axios.get(`/api/chatroom/${friendId}`, config);
-    console.log(friendId);
+    console.log(res.data);
     // dispatch(setCurrentChatroomId(res.data._id));
-    dispatch(getMessagesFromDB(res.data._id)); //This needs to call the grab message with the res.data that we just got
-    dispatch({ type: GET_CHATROOM_ID, payload: res.data._id });
+    dispatch({ type: GET_CHATROOM_ID, payload: res.data[0]._id});
+    dispatch(getMessagesFromDB(res.data[0]._id)); //This needs to call the grab message with the res.data that we just got
+
   } catch (error) {
     console.log(error);
   }
