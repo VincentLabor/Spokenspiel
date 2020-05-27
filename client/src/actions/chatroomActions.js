@@ -204,6 +204,7 @@ export const removeChatroomfromSight = (chatroomData) => async (dispatch) => {
     const res = await axios.put(`/api/chatroom/${chatroomData}`, config);
     console.log(res.data);
     dispatch({ type: HIDE_CHAT, payload: res.data._id });
+    dispatch(clearMsgs());
   } catch (error) {
     console.log(error);
   }
