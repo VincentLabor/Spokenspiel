@@ -29,10 +29,8 @@ const FriendItem = ({
   };
 
   const openConversation = async () => {
-    //chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
-    // 80
-    findChatroom(friend._id); //143 This is not triggering for some reason?
-    // getMessagesFromDB(currentChatroomId);
+    chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
+    //findChatroom(friend._id); //143 This is not triggering for some reason?
   };
 
   return (

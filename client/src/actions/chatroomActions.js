@@ -86,11 +86,10 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
   try {
     try {
       const res = await axios.get(`api/chatroom/${friendData}`, config);
-      //console.log(res.data[0]._id); This is the chatroom._id
       dispatch({ type: GET_SPECIFIC_CHATROOM, payload: res.data[0]._id });
-      
+      dispatch({ type: GET_CHATROOM_ID, payload: res.data[0]._id});
       dispatch(getMessagesFromDB(res.data[0]._id));
-      //dispatch(bringChatroomIntoSight(res.data._id));
+      dispatch(bringChatroomIntoSight(res.data[0]._id));
     } catch (error) {
       console.log("Could not find any relevant chatrooms");
       dispatch(addChatroom(friendData));
@@ -112,13 +111,13 @@ export const findChatroom = (friendId) => async (dispatch) => {
     const res = await axios.get(`/api/chatroom/${friendId}`, config);
     console.log(res.data);
     // dispatch(setCurrentChatroomId(res.data._id));
-    dispatch({ type: GET_CHATROOM_ID, payload: res.data[0]._id});
+
     dispatch(getMessagesFromDB(res.data[0]._id)); //This needs to call the grab message with the res.data that we just got
 
   } catch (error) {
     console.log(error);
   }
-}; //The dispatches don't seem to be working as intended?
+};
 
 //This is to add a new chatroom entire which starts from the previous action
 export const addChatroom = (friendData) => async (dispatch) => {
@@ -186,8 +185,9 @@ export const bringChatroomIntoSight = (chatroomID) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.put("/api/chatroom/show/:chatroomID", config); // This is breaking the prog
-    console.log(res.data.isHidden);
+    const res = await axios.put(`/api/chatroom/show/${chatroomID}`, config); // This is breaking the prog
+    dispatch(getUsersChatrooms());
+    //This needs to reload the page somehow
     // dispatch({ type: SOMETHING, payload: res.data });
   } catch (error) {
     console.log(error);
