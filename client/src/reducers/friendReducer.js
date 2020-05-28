@@ -7,6 +7,7 @@ import {
   GET_FRIEND_REQS,
   CLEAR_FRIEND_STATE,
   REMOVE_FRIEND_REQ,
+  
 } from "../actions/types";
 
 const initialState = {
@@ -36,7 +37,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         friends: state.friends.filter(
-          (unWantedFriend) => unWantedFriend._id === action.payload
+          (unWantedFriend) => unWantedFriend._id !== action.payload
         ),
       };
     case USER_LOADED:

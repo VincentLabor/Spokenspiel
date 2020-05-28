@@ -169,4 +169,32 @@ router.put("/show/:id", auth, async (req, res) => {
   }
 });
 
+//@route    put /api/chatroom/removal/:id
+//@desc     This is to delete chatrooms after a friend is deleted
+//@access   Private: To only be seen by those within the room
+router.put("/removal/:id", auth, async (req, res) => {
+  let currentUserName = await User.findById(req.user._id);
+  let otherUsersName = await User.findById(req.params.id);
+
+  let chatroomExists = await Chatroom.find({
+    $and: [
+      { usersWithinChatroom: currentUserName.userName },
+      { usersWithinChatroom: otherUsersName.userName },
+    ],
+  });
+
+  let removeChatroom = await Chatroom.findByIdAndUpdate(chatroomExists, {
+    $set: { isHidden: true },
+  } );
+
+  //This returns an array which includes the entire chatroom information.
+  try {
+    res.json(removeChatroom);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+
+
 module.exports = router;

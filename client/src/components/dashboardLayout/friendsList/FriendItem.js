@@ -8,6 +8,8 @@ import {
   setCurrentChatroomId,
   getMessagesFromDB,
   findChatroom,
+  removeChatroomfromSight,
+  removeChatroomAfterDeletingFriend
 } from "../../../actions/chatroomActions";
 
 const FriendItem = ({
@@ -20,12 +22,16 @@ const FriendItem = ({
   setCurrentChatroomId,
   getMessagesFromDB,
   findChatroom,
+  removeChatroomfromSight,
+  removeChatroomAfterDeletingFriend,
   chatroom: { chatRoomExists, currentChatroomId },
 }) => {
   const removeFriendFromFriendsList = () => {
+    removeChatroomAfterDeletingFriend(friend._id);
     deleteFriend(friend._id);
-    console.log(currentChatroomId);
-    getFriends(currentChatroomId);
+    //console.log(currentChatroomId);
+
+   // removeChatroomfromSight(currentChatroomId);
   };
 
   const openConversation = async () => {
@@ -67,5 +73,7 @@ export default connect(mapStateToProps, {
   chatroomCheck,
   setCurrentChatroomId,
   getMessagesFromDB,
-  findChatroom
+  findChatroom,
+  removeChatroomfromSight,
+  removeChatroomAfterDeletingFriend
 })(FriendItem);

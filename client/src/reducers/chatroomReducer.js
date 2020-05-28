@@ -12,7 +12,8 @@ import {
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
   HIDE_CHAT,
-  UNHIDE_CHATROOM
+  UNHIDE_CHATROOM,
+  REMOVE_CHATROOM_AFTER_REMOVING_FRIEND
 } from "../actions/types";
 
 const initialState = {
@@ -25,7 +26,7 @@ const initialState = {
   currentChatroomName: null,
   msgs: [],
   isTheUserInGeneralChat: true,
-  chatRoomExists: null
+  chatRoomExists: null,
 };
 
 export default (state = initialState, action) => {
@@ -37,6 +38,11 @@ export default (state = initialState, action) => {
         loading: false
       };
       case HIDE_CHAT:
+        return{
+          ...state,
+          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id !== action.payload),
+        }
+      case REMOVE_CHATROOM_AFTER_REMOVING_FRIEND:
         return{
           ...state,
           chatrooms: state.chatrooms.filter((chatroom) => chatroom._id !== action.payload),

@@ -136,6 +136,7 @@ export const deleteFriend = friendData => async dispatch => { //This needs a ref
     const res = await axios.delete(`/api/friends/delete/${friendData}`, config);
     console.log(res.data)
     dispatch({ type: DELETE_FRIEND, payload: res.data });
+    dispatch(getFriends());
   } catch (err) {
     console.log(err);
   }

@@ -15,6 +15,7 @@ import {
   GET_SPECIFIC_CHATROOM,
   HIDE_CHAT,
   UNHIDE_CHATROOM,
+  REMOVE_CHATROOM_AFTER_REMOVING_FRIEND
 } from "./types";
 
 export const getUsersChatrooms = () => async (dispatch) => {
@@ -209,6 +210,26 @@ export const removeChatroomfromSight = (chatroomData) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const removeChatroomAfterDeletingFriend = (friendId) => async (dispatch) =>{
+  const config = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+ 
+  try {
+
+    const res = await axios.put(`/api/chatroom/removal/${friendId}`, config);
+    console.log(friendId);
+    console.log(res.data) //Something here breaks
+
+
+    dispatch({type: REMOVE_CHATROOM_AFTER_REMOVING_FRIEND, payload: res.data._id})
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export const postInGeneralChat = async (dispatch) => {
   try {
