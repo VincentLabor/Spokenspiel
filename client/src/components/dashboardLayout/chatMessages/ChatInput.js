@@ -13,13 +13,13 @@ const ChatInput = ({
   const [currentMsgSent, setCurrentMsgSent] = useState("");
 
   const onChange = (e) => {
-    setCurrentMsg(e.target.value);
-    setCurrentMsgSent(user.userName + " : " + e.target.value);
+    setCurrentMsg(e.target.value); //Adding a prefix here will break the program
+    setCurrentMsgSent(user.userName + ": " + e.target.value);
   };
 
   const sendMsgToChatroom = (e) => {
     e.preventDefault(); //Prevents page from opening after sending message
-    sendMessage(user.userName + " : " + e);
+    sendMessage(user.userName + ": " + e);
     let msgPacket = {
       currentMsgSent,
       currentChatroomId,

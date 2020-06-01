@@ -6,7 +6,7 @@ import {
   getUsersChatrooms,
   chatroomCheck,
   setCurrentChatroomId,
-  getMessagesFromDB,
+
   findChatroom,
   removeChatroomfromSight,
   removeChatroomAfterDeletingFriend
@@ -20,7 +20,7 @@ const FriendItem = ({
   getUsersChatrooms,
   chatroomCheck,
   setCurrentChatroomId,
-  getMessagesFromDB,
+
   findChatroom,
   removeChatroomfromSight,
   removeChatroomAfterDeletingFriend,
@@ -72,7 +72,6 @@ export default connect(mapStateToProps, {
   getUsersChatrooms,
   chatroomCheck,
   setCurrentChatroomId,
-  getMessagesFromDB,
   findChatroom,
   removeChatroomfromSight,
   removeChatroomAfterDeletingFriend

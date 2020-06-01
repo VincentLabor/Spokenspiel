@@ -61,16 +61,17 @@ export const saveSentMsgs = (msgData) => async (dispatch) => {
       msgData,
       config
     );
-    // console.log(res.data);
-    dispatch({ type: STORE_SENT_MSGS, payload: res.data });
+     console.log(res.data);
+    dispatch({ type: STORE_SENT_MSGS, payload: res.data.messages.pop }); //This never fires?
   } catch (error) {
     console.log(error);
   }
 };
 
-export const saveMsgs = (chatData) => (dispatch) => {
+export const saveMsgs = (chatData, socket) => (dispatch) => {
   try {
     dispatch({ type: STORE_MSGS, payload: chatData });
+    socket.emit("")
   } catch (error) {
     console.log(error);
   }
@@ -221,11 +222,8 @@ export const removeChatroomAfterDeletingFriend = (friendId) => async (dispatch) 
   try {
 
     const res = await axios.put(`/api/chatroom/removal/${friendId}`, config);
-    console.log(friendId);
-    console.log(res.data) //Something here breaks
-
-
     dispatch({type: REMOVE_CHATROOM_AFTER_REMOVING_FRIEND, payload: res.data._id})
+    dispatch()
   } catch (error) {
     console.log(error)
   }

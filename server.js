@@ -43,16 +43,12 @@ io.on("connection", socket => {
 //    socket.emit("send Username", socket.username); //can do last of array. How to make separate element based on the username
 //   });
 
-  socket.on("chat message", (msg, callback) => {
-    socket.emit("chat message", msg); //This allows for both users to see the message
+  socket.on("chat message", (msg, callback) => { //Listens for "chat message"
+    socket.emit("serverToClient", msg); //This allows for both users to see the message
     console.log("sending msg from " + socket.username + ": " + msg);
+    io.emit("sendTypedMsg", socket.username + ": " + msg)
     callback(); //Having this enables the frontend to have a callbackfunction.
   });
-
-  // socket.on("join room", () => {
-  //   // io.to('join room').emit("chat message");
-  //   console.log("Someone has joined the room!!!!!!!!!@!@!!!");
-  // });
 
   socket.on("disconnect", () => {
     console.log("client has disconnected");

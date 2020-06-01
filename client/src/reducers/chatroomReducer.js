@@ -11,9 +11,10 @@ import {
   REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
+  STORE_SENT_MSGS,
   HIDE_CHAT,
   UNHIDE_CHATROOM,
-  REMOVE_CHATROOM_AFTER_REMOVING_FRIEND
+  REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
 } from "../actions/types";
 
 const initialState = {
@@ -80,6 +81,11 @@ export default (state = initialState, action) => {
         currentChatroomName: action.payload,
         loading: false
       };
+       case STORE_SENT_MSGS:
+         return {
+           ...state,
+           msgs: [...state.msgs, action.payload]
+         }
      case STORE_MSGS:
        return {
          ...state,

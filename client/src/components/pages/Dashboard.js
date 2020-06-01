@@ -7,34 +7,40 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "socket.io-client";
-import { saveMsgs, saveSentMsgs} from "../../actions/chatroomActions";
+import { saveMsgs, saveSentMsgs } from "../../actions/chatroomActions";
 
 let socket;
 
-const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs, auth:{user} }) => {
+const Dashboard = ({
+  chatroom: { currentChatroomName },
+  saveMsgs,
+  auth: { user },
+}) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [messages, setMessages] = useState([]); //The whole array of messsages
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
+
 
   const endpoint = "localhost:5000";
 
   useEffect(() => {
     socket = io(endpoint);
+  }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders. This will need to change in the far future?
 
-  }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders
-
-  useEffect(() => {
-    socket.on("chat message", currentMsg => {
-      saveMsgs(currentMsg);
+  useEffect(() => { //This generally goes after sendmessage. 
+    socket.on("serverToClient", (currentMsg) => { //This is the reason for the immediate saving
+      saveMsgs(currentMsg, socket);
+      socket.emit("immedi", (currentMsg))
     });
   }, [messages]); //Check back on this
 
-  const sendMessage = e => {
-    if (currentMsg) {
-      socket.emit("chat message", (user.userName + " : " + currentMsg), () => {
-        setCurrentMsg("");
-      });
-    }
+  const sendMessage = (e) => {
+    //Message is sent to the server.
+     if (currentMsg) {
+       socket.emit("chat message", user.userName + " : " + currentMsg, () => {
+         setCurrentMsg("");
+       });
+     }
   };
 
   return (
@@ -47,6 +53,7 @@ const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs, auth:{user} })
             Chat
             {currentChatroomName} {/*This currently does nothing*/}
             <ChatMessages messages={messages} setMessages={setMessages} />
+            {/* <p>{currentMsg}</p> turns out this contributes nothing. */}
           </div>
 
           <div className="chatbox">
@@ -69,9 +76,9 @@ const Dashboard = ({ chatroom: { currentChatroomName }, saveMsgs, auth:{user} })
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  chatroom: state.chatroom
+  chatroom: state.chatroom,
 });
 
-export default connect(mapStateToProps, { saveMsgs, saveSentMsgs})(Dashboard);
+export default connect(mapStateToProps, { saveMsgs, saveSentMsgs })(Dashboard);

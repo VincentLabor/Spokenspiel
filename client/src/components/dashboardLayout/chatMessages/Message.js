@@ -7,25 +7,27 @@ import { saveSentMsgs } from "../../../actions/chatroomActions";
 const Message = ({
   message,
   auth: { user },
-  chatroom: { currentChatroomId,msgs },
-  saveSentMsgs
+  chatroom: { currentChatroomId, msgs },
+  saveSentMsgs,
 }) => {
   const [currentMsgSent, setCurrentMsgSent] = useState(null);
 
-  // useEffect(()=>{
-  //   setCurrentMsgSent(message)
-  // })
+// let socket = io("localhost:5000");
+// socket.on("sendAll", (typedMsg) => {
+//   setCurrentMsgSent(typedMsg);
+// });
 
   return (
     //This needs to be mapped out like an array
     <div className="messageContainer backgroundBlue">
       <p>{message}</p>
+ 
     </div>
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  chatroom: state.chatroom
+  chatroom: state.chatroom,
 });
 export default connect(mapStateToProps, { saveSentMsgs })(Message);
