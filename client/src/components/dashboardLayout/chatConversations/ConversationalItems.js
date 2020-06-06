@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import io from "socket.io-client";
+import io from "socket.io-client"
+// import io from "socket.io-client";
+
 import {
   getChatroomName,
   clearMsgs,
@@ -25,9 +27,10 @@ const ConversationItems = ({
   removeChatroomfromSight,
 }) => {
   const [room, setRoomName] = useState("");
-
+ let socket = io("localhost:5000");
   useEffect(() => {
-    setCurrentChatroomId(room);
+
+    socket.emit("goesSomewhere", room);
     if (user) {
       getChatroomName(
         user.userName === conversation.user1Name
@@ -37,10 +40,13 @@ const ConversationItems = ({
     }
   }, [room]);
 
+ 
+
   const onClick = () => {
     //This prevents the users from
     setRoomName(conversation._id);
     getMessagesFromDB(conversation._id);
+
   };
 
   const removeConvoRoom = () => {

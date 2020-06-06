@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
     case GET_CHATROOM:
       return {
         ...state,
-        chatrooms: [...action.payload],
+        chatrooms: [...action.payload.slice(0)],
         loading: false
       };
       case HIDE_CHAT:
@@ -95,7 +95,7 @@ export default (state = initialState, action) => {
      case GET_CHATROOM_MSGS: 
      return{
        ...state,
-       msgs: action.payload
+       msgs: action.payload.slice(0)
      } 
     case REMOVE_MSGS:
       return {

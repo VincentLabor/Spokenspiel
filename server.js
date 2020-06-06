@@ -30,25 +30,21 @@ const users = [];
 io.on("connection", socket => {
   let addedUser = false;
   console.log("A user has joined!");
-  //  socket.on('join', ({name,room},callback)=>{
-  //   socket.join(room);
-  //  });
-
-//  socket.on("send Username", username => {
-//    if (addedUser) return;
-//    socket.username = username;
-//    users.push(socket.username);
-//    addedUser = true;
-//    console.log(socket.username);
-//    socket.emit("send Username", socket.username); //can do last of array. How to make separate element based on the username
-//   });
 
   socket.on("chat message", (msg, callback) => { //Listens for "chat message"
     socket.emit("serverToClient", msg); //This allows for both users to see the message
     console.log("sending msg from " + socket.username + ": " + msg);
-    io.emit("sendTypedMsg", socket.username + ": " + msg)
+    socket.broadcast.emit("sendTypedMsg")
     callback(); //Having this enables the frontend to have a callbackfunction.
   });
+
+    socket.on("goesSomewhere",room =>{
+      
+    })
+  // io.use((socket,next)=>{
+  //   if(socket.request.headers.cookie) return next();
+  //   next(new Error('Authentication error'));
+  // });
 
   socket.on("disconnect", () => {
     console.log("client has disconnected");

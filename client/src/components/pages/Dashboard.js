@@ -24,7 +24,7 @@ const Dashboard = ({
   const endpoint = "localhost:5000";
 
   useEffect(() => {
-    socket = io(endpoint);
+    socket = io(endpoint,{transports: ['websocket']});
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders. This will need to change in the far future?
 
   useEffect(() => { //This generally goes after sendmessage. 

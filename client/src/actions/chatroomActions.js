@@ -38,8 +38,10 @@ export const getMessagesFromDB = (chatId) => async (dispatch) => {
   //This is how we get the messages and display them to the page.
   try {
     const res = await axios.get(`/api/chatroom/msgs/${chatId}`);
-    dispatch(clearMsgs()); // This will clear the page/chatroom
+  //  dispatch(clearMsgs()); // This will clear the page/chatroom
+  dispatch(setCurrentChatroomId(chatId))
     dispatch({ type: GET_CHATROOM_MSGS, payload: res.data.messages });
+
   } catch (err) {
     console.log(err);
   }
@@ -71,7 +73,6 @@ export const saveSentMsgs = (msgData) => async (dispatch) => {
 export const saveMsgs = (chatData, socket) => (dispatch) => {
   try {
     dispatch({ type: STORE_MSGS, payload: chatData });
-    socket.emit("")
   } catch (error) {
     console.log(error);
   }
@@ -165,6 +166,7 @@ export const getChatroomName = (friendData) => (dispatch) => {
 export const setCurrentChatroomId = (chatroomData) => (dispatch) => {
   //This is utilized for setting the Chat messages in the dashboard
   try {
+    console.log(chatroomData);
     dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
   } catch (error) {
     console.log(error);
