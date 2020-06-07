@@ -18,6 +18,7 @@ const Login = ({
   loadUser,
   enterGeneralChat
 }) => {
+
   const [userAcct, setUserAcct] = useState({
     userName: "",
     password: ""
@@ -30,7 +31,7 @@ const Login = ({
     } else {
       history.push("/login");
     }
-  }, [history, isAuthenticated, user, loadUser, alerts, setAlert, token]);
+  }, [isAuthenticated]);
 
   const { userName, password } = userAcct;
 

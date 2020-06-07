@@ -9,8 +9,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import "./App.css";
 import { Provider } from "react-redux";
 import store from "./store";
-import io from "socket.io-client"
-//const io = require('socket.io-client/dist/socket.io');
+
 
 const App = () => {
   return (

@@ -21,14 +21,12 @@ const PORT = process.env.PORT || 5000;
 
 const http = require("http");
 const socketIo = require("socket.io");
-const axios = require("axios");
 
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const users = [];
 io.on("connection", socket => {
-  let addedUser = false;
+  //let addedUser = false;
   console.log("A user has joined!");
 
   socket.on("chat message", (msg, callback) => { //Listens for "chat message"
@@ -37,14 +35,6 @@ io.on("connection", socket => {
     socket.broadcast.emit("sendTypedMsg")
     callback(); //Having this enables the frontend to have a callbackfunction.
   });
-
-    socket.on("goesSomewhere",room =>{
-      
-    })
-  // io.use((socket,next)=>{
-  //   if(socket.request.headers.cookie) return next();
-  //   next(new Error('Authentication error'));
-  // });
 
   socket.on("disconnect", () => {
     console.log("client has disconnected");

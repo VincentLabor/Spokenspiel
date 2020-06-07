@@ -20,6 +20,7 @@ const ChatInput = ({
   const sendMsgToChatroom = (e) => {
     e.preventDefault(); //Prevents page from opening after sending message
     sendMessage(user.userName + ": " + e);
+    
     let msgPacket = {
       currentMsgSent,
       currentChatroomId,

@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Message from "./Message"; //This is to move to Message.js
-import io from "socket.io-client";
-import { getMessagesFromDB,  } from "../../../actions/chatroomActions";
+import io from "../../../../node_modules/socket.io-client/dist/socket.io";
+import { getMessagesFromDB } from "../../../actions/chatroomActions";
 
-const ChatMessages = (
-  { chatroom: { msgs, currentChatroomId }, getMessagesFromDB },
-  
-) => {
-  //We grab messages from the reducer
+const ChatMessages = ({
+  chatroom: { msgs, currentChatroomId },
+  getMessagesFromDB,
+}) => {
 
-  let socket = io("localhost:5000");
 
-  const testArray= [];
+  //let socket = io("localhost:5000");
 
-  socket.once("sendTypedMsg", (typedMsg) => {
-     testArray.push(typedMsg)
-    // console.log(typedMsg)
-   // setCurrentMsgSent(typedMsg);
-    getMessagesFromDB(currentChatroomId);
-  });
+  // socket.on("sendTypedMsg", (typedMsg) => {
+  //   if (currentChatroomId) {
+  //     getMessagesFromDB(currentChatroomId);
+  //   }
+  //});
 
   const [currentMsgSent, setCurrentMsgSent] = useState(null);
 
@@ -32,9 +29,6 @@ const ChatMessages = (
               <Message message={message} />
             </div>
           ))}
-      {testArray.map((msg)=>{
-       return <p>{msg}</p>
-      })}
     </div>
   );
 };
