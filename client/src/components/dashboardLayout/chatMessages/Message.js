@@ -5,22 +5,11 @@ import { saveSentMsgs } from "../../../actions/chatroomActions";
 
 const Message = ({
   message,
-  auth: { user },
-  chatroom: { currentChatroomId, msgs },
-  saveSentMsgs,
 }) => {
-  const [currentMsgSent, setCurrentMsgSent] = useState(null);
-
-// let socket = io("localhost:5000");
-// socket.on("sendAll", (typedMsg) => {
-//   setCurrentMsgSent(typedMsg);
-// });
 
   return (
-    //This needs to be mapped out like an array
-    <div className="messageContainer backgroundBlue">
+    <div className=" messageContainer">
       <p>{message}</p>
- 
     </div>
   );
 };

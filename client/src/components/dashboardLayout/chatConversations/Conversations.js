@@ -37,9 +37,9 @@ const Conversations = ({
   };
 
   return (
-    <div>
-      <h2>Conversations</h2>
-      <p className="cursorChg convoItem" onClick={selectGeneralChat}>
+    <div className="">
+      <h2 className="convoSpacing">Conversations</h2>
+      <p className="cursorChg convoSpacing" onClick={selectGeneralChat}>
         General Chat
       </p>
       {/*TODO CSS class that makes a separate block for discerning different convos*/}

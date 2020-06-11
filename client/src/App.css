@@ -296,6 +296,7 @@ nav li {
   grid-row-end: 10;
   border-right: lightgray 0.5px solid;
   text-align: center;
+  /* background: #f5f3f1; */
 }
 
 .friendOption {
@@ -390,12 +391,16 @@ nav li {
 .convoContainer{
   display: flex;
   justify-content: space-between;
-  padding: .5em 0;
-  border-bottom: .5px solid gray;
+  padding: .7em 0;
+  /* border-bottom: .5px solid gray; */
 }
 
 .closeConversation:hover{
   cursor: pointer;
+}
+
+.chatHeading{
+  font-weight: bold;
 }
 
 .chatboxInput{
@@ -425,6 +430,11 @@ nav li {
   margin: auto;
 }
 
+.chatboxDimens{
+padding-left: .5em;
+overflow: auto;
+}
+
 .wrapper{
   display: flex;
   width: 100%;
@@ -433,13 +443,17 @@ nav li {
 
 /* Conversation CSS */
 
-.convoItem{
+.convoSpacing{
   padding: 10px;
-
-  border-bottom: lightgray .5px solid;
+  ;
 }
 
-.convoItem:hover{
+.convoHeadSpacing{
+  padding: 0px 10px 10px 10px;
+  ;
+}
+
+.convoSpacing:hover{
   background-color: whitesmoke;
 }
 
@@ -447,6 +461,14 @@ nav li {
 .highlight{
   background-color: whitesmoke;
 }
+
+/* Messages */
+.messageContainer{
+padding: .5em 0 .2em 0;
+/* border-bottom: .2px black solid; */
+/* border-top: .2px black solid; */
+}
+
 
 /* Alerts */
 .alert {

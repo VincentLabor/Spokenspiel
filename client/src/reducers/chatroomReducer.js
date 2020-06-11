@@ -76,6 +76,7 @@ export default (state = initialState, action) => {
         loading: false
       };
     case GET_NAME_CHATROOM:
+      console.log(action.payload)
       return {
         ...state,
         currentChatroomName: action.payload,

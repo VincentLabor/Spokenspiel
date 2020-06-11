@@ -59,9 +59,9 @@ const ConversationItems = ({
     <div>
       {/* {conversation && conversation.isHidden === false ? ( */}
       {conversation.isHidden === false ? (
-        <div className="convoContainer">
+        <div className="convoContainer convoSpacing">
           {" "}
-          <p className="cursorChg convoItem" onClick={onClick}>
+          <p className="cursorChg " onClick={onClick}>
             {(user && user.userName) === conversation.user1Name
               ? conversation.user2Name
               : conversation.user1Name}

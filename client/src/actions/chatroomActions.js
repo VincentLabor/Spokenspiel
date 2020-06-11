@@ -38,7 +38,7 @@ export const getMessagesFromDB = (chatId) => async (dispatch) => {
   //This is how we get the messages and display them to the page.
   try {
     const res = await axios.get(`/api/chatroom/msgs/${chatId}`);
-  //  dispatch(clearMsgs()); // This will clear the page/chatroom
+    dispatch(clearMsgs()); // This will clear the page/chatroom
   
     dispatch({ type: GET_CHATROOM_MSGS, payload: res.data.messages });
     // dispatch({setCurrentChatroomId(chatId)})
@@ -65,7 +65,7 @@ export const saveSentMsgs = (msgData) => async (dispatch) => {
     );
      console.log(res.data);
     dispatch({ type: STORE_SENT_MSGS, payload: res.data.messages.pop }); //This never fires?
-    dispatch(getMessagesFromDB(msgData.currentChatroomId))
+    // dispatch(getMessagesFromDB(msgData.currentChatroomId))
   } catch (error) {
     console.log(error);
   }

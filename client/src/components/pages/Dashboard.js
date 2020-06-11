@@ -7,7 +7,11 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "../../../node_modules/socket.io-client/dist/socket.io";
-import { saveMsgs, saveSentMsgs, getMessagesFromDB } from "../../actions/chatroomActions";
+import {
+  saveMsgs,
+  saveSentMsgs,
+  getMessagesFromDB,
+} from "../../actions/chatroomActions";
 
 let socket;
 
@@ -18,7 +22,6 @@ const Dashboard = ({
   auth: { user },
 }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
-  const [messages, setMessages] = useState([]); //The whole array of messsages
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
 
   const endpoint = "localhost:5000";
@@ -27,14 +30,24 @@ const Dashboard = ({
     socket = io(endpoint);
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders. This will need to change in the far future?
 
-  const sendMessage = (e) => {
+    useEffect(() => {
+      testersLife();
+    }); //This should be fine
+
+  const sendMessage = async (e) => {
     //Message is sent to the server.
     if (currentMsg) {
-      socket.emit("chat message", user.userName + " : " + currentMsg, () => {
-        setCurrentMsg("");
-      });
+     sendTheMessage();
     }
-    socket.on("sendTypedMsg", (typedMsg) => {
+  };
+
+  const sendTheMessage = () => {
+    socket.emit("chat message", user.userName + " : " + currentMsg, () => {
+    });
+  };
+
+  const testersLife = () => {
+    socket.on("sendTypedMsg", () => {
       if (currentChatroomId) {
         getMessagesFromDB(currentChatroomId);
       }
@@ -47,10 +60,10 @@ const Dashboard = ({
         <Navbar />
         <div className="gridContainer">
           <FriendsList />
-          <div className="chatting">
-            Chat
+          <div className="chatting chatboxDimens">
+            <p className="chatHeading">You are now chatting with: </p>
             {currentChatroomName} {/*This currently does nothing*/}
-            <ChatMessages messages={messages} setMessages={setMessages} />
+            <ChatMessages />
             {/* <p>{currentMsg}</p> turns out this contributes nothing. */}
           </div>
 
@@ -79,4 +92,8 @@ const mapStateToProps = (state) => ({
   chatroom: state.chatroom,
 });
 
-export default connect(mapStateToProps, { saveMsgs, saveSentMsgs, getMessagesFromDB })(Dashboard);
+export default connect(mapStateToProps, {
+  saveMsgs,
+  saveSentMsgs,
+  getMessagesFromDB,
+})(Dashboard);

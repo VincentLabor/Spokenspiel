@@ -26,9 +26,12 @@ const ChatInput = ({
       currentChatroomId,
     };
     
+    console.log(currentMsgSent)
+
     if (currentMsgSent !== null && currentChatroomId !== null) {
       saveSentMsgs(msgPacket);
     }
+    setCurrentMsg(""); //This clears the input bar
   };
 
   return (
