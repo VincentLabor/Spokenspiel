@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { deleteFriend, getFriends } from "../../../actions/friendActions";
 import {
@@ -15,14 +15,7 @@ import {
 const FriendItem = ({
   friend,
   deleteFriend,
-  getFriends,
-  addChatroom,
-  getUsersChatrooms,
   chatroomCheck,
-  setCurrentChatroomId,
-
-  findChatroom,
-  removeChatroomfromSight,
   removeChatroomAfterDeletingFriend,
   chatroom: { chatRoomExists, currentChatroomId },
 }) => {

@@ -13,20 +13,20 @@ import {
   GET_SPECIFIC_CHATROOM,
   STORE_SENT_MSGS,
   HIDE_CHAT,
-  UNHIDE_CHATROOM,
+  //UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
 } from "../actions/types";
 
 const initialState = {
   chatrooms: [],
   loading: false,
-  current: null,
+  //current: null, //Not sure what this does
   currentChatroomId: null,
   // filtered: null, Maybe will include
   usersInvolved: null,
   currentChatroomName: null,
   msgs: [],
-  isTheUserInGeneralChat: true,
+ // isTheUserInGeneralChat: true,
   chatRoomExists: null,
 };
 

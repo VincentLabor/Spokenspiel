@@ -19,10 +19,12 @@ const Dashboard = ({
   chatroom: { currentChatroomName, currentChatroomId },
   getMessagesFromDB,
   saveMsgs,
+  chatroom: { msgs },
   auth: { user },
 }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
+  const [statusOfSending, setStatusOfSending] = useState(false);
 
   const endpoint = "localhost:5000";
 
@@ -30,27 +32,39 @@ const Dashboard = ({
     socket = io(endpoint);
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders. This will need to change in the far future?
 
-    useEffect(() => {
-      testersLife();
-    }); //This should be fine
+  useEffect(() => {
+    
+    socket.once("sendTypedMsg", () => {
+      if (currentChatroomId) {
+        console.log("socketon Test");
+        getMessagesFromDB(currentChatroomId);
+      }
+   
+    });
+    return ()=>{
+      socket.off("sendTypedMsg");
+      socket.once("sendTypedMsg", () => {
+        if (currentChatroomId) {
+          console.log("socketon Test");
+          getMessagesFromDB(currentChatroomId);
+        }
+     
+      });
+    }
+    // 
+  }, [msgs]);
 
-  const sendMessage = async (e) => {
+  const sendMessage = (e) => {
     //Message is sent to the server.
     if (currentMsg) {
-     sendTheMessage();
+      sendTheMessage();
     }
   };
 
   const sendTheMessage = () => {
-    socket.emit("chat message", user.userName + " : " + currentMsg, () => {
-    });
-  };
-
-  const testersLife = () => {
-    socket.on("sendTypedMsg", () => {
-      if (currentChatroomId) {
-        getMessagesFromDB(currentChatroomId);
-      }
+    console.log(socket.id);
+    socket.emit("chat message", () => {
+      setStatusOfSending(true);
     });
   };
 

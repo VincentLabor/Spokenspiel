@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import Message from "./Message"; //This is to move to Message.js
 
 import { getMessagesFromDB } from "../../../actions/chatroomActions";
 
-const ChatMessages = ({
-  chatroom: { msgs, currentChatroomId },
-  getMessagesFromDB,
-}) => {
-
-  const [currentMsgSent, setCurrentMsgSent] = useState(null);
-
+const ChatMessages = ({ chatroom: { msgs } }) => {
   return (
     <div>
       {!msgs

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { saveSentMsgs } from "../../../actions/chatroomActions";
 //we have to import users username here later

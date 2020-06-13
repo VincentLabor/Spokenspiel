@@ -12,11 +12,7 @@ import { useHistory } from "react-router-dom";
 const Login = ({
   loginUser,
   alert: { alerts },
-  setAlert,
-  removeAlert,
-  auth: { isAuthenticated, user, token },
-  loadUser,
-  enterGeneralChat
+  auth: { isAuthenticated },
 }) => {
 
   const [userAcct, setUserAcct] = useState({

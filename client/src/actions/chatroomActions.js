@@ -14,7 +14,7 @@ import {
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
   HIDE_CHAT,
-  UNHIDE_CHATROOM,
+  // UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND
 } from "./types";
 
@@ -55,7 +55,7 @@ export const saveSentMsgs = (msgData) => async (dispatch) => {
     },
   };
 
-  console.log(msgData);
+  // console.log(msgData);
 
   try {
     const res = await axios.put(
@@ -63,7 +63,7 @@ export const saveSentMsgs = (msgData) => async (dispatch) => {
       msgData,
       config
     );
-     console.log(res.data);
+
     dispatch({ type: STORE_SENT_MSGS, payload: res.data.messages.pop }); //This never fires?
     // dispatch(getMessagesFromDB(msgData.currentChatroomId))
   } catch (error) {
@@ -184,13 +184,13 @@ export const enterGeneralChat = () => async (dispatch) => {
 };
 
 export const bringChatroomIntoSight = (chatroomID) => async (dispatch) => {
-  const config = {
-    header: {
-      "Content-Type": "application/json",
-    },
-  };
+  // const config = {
+  //   header: {
+  //     "Content-Type": "application/json",
+  //   },
+  // };
   try {
-    const res = await axios.put(`/api/chatroom/show/${chatroomID}`, config); // This is breaking the prog
+    //const res = await axios.put(`/api/chatroom/show/${chatroomID}`, config); // This is breaking the prog
     dispatch(getUsersChatrooms());
     //This needs to reload the page somehow
     // dispatch({ type: SOMETHING, payload: res.data });

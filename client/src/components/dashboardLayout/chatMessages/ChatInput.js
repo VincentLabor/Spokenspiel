@@ -17,6 +17,8 @@ const ChatInput = ({
     setCurrentMsgSent(user.userName + ": " + e.target.value);
   };
 
+
+  //There's an issue with this specific function
   const sendMsgToChatroom = (e) => {
     e.preventDefault(); //Prevents page from opening after sending message
     sendMessage(user.userName + ": " + e);
@@ -25,13 +27,11 @@ const ChatInput = ({
       currentMsgSent,
       currentChatroomId,
     };
-    
-    console.log(currentMsgSent)
-
     if (currentMsgSent !== null && currentChatroomId !== null) {
       saveSentMsgs(msgPacket);
     }
     setCurrentMsg(""); //This clears the input bar
+    setCurrentMsgSent("")
   };
 
   return (

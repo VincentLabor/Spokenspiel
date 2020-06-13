@@ -26,27 +26,18 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 io.on("connection", socket => {
-  //let addedUser = false;
+  
+  console.log(socket.id)
   console.log("A user has joined!");
 
-    socket.on("chat message", (msg, callback) => { //Listens for "chat message"
-      //console.log("sending msg from " + socket.username + ": " + msg);
-      io.emit("sendTypedMsg")
-      callback(); //Having this enables the frontend to have a callbackfunction.
+    socket.on("chat message", () => { //Listens for "chat message"
+     io.emit("sendTypedMsg")
     });
 
   socket.on("disconnect", () => {
     console.log("client has disconnected");
   });
 });
-
-// io.on("chat message", (msg, callback) => {
-//   socket.emit("serverToClient", msg); //This allows for both users to see the message
-//   console.log("sending msg from " + socket.username + ": " + msg);
-//   io.emit("sendTypedMsg")
-//   callback(); //Having this enables the frontend to have a callbackfunction
-
-// })
 
 app.use(index);
 server.listen(PORT, () => {
