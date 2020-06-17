@@ -184,13 +184,13 @@ export const enterGeneralChat = () => async (dispatch) => {
 };
 
 export const bringChatroomIntoSight = (chatroomID) => async (dispatch) => {
-  // const config = {
-  //   header: {
-  //     "Content-Type": "application/json",
-  //   },
-  // };
+   const config = {
+     header: {
+       "Content-Type": "application/json",
+     },
+   };
   try {
-    //const res = await axios.put(`/api/chatroom/show/${chatroomID}`, config); // This is breaking the prog
+    const res = await axios.put(`/api/chatroom/show/${chatroomID}`, config); // This is breaking the prog
     dispatch(getUsersChatrooms());
     //This needs to reload the page somehow
     // dispatch({ type: SOMETHING, payload: res.data });

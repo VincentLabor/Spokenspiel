@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import Navbar from "../layout/Navbar";
 import { connect } from "react-redux";
 import FriendsList from "../dashboardLayout/friendsList/FriendsList";
@@ -18,9 +18,7 @@ let socket;
 const Dashboard = ({
   chatroom: { currentChatroomName, currentChatroomId },
   getMessagesFromDB,
-  saveMsgs,
   chatroom: { msgs },
-  auth: { user },
 }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
@@ -33,40 +31,59 @@ const Dashboard = ({
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders. This will need to change in the far future?
 
   useEffect(() => {
-    
     socket.once("sendTypedMsg", () => {
       if (currentChatroomId) {
         console.log("socketon Test");
         getMessagesFromDB(currentChatroomId);
       }
-   
     });
-    return ()=>{
+
+    return () => {
       socket.off("sendTypedMsg");
+
       socket.once("sendTypedMsg", () => {
         if (currentChatroomId) {
-          console.log("socketon Test");
+          console.log("This happens first");
           getMessagesFromDB(currentChatroomId);
         }
-     
       });
-    }
-    // 
+    };
+  }, [msgs]);
+
+  useEffect(() => {
+    setInterval(()=>{
+      setStatusOfSending(true);
+      setStatusOfSending(false);
+    }, 2000)
+
   }, [msgs]);
 
   const sendMessage = (e) => {
     //Message is sent to the server.
     if (currentMsg) {
       sendTheMessage();
+      setStatusOfSending(true);
     }
   };
 
   const sendTheMessage = () => {
-    console.log(socket.id);
-    socket.emit("chat message", () => {
-      setStatusOfSending(true);
-    });
+    socket.emit("chat message");
+
   };
+
+  const scrollDown = useRef(null);
+
+  let autoScrollDown = () => {
+    // scrollDown.current.scrollTop =
+    //   // scrollDown.current.scrollHeight - scrollDown.current.clientHeight;
+    //   scrollDown.current.scrollHeight;
+    scrollDown.current.scrollIntoView({behavior:"smooth", block: "end"})
+  };
+
+  useEffect(() => {
+    autoScrollDown();
+  }, [statusOfSending]); //If no bracket, clicking on conversation will auto scroll down
+
 
   return (
     <Fragment>
@@ -74,11 +91,11 @@ const Dashboard = ({
         <Navbar />
         <div className="gridContainer">
           <FriendsList />
-          <div className="chatting chatboxDimens">
+          <div className="chatting chatboxDimens" >
             <p className="chatHeading">You are now chatting with: </p>
             {currentChatroomName} {/*This currently does nothing*/}
             <ChatMessages />
-            {/* <p>{currentMsg}</p> turns out this contributes nothing. */}
+            <div ref={scrollDown} className= "anchor"></div>
           </div>
 
           <div className="chatbox">

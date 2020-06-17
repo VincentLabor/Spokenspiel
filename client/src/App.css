@@ -336,13 +336,7 @@ nav li {
   background-color: lightgray;
 }
 
-.chatting {
-  grid-column-start: 2;
-  grid-column-end: 9;
-  grid-row-start: 1;
-  grid-row-end: 10;
-  background-color: white;
-}
+
 
 /* Friend Request Section */
 
@@ -430,10 +424,28 @@ nav li {
   margin: auto;
 }
 
+.chatting {
+  grid-column-start: 2;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 10;
+  background-color: white;
+ 
+}
+
 .chatboxDimens{
 padding-left: .5em;
 overflow: auto;
+overflow-anchor: none;
+height: 100%; 
+/* overflow-anchor: none; */
 }
+
+ .anchor{
+overflow-anchor:auto;
+height: 1px;
+
+} 
 
 .wrapper{
   display: flex;

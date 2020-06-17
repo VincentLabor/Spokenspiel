@@ -15,6 +15,7 @@ const ChatInput = ({
   const onChange = (e) => {
     setCurrentMsg(e.target.value); //Adding a prefix here will break the program
     setCurrentMsgSent(user.userName + ": " + e.target.value);
+    e.preventDefault();
   };
 
 
@@ -31,7 +32,7 @@ const ChatInput = ({
       saveSentMsgs(msgPacket);
     }
     setCurrentMsg(""); //This clears the input bar
-    setCurrentMsgSent("")
+    //setCurrentMsgSent("")
   };
 
   return (

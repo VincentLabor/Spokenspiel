@@ -17,16 +17,12 @@ const Conversations = ({
   getUsersChatrooms,
   enterGeneralChat,
   getMessagesFromDB,
+  
 }) => {
 
    useEffect(() => {
      getUsersChatrooms();
    }, [currentChatroomId]); //Will refresh the chatrooms if opens a new chatroom
-
-  //  useEffect(() => {
-  //    enterGeneralChat();
-  //  }, [currentChatroomId]);
-  //Will load the genchat id and will only reload if the other chat ID's are loaded in the state
 
   //Find a way to load general chat first using useEffect
 
@@ -39,9 +35,9 @@ const Conversations = ({
   return (
     <div className="">
       <h2 className="convoSpacing">Conversations</h2>
-      <p className="cursorChg convoSpacing" onClick={selectGeneralChat}>
+      {/* <p className="cursorChg convoSpacing" onClick={selectGeneralChat}>
         General Chat
-      </p>
+      </p> */}
       {/*TODO CSS class that makes a separate block for discerning different convos*/}
       {chatrooms
         ? chatrooms.map(conversation => (
