@@ -11,6 +11,8 @@ import {
   saveMsgs,
   saveSentMsgs,
   getMessagesFromDB,
+  findChatroom,
+  
 } from "../../actions/chatroomActions";
 
 let socket;
@@ -19,6 +21,7 @@ const Dashboard = ({
   chatroom: { currentChatroomName, currentChatroomId },
   getMessagesFromDB,
   chatroom: { msgs },
+  findChatroom
 }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
@@ -33,7 +36,6 @@ const Dashboard = ({
   useEffect(() => {
     socket.once("sendTypedMsg", () => {
       if (currentChatroomId) {
-        console.log("socketon Test");
         getMessagesFromDB(currentChatroomId);
       }
     });
@@ -43,7 +45,7 @@ const Dashboard = ({
 
       socket.once("sendTypedMsg", () => {
         if (currentChatroomId) {
-          console.log("This happens first");
+          console.log(currentChatroomId);
           getMessagesFromDB(currentChatroomId);
         }
       });
@@ -51,12 +53,16 @@ const Dashboard = ({
   }, [msgs]);
 
   useEffect(() => {
-    setInterval(()=>{
+    setTimeout(()=>{
       setStatusOfSending(true);
       setStatusOfSending(false);
-    }, 2000)
+    }, 250) //This runs every 2 seconds
 
   }, [msgs]);
+
+  // useEffect(()=>{
+  //   findChatroom(currentChatroomId);
+  // })
 
   const sendMessage = (e) => {
     //Message is sent to the server.
@@ -74,9 +80,6 @@ const Dashboard = ({
   const scrollDown = useRef(null);
 
   let autoScrollDown = () => {
-    // scrollDown.current.scrollTop =
-    //   // scrollDown.current.scrollHeight - scrollDown.current.clientHeight;
-    //   scrollDown.current.scrollHeight;
     scrollDown.current.scrollIntoView({behavior:"smooth", block: "end"})
   };
 
@@ -92,7 +95,6 @@ const Dashboard = ({
         <div className="gridContainer">
           <FriendsList />
           <div className="chatting chatboxDimens" >
-            <p className="chatHeading">You are now chatting with: </p>
             {currentChatroomName} {/*This currently does nothing*/}
             <ChatMessages />
             <div ref={scrollDown} className= "anchor"></div>
@@ -127,4 +129,5 @@ export default connect(mapStateToProps, {
   saveMsgs,
   saveSentMsgs,
   getMessagesFromDB,
+  findChatroom
 })(Dashboard);

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { connect } from "react-redux";
 import { deleteFriend, getFriends } from "../../../actions/friendActions";
 import {
@@ -19,26 +19,26 @@ const FriendItem = ({
   removeChatroomAfterDeletingFriend,
   chatroom: { chatRoomExists, currentChatroomId },
 }) => {
+
+const [isShown,setIsShown] = useState(false)
+
   const removeFriendFromFriendsList = () => {
     removeChatroomAfterDeletingFriend(friend._id);
     deleteFriend(friend._id);
-    //console.log(currentChatroomId);
-
    // removeChatroomfromSight(currentChatroomId);
   };
 
   const openConversation = async () => {
     chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
-    //findChatroom(friend._id); //143 This is not triggering for some reason?
   };
 
   return (
     <div className="cursorChg">
       {friend ? (
-        <div className="friendContainer">
+        <div className="friendContainer" onMouseEnter={()=>setIsShown(true)} onMouseLeave={()=>setIsShown(false)}>
           <p className="friendName">{friend.userName}</p>
-          <i
-            className="fas fa-comment-alt trashIcon"
+          {isShown ? <div><i
+            className="fas fa-comment-alt trashIcon "
             onClick={openConversation}
           ></i>{" "}
           {/*Messaging Icon*/}
@@ -46,7 +46,8 @@ const FriendItem = ({
             className="fas fa-trash-alt trashIcon"
             onClick={removeFriendFromFriendsList}
           ></i>{" "}
-          {/*Trash Icon*/}
+          {/*Trash Icon*/}</div> : null}
+          
         </div>
       ) : null}
     </div>
@@ -69,3 +70,19 @@ export default connect(mapStateToProps, {
   removeChatroomfromSight,
   removeChatroomAfterDeletingFriend
 })(FriendItem);
+
+{/* <div className="cursorChg">
+{friend ? (
+  <div className="friendContainer" onMouseEnter={()=>setIsShown(true)} onMouseLeaver={()=>setIsShown(false)}>
+    <p className="friendName">{friend.userName}</p>
+    {isShown ? (          (<i
+      className="fas fa-comment-alt trashIcon "
+      onClick={openConversation}
+    ></i>) (          <i
+      className="fas fa-trash-alt trashIcon"
+      onClick={removeFriendFromFriendsList}
+    ></i>)) : null}
+    
+  </div>
+) : null}
+</div> */}

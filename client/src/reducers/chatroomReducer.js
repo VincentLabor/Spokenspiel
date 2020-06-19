@@ -13,6 +13,7 @@ import {
   GET_SPECIFIC_CHATROOM,
   STORE_SENT_MSGS,
   HIDE_CHAT,
+  FIND_SPECIFIC_CHATROOM,
   //UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
 } from "../actions/types";
@@ -28,6 +29,7 @@ const initialState = {
   msgs: [],
  // isTheUserInGeneralChat: true,
   chatRoomExists: null,
+  currentSelectChatroom: null
 };
 
 export default (state = initialState, action) => {
@@ -69,6 +71,12 @@ export default (state = initialState, action) => {
         ...state,
         chatRoomExists: action.payload
       }   
+      case FIND_SPECIFIC_CHATROOM:
+        console.log(action.payload)
+        return{
+          ...state,
+          currentSelectChatroom: action.payload
+        }
     case ADD_CHATROOM:
       return {
         ...state,

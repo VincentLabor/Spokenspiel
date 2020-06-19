@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-
-
-
 import {
-  getChatroomName,
   clearMsgs,
   setCurrentChatroomId,
   getMessagesFromDB,
@@ -17,30 +13,17 @@ import {
 const ConversationItems = ({
   conversation,
   auth: { user },
-  chatroom: { currentChatroomId },
-  clearMsgs,
+  // chatroom: { currentChatroomId },
+  // clearMsgs,
   setCurrentChatroomId,
   getMessagesFromDB,
-  generalChatStatus,
-  enterGeneralChat,
+  // generalChatStatus,
+  // enterGeneralChat,
   getUsersChatrooms,
   removeChatroomfromSight,
-  
 }) => {
   const [room, setRoomName] = useState("");
-
-  useEffect(() => {
-
-    if (user) {
-      getChatroomName(
-        user.userName === conversation.user1Name
-          ? conversation.user2Name
-          : conversation.user1Name
-      );
-    }
-  }, [room]);
-
-
+  const [isShown, setIsShown] = useState(false);
 
   const onClick = () => {
     //This prevents the users from
@@ -54,23 +37,26 @@ const ConversationItems = ({
     getUsersChatrooms();
   };
 
-  //What if i changed where actions sent their payloads. like what if all the payloads went to the same state
-
   return (
     <div>
-      {/* {conversation && conversation.isHidden === false ? ( */}
       {conversation.isHidden === false ? (
-        <div className="convoContainer convoSpacing">
+        <div
+          className="convoContainer"
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
+        >
           {" "}
-          <p className="cursorChg " onClick={onClick}>
+          <p className="cursorChg convoNames" onClick={onClick}>
             {(user && user.userName) === conversation.user1Name
               ? conversation.user2Name
               : conversation.user1Name}
           </p>
-          <i
-            className="fas fa-times closeConversation"
-            onClick={removeConvoRoom}
-          ></i>
+          {isShown ? (
+            <i
+              className="fas fa-times closeConversation"
+              onClick={removeConvoRoom}
+            ></i>
+          ) : null}
         </div>
       ) : null}
     </div>
@@ -83,7 +69,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getChatroomName,
   clearMsgs,
   setCurrentChatroomId,
   getMessagesFromDB,
@@ -91,20 +76,3 @@ export default connect(mapStateToProps, {
   removeChatroomfromSight,
   getUsersChatrooms,
 })(ConversationItems);
-
-// const enteringGenChat = () => {
-//   clearMsgs();
-//   if (conversation) {
-//     enterGeneralChat();
-//   }
-//   if(currentChatroomId){
-//     setRoomName(currentChatroomId)
-//     getMessagesFromDB(currentChatroomId);
-
-//   }
-//   //here i should change where the messages get posted to?
-// };
-
-// className={
-//   selected ? "cursorChg convoItem highlight" : "cursorChg convoItem"
-// }

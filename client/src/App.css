@@ -24,14 +24,18 @@ html,
 body {
   margin: 0;
   /* width: 100vw; */
-    /* height: 100%; */
+  /* height: 100%; */
 }
 
-.backgroundBlue{
+.backgroundBlue {
   background: royalblue;
 }
 
-.colorWhite{
+.royalBlueColor{
+  color: royalblue
+}
+
+.colorWhite {
   color: white;
 }
 
@@ -285,7 +289,7 @@ nav li {
 
 /* Friendslist? */
 
-.underline{
+.underline {
   border-bottom: solid 1px #2a8dff;
 }
 
@@ -294,17 +298,21 @@ nav li {
   grid-column-end: 2; /*This used to be 3*/
   grid-row-start: 1;
   grid-row-end: 10;
-  border-right: lightgray 0.5px solid;
+  /* border-right: lightgray 0.5px solid; */
   text-align: center;
   /* background: #f5f3f1; */
 }
 
 .friendOption {
-  padding: .7em 0.5em;
+  padding: 0.7em 0.5em;
 }
 
 .friendOption:hover {
   cursor: pointer;
+}
+
+.fa-comment-alt{
+  color: #2a8dff;
 }
 
 .flexContainer {
@@ -313,45 +321,43 @@ nav li {
   padding: 0 10px;
 }
 
-.friendContainer{
+.friendContainer {
   display: flex;
   justify-content: space-around;
-  padding: .5em 0;
+  padding: 0.5em 0;
 }
 
-.friendContainer:hover{
+.friendContainer:hover {
   background-color: whitesmoke;
 }
 
-.friendName{
+.friendName {
   padding: 10px;
 }
 
- .trashIcon{
-   padding: 10px;
-}  
+.trashIcon {
+  padding: 10px;
+}
 
-.trashIcon:hover{
+.trashIcon:hover {
   cursor: pointer;
   background-color: lightgray;
 }
 
-
-
 /* Friend Request Section */
 
-.AddFriendInput{
+.AddFriendInput {
   box-shadow: none;
   border: 1px solid lightgray;
   padding: 0.4em;
   width: 80%;
   border-radius: 2px;
   text-align: left;
-  
+
   margin: 0.5em 0;
 }
 
-.addFriendBtn{
+.addFriendBtn {
   width: 40%;
   border: none;
   background-color: #2a8dff;
@@ -374,30 +380,46 @@ nav li {
   /* border-top: solid lightgray 0.5px; To be removed later */
 }
 
+.chatboxHeading {
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .conversations {
   grid-column-start: 9;
   grid-column-end: 11;
   grid-row-start: 1;
   grid-row-end: 10;
-  border-left: solid 0.5px lightgray;
+  /* border-left: solid 0.5px lightgray; */
 }
 
-.convoContainer{
+.convoContainer {
   display: flex;
   justify-content: space-between;
-  padding: .7em 0;
+  padding: 0.5em 0
   /* border-bottom: .5px solid gray; */
 }
 
-.closeConversation:hover{
-  cursor: pointer;
+.convoNames {
+  padding: 10px
 }
 
-.chatHeading{
+.closeConversation{
+  padding: 10px 12px 10px 10px;
+  margin: 0 1rem 0 0;
+  
+}
+
+.closeConversation:hover {
+  cursor: pointer;
+  background-color: slategray;
+}
+
+.chatHeading {
   font-weight: bold;
 }
 
-.chatboxInput{
+.chatboxInput {
   box-shadow: none;
   border: 1px solid lightgray;
   padding: 0.7em;
@@ -407,7 +429,7 @@ nav li {
   margin-bottom: 0.5em;
 }
 
-.chatboxBtn{
+.chatboxBtn {
   width: 15%;
   border: none;
   background-color: #2a8dff;
@@ -419,7 +441,7 @@ nav li {
   margin: 1em auto;
 }
 
-.chatboxDisplay{
+.chatboxDisplay {
   width: 100%;
   margin: auto;
 }
@@ -430,24 +452,41 @@ nav li {
   grid-row-start: 1;
   grid-row-end: 10;
   background-color: white;
- 
 }
 
-.chatboxDimens{
-padding-left: .5em;
-overflow: auto;
-overflow-anchor: none;
-height: 100%; 
-/* overflow-anchor: none; */
+.chatboxDimens {
+  padding-left: 0.5em;
+  overflow: auto;
+  overflow-anchor: none;
+  height: 100%;
+  /* overflow-anchor: none; */
 }
 
- .anchor{
-overflow-anchor:auto;
-height: 1px;
+/* Scrollbar */
+.chatboxDimens::-webkit-scrollbar {
+  width: 10px;
 
-} 
+}
+.chatboxDimens::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px
+}
 
-.wrapper{
+.chatboxDimens::-webkit-scrollbar-thumb {
+  background: #2a8dff; 
+  border-radius: 10px
+}
+
+.chatboxDimens::-webkit-scrollbar-thumb:hover {
+  background: #1563bb;
+}
+
+.anchor {
+  overflow-anchor: auto;
+  height: 1px;
+}
+
+.wrapper {
   display: flex;
   width: 100%;
   height: 100%;
@@ -455,32 +494,28 @@ height: 1px;
 
 /* Conversation CSS */
 
-.convoSpacing{
+/* .convoSpacing {
   padding: 10px;
-  ;
-}
+} */
 
-.convoHeadSpacing{
+.convoHeadSpacing {
   padding: 0px 10px 10px 10px;
-  ;
 }
 
-.convoSpacing:hover{
+.convoSpacing:hover {
   background-color: whitesmoke;
 }
 
-
-.highlight{
+.highlight {
   background-color: whitesmoke;
 }
 
 /* Messages */
-.messageContainer{
-padding: .5em 0 .2em 0;
-/* border-bottom: .2px black solid; */
-/* border-top: .2px black solid; */
+.messageContainer {
+  padding: 0.5em 0 0.2em 0;
+  /* border-bottom: .2px black solid; */
+  /* border-top: .2px black solid; */
 }
-
 
 /* Alerts */
 .alert {

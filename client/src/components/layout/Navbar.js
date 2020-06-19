@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
 import { clearAllChatroomState } from "../../actions/chatroomActions";
-
+import { getChatroomName, findChatroom } from "../../actions/chatroomActions";
 import { clearAll } from "../../actions/friendActions";
 
 const Navbar = ({
@@ -12,11 +12,13 @@ const Navbar = ({
   clearState,
   loadUser,
   clearAll,
-  clearAllChatroomState
+  clearAllChatroomState,
+  chatroom: { currentChatroomName, currentChatroomId, currentSelectChatroom },
+  findChatroom,
 }) => {
   const history = useHistory();
 
-  const onClick = e => {
+  const onClick = (e) => {
     if (token) {
       clearState();
       clearAll();
@@ -28,14 +30,17 @@ const Navbar = ({
   };
 
   useEffect(() => {
-    // if(token && !isAuthenticated){
-    //   loadUser();
-    //     };
     //Temporary code for development. please remove after development
     if (token) {
       loadUser();
     }
   }, [loadUser, isAuthenticated, token]);
+
+  useEffect(() => {
+    if (currentChatroomId) {
+      findChatroom(currentChatroomId);
+    }
+  }, [currentChatroomId]);
 
   const guestLinks = (
     <Fragment>
@@ -52,12 +57,6 @@ const Navbar = ({
     </Fragment>
   );
 
-  // const greetUser = () => (
-  //   <Fragment>
-
-  //   </Fragment>
-  // );
-
   const redirected = () => {
     history.push("/");
     window.location.reload();
@@ -72,14 +71,26 @@ const Navbar = ({
               Spokenspiel
             </Link>
           ) : (
-            <p onClick={redirected} className="clear">
+            <p onClick={redirected} className="clear royalBlueColor">
               Spokenspiel
             </p>
           )}
         </h1>
       </div>
+      <div>
+        {token && currentSelectChatroom ? (
+          <p className="chatboxHeading">
+            {" "}
+            Chatting with{" "}
+            {user.userName === currentSelectChatroom.user1Name
+              ? currentSelectChatroom.user2Name
+              : currentSelectChatroom.user1Name}
+          </p>
+        ) : null}
+      </div>
+
       <ul className="flexRight">
-        <li> {user ? (<h4>Greetings, {user.userName}</h4>) : null}</li>
+        <li> {user ? <h4>Greetings, {user.userName}</h4> : null}</li>
         <li>
           <Link to="/about" className="clear">
             About
@@ -97,13 +108,16 @@ const Navbar = ({
   );
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  chatroom: state.chatroom,
 });
 
 export default connect(mapStateToProps, {
   clearState,
   loadUser,
   clearAll,
-  clearAllChatroomState
+  clearAllChatroomState,
+  getChatroomName,
+  findChatroom,
 })(Navbar);

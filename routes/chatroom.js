@@ -22,6 +22,18 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+//@route    GET /api/chatroom/find/${chatroomIdd}
+//@desc     Grab a specific chatrooms data
+//@access   Private: To only be seen by those within the room
+router.get("/find/:id", auth, async (req, res) => {
+  let specificChatroom = await Chatroom.findById(req.params.id);
+  try {
+    res.json(specificChatroom);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 //@route    GET /api/chatroom/genChat
 //@desc     This entesr user into the general chat
 //@access   Public: To only be seen by those within the room
@@ -185,7 +197,7 @@ router.put("/removal/:id", auth, async (req, res) => {
 
   let removeChatroom = await Chatroom.findByIdAndUpdate(chatroomExists, {
     $set: { isHidden: true },
-  } );
+  });
 
   //This returns an array which includes the entire chatroom information.
   try {
@@ -194,7 +206,5 @@ router.put("/removal/:id", auth, async (req, res) => {
     console.log(error);
   }
 });
-
-
 
 module.exports = router;

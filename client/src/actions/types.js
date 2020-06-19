@@ -17,6 +17,7 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 //Chatroom Related
 export const GET_CHATROOM = "GET_CHATROOM"; //This grabs all of the chatrooms
 export const GET_SPECIFIC_CHATROOM = "GET_SPECIFIC_CHATROOM";
+export const FIND_SPECIFIC_CHATROOM = "FIND_SPECIFIC_CHATROOM";
 export const GET_CHATROOM_MSGS = "GET_CHATROOM_MSGS";
 export const GET_CHATROOM_ID = "GET_CHATROOM_ID";
 export const GET_NAME_CHATROOM = "GET_NAME_CHATROOM";

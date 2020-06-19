@@ -14,6 +14,7 @@ import {
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
   HIDE_CHAT,
+  FIND_SPECIFIC_CHATROOM,
   // UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND
 } from "./types";
@@ -46,6 +47,22 @@ export const getMessagesFromDB = (chatId) => async (dispatch) => {
     console.log(err);
   }
 };
+
+//New action that is supposed to grab the chatroomId and proceed to send it to getmessages from chtroom
+export const findChatroom = (chatroomIdd) => async (dispatch) => {
+
+  console.log(chatroomIdd)
+  //parameter is good
+  try {
+    const res = await axios.get(`/api/chatroom/find/${chatroomIdd}`);
+    console.log(res.data)
+    dispatch({type: FIND_SPECIFIC_CHATROOM, payload: res.data});
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 //This will save messages typed by the user into the database
 export const saveSentMsgs = (msgData) => async (dispatch) => {
@@ -103,25 +120,6 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
   }
 };
 
-//New action that is supposed to grab the chatroomId and proceed to send it to getmessages from chtroom
-export const findChatroom = (friendId) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  try {
-    const res = await axios.get(`/api/chatroom/${friendId}`, config);
-    console.log(res.data);
-    // dispatch(setCurrentChatroomId(res.data._id));
-
-    dispatch(getMessagesFromDB(res.data[0]._id)); //This needs to call the grab message with the res.data that we just got
-
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 //This is to add a new chatroom entire which starts from the previous action
 export const addChatroom = (friendData) => async (dispatch) => {
@@ -166,8 +164,14 @@ export const getChatroomName = (friendData) => (dispatch) => {
 
 export const setCurrentChatroomId = (chatroomData) => (dispatch) => {
   //This is utilized for setting the Chat messages in the dashboard
+const config = {
+  headers: {
+    "Content-Type": "application/json"
+  }
+}
+
   try {
-    console.log(chatroomData);
+    // console.log(chatroomData);
     dispatch({ type: GET_CHATROOM_ID, payload: chatroomData });
   } catch (error) {
     console.log(error);
@@ -192,8 +196,6 @@ export const bringChatroomIntoSight = (chatroomID) => async (dispatch) => {
   try {
     const res = await axios.put(`/api/chatroom/show/${chatroomID}`, config); // This is breaking the prog
     dispatch(getUsersChatrooms());
-    //This needs to reload the page somehow
-    // dispatch({ type: SOMETHING, payload: res.data });
   } catch (error) {
     console.log(error);
   }
