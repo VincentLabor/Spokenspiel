@@ -36,7 +36,7 @@ const ChatInput = ({
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper ">
       <div className="chatboxDisplay">
         <form onSubmit={sendMsgToChatroom}>
           <input

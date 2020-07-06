@@ -13,23 +13,26 @@ import {
 const ConversationItems = ({
   conversation,
   auth: { user },
-  // chatroom: { currentChatroomId },
-  // clearMsgs,
+  chatroom: { currentChatroomId },
   setCurrentChatroomId,
   getMessagesFromDB,
-  // generalChatStatus,
-  // enterGeneralChat,
   getUsersChatrooms,
   removeChatroomfromSight,
+  key,
 }) => {
   const [room, setRoomName] = useState("");
   const [isShown, setIsShown] = useState(false);
+  const [currentConversation, setCurrentConversation] = useState(null);
+  const [active, setActive] = useState();
 
-  const onClick = () => {
+  // useEffect(() => {});
+
+  const fixer = (conversation) => {
     //This prevents the users from
-    setRoomName(conversation._id);
-    getMessagesFromDB(conversation._id);
-    setCurrentChatroomId(conversation._id);
+    setRoomName(conversation);
+    getMessagesFromDB(conversation);
+    setCurrentChatroomId(conversation);
+    setCurrentConversation(conversation);
   };
 
   const removeConvoRoom = () => {
@@ -41,12 +44,18 @@ const ConversationItems = ({
     <div>
       {conversation.isHidden === false ? (
         <div
+          onClick={() => fixer(conversation._id)}
           className="convoContainer"
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
         >
-          {" "}
-          <p className="cursorChg convoNames" onClick={onClick}>
+          <p
+            className={
+              currentChatroomId === conversation._id
+                ? "convoContainer cursorChg convoNames convoBorder"
+                : "convoNames cursorChg convoContainer "
+            }
+          >
             {(user && user.userName) === conversation.user1Name
               ? conversation.user2Name
               : conversation.user1Name}

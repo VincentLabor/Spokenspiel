@@ -10,9 +10,7 @@ import io from "../../../node_modules/socket.io-client/dist/socket.io";
 import {
   saveMsgs,
   saveSentMsgs,
-  getMessagesFromDB,
-  findChatroom,
-  
+  getMessagesFromDB,  
 } from "../../actions/chatroomActions";
 
 let socket;
@@ -21,7 +19,6 @@ const Dashboard = ({
   chatroom: { currentChatroomName, currentChatroomId },
   getMessagesFromDB,
   chatroom: { msgs },
-  findChatroom
 }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
@@ -60,21 +57,15 @@ const Dashboard = ({
 
   }, [msgs]);
 
-  // useEffect(()=>{
-  //   findChatroom(currentChatroomId);
-  // })
-
   const sendMessage = (e) => {
     //Message is sent to the server.
     if (currentMsg) {
       sendTheMessage();
-      setStatusOfSending(true);
     }
   };
 
   const sendTheMessage = () => {
     socket.emit("chat message");
-
   };
 
   const scrollDown = useRef(null);
@@ -90,16 +81,14 @@ const Dashboard = ({
 
   return (
     <Fragment>
-      <div className="containers">
         <Navbar />
-        <div className="gridContainer">
+        <div className="gridContainer borderSides">
           <FriendsList />
           <div className="chatting chatboxDimens" >
             {currentChatroomName} {/*This currently does nothing*/}
             <ChatMessages />
             <div ref={scrollDown} className= "anchor"></div>
           </div>
-
           <div className="chatbox">
             <ChatInput /* Passing down the states into the chatinput component */
               currentMsg={currentMsg}
@@ -107,7 +96,6 @@ const Dashboard = ({
               sendMessage={sendMessage}
             />
           </div>
-
           <div className="conversations">
             <Conversations
               generalChatStatus={generalChatStatus}
@@ -115,7 +103,6 @@ const Dashboard = ({
             />
           </div>
         </div>
-      </div>
     </Fragment>
   );
 };
@@ -129,5 +116,4 @@ export default connect(mapStateToProps, {
   saveMsgs,
   saveSentMsgs,
   getMessagesFromDB,
-  findChatroom
 })(Dashboard);

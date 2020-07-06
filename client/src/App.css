@@ -10,6 +10,20 @@
   cursor: pointer;
 }
 
+.pd-top1{
+  padding-top: .7em;
+}
+
+ /* .borderSides{
+  border-left: .5px solid lightgray;
+  border-right: .5px solid lightgray;
+  padding: 0 10px;
+}  */
+
+/* .inline{
+  display: inline;
+} */
+
 /* .fas {
   color: red;
 } 
@@ -114,7 +128,14 @@ button:hover {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 2em 4em;
+  padding: 1em 2.8em;
+  /* background-color: whitesmoke; */
+}
+
+.navDash{
+  border-bottom: .5px lightgray solid;
+  margin-bottom: 25px;
+  background-color: #2A8CFF;
 }
 
 nav li {
@@ -287,7 +308,21 @@ nav li {
   grid-template-rows: repeat(9, auto);
 }
 
+
+/* .borderSides{
+ 
+  padding: 0 10px;
+} */
+
+
 /* Friendslist? */
+
+.friendHeader{
+  padding-bottom: 1.2em;
+  text-align: left;
+  padding-left: 2.3em;
+  font-size: 20px;
+}
 
 .underline {
   border-bottom: solid 1px #2a8dff;
@@ -298,13 +333,47 @@ nav li {
   grid-column-end: 2; /*This used to be 3*/
   grid-row-start: 1;
   grid-row-end: 10;
-  /* border-right: lightgray 0.5px solid; */
+   /* border-right: lightgray 0.5px solid;  */
   text-align: center;
   /* background: #f5f3f1; */
 }
 
+.friendsListScroll{
+  overflow: auto;
+}
+
+.friendsListScroll::-webkit-scrollbar{
+  width: 10px;
+}
+
+.friendsListScroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px
+}
+
+.friendsListScroll::-webkit-scrollbar-thumb {
+  background: #2a8dff; 
+  border-radius: 10px
+}
+
+.friendsListScroll::-webkit-scrollbar-thumb:hover {
+  background: #1563bb;
+}
+
+
+
+
+.friendName {
+  padding: 10px 10px 10px 0px;
+}
+
 .friendOption {
   padding: 0.7em 0.5em;
+}
+
+.friendIcons{
+  padding-right: 5px;
+  align-items: center;
 }
 
 .friendOption:hover {
@@ -315,6 +384,15 @@ nav li {
   color: #2a8dff;
 }
 
+.fa-trash-alt{
+  padding-left: 20px;
+}
+
+.fa-trash-alt:hover{
+  color: red;
+
+}
+
 .flexContainer {
   display: flex;
   justify-content: space-evenly; /*This is the container for all the tabs*/
@@ -323,23 +401,21 @@ nav li {
 
 .friendContainer {
   display: flex;
-  justify-content: space-around;
-  padding: 0.5em 0;
+  justify-content: space-between;
+  padding: 0.5em 2.8rem;
+  text-align: left;
 }
 
 .friendContainer:hover {
   background-color: whitesmoke;
 }
 
-.friendName {
+
+.commentIcon {
   padding: 10px;
 }
 
-.trashIcon {
-  padding: 10px;
-}
-
-.trashIcon:hover {
+.commentIcon:hover {
   cursor: pointer;
   background-color: lightgray;
 }
@@ -400,19 +476,37 @@ nav li {
   /* border-bottom: .5px solid gray; */
 }
 
+.convoSubHeading{
+  padding-bottom: 1.7em;
+}
+
+.convoContainer:hover{
+  background-color: whitesmoke;
+}
+
 .convoNames {
-  padding: 10px
+  padding: 10px;
+  width: 100%
+}
+
+.padLeft{
+  padding: 0 10px 10px 10px;
+}
+
+.convoPadding{
+  padding: 0 10px 10px 10px;
 }
 
 .closeConversation{
-  padding: 10px 12px 10px 10px;
+  padding: 14px 15px 5px 15px;
   margin: 0 1rem 0 0;
   
 }
 
 .closeConversation:hover {
   cursor: pointer;
-  background-color: slategray;
+  background-color: red;
+  border-radius: 10px;
 }
 
 .chatHeading {
@@ -421,7 +515,8 @@ nav li {
 
 .chatboxInput {
   box-shadow: none;
-  border: 1px solid lightgray;
+  border: .5px lightgray solid;
+  /* border: 1px solid lightgray; */
   padding: 0.7em;
   width: 85%;
   border-radius: 2px;
@@ -444,6 +539,15 @@ nav li {
 .chatboxDisplay {
   width: 100%;
   margin: auto;
+}
+
+
+.userColor{
+  color: #1563bb
+}
+
+.userText{
+  font-size: 1.125em;
 }
 
 .chatting {
@@ -502,6 +606,11 @@ nav li {
   padding: 0px 10px 10px 10px;
 }
 
+.convoBorder{
+  border-bottom: deepskyblue 5px solid;
+  border-radius: 7px;
+}
+
 .convoSpacing:hover {
   background-color: whitesmoke;
 }
@@ -515,6 +624,10 @@ nav li {
   padding: 0.5em 0 0.2em 0;
   /* border-bottom: .2px black solid; */
   /* border-top: .2px black solid; */
+}
+
+.messageContainer p {
+  display: inline-block;
 }
 
 /* Alerts */

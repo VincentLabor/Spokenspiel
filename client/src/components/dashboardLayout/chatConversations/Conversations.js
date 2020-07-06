@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  getMessagesFromDB,
-  setCurrentChatroomId
-} from "../../../actions/chatroomActions";
 import ConversationalItems from "./ConversationalItems";
 import {
   getUsersChatrooms,
   clearMsgs,
-  enterGeneralChat
+  enterGeneralChat,
+  getMessagesFromDB,
+  setCurrentChatroomId,
 } from "../../../actions/chatroomActions";
 import { connect } from "react-redux";
 
@@ -15,36 +13,28 @@ const Conversations = ({
   generalChatStatus,
   chatroom: { chatrooms, currentChatroomId },
   getUsersChatrooms,
-  enterGeneralChat,
-  getMessagesFromDB,
-  
 }) => {
+  useEffect(() => {
+    getUsersChatrooms();
+  }, [currentChatroomId]); //Will refresh the chatrooms if opens a new chatroom
 
-   useEffect(() => {
-     getUsersChatrooms();
-   }, [currentChatroomId]); //Will refresh the chatrooms if opens a new chatroom
-
-  //Find a way to load general chat first using useEffect
-
-  const selectGeneralChat = () => {
-    // enterGeneralChat();
-    getMessagesFromDB(currentChatroomId); //On click, the general Chat should now load properly
-    
-  };
+  const [active, setActive] = useState();
 
   return (
-    <div className="">
-      <h2 className="convoSpacing">Conversations</h2>
+    <div className="convoPadding">
+      <h2 className="padLeft">Conversations</h2>
+      <p className="convoSubHeading padLeft">Current Conversations</p>
       {/* <p className="cursorChg convoSpacing" onClick={selectGeneralChat}>
         General Chat
       </p> */}
       {/*TODO CSS class that makes a separate block for discerning different convos*/}
       {chatrooms
-        ? chatrooms.map(conversation => (
+        ? chatrooms.map((conversation, index) => (
             <ConversationalItems
               generalChatStatus={generalChatStatus}
               conversation={conversation}
               key={conversation._id}
+              active={conversation === index}
             />
           ))
         : null}
@@ -52,8 +42,8 @@ const Conversations = ({
   );
 };
 
-const mapStateToProps = state => ({
-  chatroom: state.chatroom
+const mapStateToProps = (state) => ({
+  chatroom: state.chatroom,
 });
 
 export default connect(mapStateToProps, {
@@ -61,5 +51,5 @@ export default connect(mapStateToProps, {
   clearMsgs,
   enterGeneralChat,
   getMessagesFromDB,
-  setCurrentChatroomId
+  setCurrentChatroomId,
 })(Conversations);

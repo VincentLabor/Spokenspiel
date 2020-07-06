@@ -63,7 +63,7 @@ const Navbar = ({
   };
 
   return (
-    <nav className=" nav pd-2_5">
+    <nav className={!token ? "nav pd-2_5": " nav pd-2_5 navDash"}>
       <div className="">
         <h1>
           {token ? (

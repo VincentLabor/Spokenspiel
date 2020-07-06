@@ -37,8 +37,10 @@ const [isShown,setIsShown] = useState(false)
       {friend ? (
         <div className="friendContainer" onMouseEnter={()=>setIsShown(true)} onMouseLeave={()=>setIsShown(false)}>
           <p className="friendName">{friend.userName}</p>
-          {isShown ? <div><i
-            className="fas fa-comment-alt trashIcon "
+          {/*   {isShown ? */}
+         
+          <div className="friendIcons"><i
+            className="fas fa-comment-alt commentIcon "
             onClick={openConversation}
           ></i>{" "}
           {/*Messaging Icon*/}
@@ -46,7 +48,9 @@ const [isShown,setIsShown] = useState(false)
             className="fas fa-trash-alt trashIcon"
             onClick={removeFriendFromFriendsList}
           ></i>{" "}
-          {/*Trash Icon*/}</div> : null}
+          {/*Trash Icon*/}</div> 
+         
+          {/*  : null} */}
           
         </div>
       ) : null}

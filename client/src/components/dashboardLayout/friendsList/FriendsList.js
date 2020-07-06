@@ -42,7 +42,7 @@ const FriendsList = ({
   return (
     <Fragment>
       <div className="friendsListWrapper">
-        <h3>Friends List </h3>
+        <h3 className="friendHeader">Friends List </h3>
 
         {/* These are the different tabs you can click to see different things */}
         {/* This is to see your friends list */}
@@ -109,14 +109,14 @@ const FriendsList = ({
 
         {/* This is the JSX for the friendslist */}
         {friendTab === true ? (
-          <div className="flexWrapperRow">
+          <div className="flexWrapperRow friendsListScroll">
             {/*Checks if user has friends and displays them*/}
 
             {friends
               ? friends.map((friend) => (
                   <FriendItem friend={friend} key={friend._id} />
                 ))
-              : "Add some friends to get started."}
+              :(<p className="pd-top1">Add some friends to get started</p>) }
           </div>
         ) : null}
 
