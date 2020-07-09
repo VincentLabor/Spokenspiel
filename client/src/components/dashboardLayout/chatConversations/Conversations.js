@@ -14,11 +14,11 @@ const Conversations = ({
   chatroom: { chatrooms, currentChatroomId },
   getUsersChatrooms,
 }) => {
+  
   useEffect(() => {
     getUsersChatrooms();
   }, [currentChatroomId]); //Will refresh the chatrooms if opens a new chatroom
 
-  const [active, setActive] = useState();
 
   return (
     <div className="convoPadding">
@@ -33,8 +33,10 @@ const Conversations = ({
             <ConversationalItems
               generalChatStatus={generalChatStatus}
               conversation={conversation}
+              unreadMsgs = {conversation.msgCount}
+              lastUserToSend = {conversation.lastUserToSendMsg}
               key={conversation._id}
-              active={conversation === index}
+
             />
           ))
         : null}

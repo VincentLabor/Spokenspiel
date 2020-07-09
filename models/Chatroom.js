@@ -7,7 +7,9 @@ const ChatroomSchema = new mongoose.Schema({
   user2Name: { type: String },
   messages: [{ type: String }],
   usersWithinChatroom: [{ type: String }],
-  isHidden: {type: Boolean}
+  isHidden: {type: Boolean},
+  lastUserToSendMsg: {type: mongoose.Schema.Types.ObjectId, ref: "user"},
+  msgCount : {type: Number}
 });
 
 module.exports = mongoose.model("chatroom", ChatroomSchema);

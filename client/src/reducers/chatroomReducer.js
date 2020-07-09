@@ -14,6 +14,9 @@ import {
   STORE_SENT_MSGS,
   HIDE_CHAT,
   FIND_SPECIFIC_CHATROOM,
+  GRAB_UNREAD_COUNT,
+  // UNREAD_MSG_COUNT,
+  // LAST_SENDER,
   //UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
 } from "../actions/types";
@@ -29,7 +32,9 @@ const initialState = {
   msgs: [],
  // isTheUserInGeneralChat: true,
   chatRoomExists: null,
-  currentSelectChatroom: null
+  currentSelectChatroom: null,
+  unreadMsgs: 0,
+  lastUserToSendMsg: null,
 };
 
 export default (state = initialState, action) => {
@@ -95,6 +100,11 @@ export default (state = initialState, action) => {
            ...state,
            msgs: [...state.msgs, action.payload]
          }
+       case GRAB_UNREAD_COUNT: 
+       return {
+         ...state, 
+         unreadMsgs: action.payload
+       }  
      case STORE_MSGS:
        return {
          ...state,
@@ -106,6 +116,11 @@ export default (state = initialState, action) => {
        ...state,
        msgs: action.payload.slice(0)
      } 
+    //  case LAST_SENDER: 
+    //  return {
+    //    ...state,
+    //  }
+
     case REMOVE_MSGS:
       return {
         ...state,

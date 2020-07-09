@@ -32,6 +32,10 @@ export const REMOVE_MSGS = "REMOVE_MSGS";
 export const REMOVE_ALL_CHATROOM = "REMOVE_ALL_CHATROOM";
 export const HIDE_CHAT = "HIDE_CHAT";
 export const UNHIDE_CHATROOM = "UNHIDE_CHATROOM";
+// export const UNREAD_MSG_COUNT = "UNREAD_MSG_COUNT";
+// export const LAST_SENDER = "LAST_SENDER";
+export const GRAB_UNREAD_COUNT = "GRAB_UNREAD_COUNT";
+
 
 //Specifically General Chat
 export const GENERAL_CHAT = "GENERAL_CHAT";

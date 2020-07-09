@@ -1,16 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { saveSentMsgs } from "../../../actions/chatroomActions";
+import {
+  saveSentMsgs,
+  unreadMsgsCount,
+  getUnreadCount,
+} from "../../../actions/chatroomActions";
 
 const ChatInput = ({
   auth: { user },
   currentMsg,
   setCurrentMsg,
   sendMessage,
-  chatroom: { currentChatroomId },
+  unreadMsgsCount,
+  chatroom: { currentChatroomId, unreadMsgs, lastUserToSendMsg },
   saveSentMsgs,
 }) => {
-  const [currentMsgSent, setCurrentMsgSent] = useState("");
+  const [currentMsgSent, setCurrentMsgSent] = useState();
+  const [msgCounter, setMsgCounter] = useState(0);
+
+  useEffect(() => {
+    //Function that sends into database. An if statement that checks for currentconvo_id
+    if (currentChatroomId && msgCounter > 0) {
+      let unreadPackage = {
+        msgCounter,
+        currentChatroomId,
+      };
+
+      unreadMsgsCount(unreadPackage);
+      //At this point, I can grab theglobal count here and add it while still checking if the last user sent is still the same.
+    }
+    
+    console.log(msgCounter);
+    console.log(unreadMsgs);
+  }, [msgCounter]);
 
   const onChange = (e) => {
     setCurrentMsg(e.target.value); //Adding a prefix here will break the program
@@ -18,12 +40,10 @@ const ChatInput = ({
     e.preventDefault();
   };
 
-
-  //There's an issue with this specific function
-  const sendMsgToChatroom = (e) => {
+  const sendMsgToChatroom = async (e) => {
     e.preventDefault(); //Prevents page from opening after sending message
     sendMessage(user.userName + ": " + e);
-    
+
     let msgPacket = {
       currentMsgSent,
       currentChatroomId,
@@ -32,7 +52,24 @@ const ChatInput = ({
       saveSentMsgs(msgPacket);
     }
     setCurrentMsg(""); //This clears the input bar
-    //setCurrentMsgSent("")
+
+    if (msgCounter === 0 && unreadMsgs) {
+      setMsgCounter(msgCounter + unreadMsgs + 1);
+    } else {
+      setMsgCounter(msgCounter + 1);
+    }
+
+    //  await sendInfo();
+  };
+
+  let sendInfo = () => {
+    let unreadPackage = {
+      msgCounter,
+      currentChatroomId,
+    };
+
+    unreadMsgsCount(unreadPackage);
+    console.log(msgCounter);
   };
 
   return (
@@ -63,4 +100,15 @@ const mapStateToProps = (state) => ({
   chatroom: state.chatroom,
 });
 
-export default connect(mapStateToProps, { saveSentMsgs })(ChatInput);
+export default connect(mapStateToProps, { saveSentMsgs, unreadMsgsCount })(
+  ChatInput
+);
+
+//  if (unreadMsgs && (msgCounter === 0 || lastUserToSendMsg === user._id)) {
+// //  if (unreadMsgs && (msgCounter === 0 || lastUserToSendMsg === user._id)) {
+//   getUnreadCount(currentChatroomId);
+//     await setMsgCounter(msgCounter + unreadMsgs + 1);
+//      //(unreadMsgs)
+//  } else {
+//    setMsgCounter(msgCounter + 1);
+//  }

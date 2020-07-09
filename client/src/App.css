@@ -34,6 +34,14 @@ h1 {
   margin: 0;
 }
 
+.smallFontsize{
+  font-size: 10px;
+}
+
+.alignRight{
+  text-align: right;
+}
+
 html,
 body {
   margin: 0;
@@ -543,11 +551,30 @@ nav li {
 
 
 .userColor{
-  color: #1563bb
+  /* color: #1563bb */
+  background-color: #1563bb;
+  border-radius: 15px;
+  color: white;
+  padding: .125em .5em;
+  text-align: left;
+}
+
+.otherUserColor{
+  /* color: #1563bb */
+  background-color: silver;
+  border-radius: 15px;
+  padding: .125em .7em;
+  text-align: left;
 }
 
 .userText{
   font-size: 1.125em;
+  max-width: 22em;
+}
+.userTextRight{
+  font-size: 1.125em;
+  max-width: 22em;
+
 }
 
 .chatting {
@@ -556,11 +583,16 @@ nav li {
   grid-row-start: 1;
   grid-row-end: 10;
   background-color: white;
+  border-left: .5px solid silver;
+  border-right: .5px solid silver;
 }
 
 .chatboxDimens {
-  padding-left: 0.5em;
-  overflow: auto;
+  box-sizing: border-box;
+  padding-left: .8em;
+  padding-right: .8em;
+  overflow-y: auto;
+  overflow-x: hidden;
   overflow-anchor: none;
   height: 100%;
   /* overflow-anchor: none; */
@@ -569,7 +601,7 @@ nav li {
 /* Scrollbar */
 .chatboxDimens::-webkit-scrollbar {
   width: 10px;
-
+  
 }
 .chatboxDimens::-webkit-scrollbar-track {
   background: #f1f1f1;
@@ -621,9 +653,10 @@ nav li {
 
 /* Messages */
 .messageContainer {
-  padding: 0.5em 0 0.2em 0;
-  /* border-bottom: .2px black solid; */
-  /* border-top: .2px black solid; */
+  padding: 0.125em 0.2em 0.2em 0;
+}
+.messageContainerRight {
+  padding: 0.125em .3em 0.2em 0;
 }
 
 .messageContainer p {

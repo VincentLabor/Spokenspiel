@@ -60,6 +60,50 @@ router.get("/msgs/:id", auth, async (req, res) => {
   }
 });
 
+//@route    put /api/chatroom/userWhoSentLastMsg/${chatroomId}
+//@desc     This will save the user who sent the last msg
+//@access   Private: To only be seen by those logged in
+router.put("/userWhoSentLastMsg/:id", auth, async (req, res) => {
+  let chatroomsLastSender = await Chatroom.findByIdAndUpdate(req.params.id, {
+    $set: { lastUserToSendMsg: req.user._id },
+  });
+
+  try {
+    res.json(chatroomsLastSender);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//@route    put /api/chatroom/unreadMsgs/${chatroomId}
+//@desc     This will save the user who sent the last msg
+//@access   Private: To only be seen by those logged in
+router.put("/unreadMsgs/:id", auth, async (req, res) => {
+  const { msgCounter } = req.body;
+  let currentChatroom = await Chatroom.findByIdAndUpdate(req.params.id, {
+    $set: { msgCount: msgCounter },
+  });
+
+  try {
+    res.json(currentChatroom);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//@route    get /api/chatroom/unreadMsgs/${chatroomId}
+//@desc     This will save the user who sent the last msg
+//@access   Private: To only be seen by those logged in
+router.get("/unreadMsgs/:id", auth, async (req, res) => {
+  let currentChatroom = await Chatroom.findById(req.params.id);
+
+  try {
+    res.json(currentChatroom);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 //@route    PUT /api/chatroom/msgs/${chatroomData}
 //@desc     This is to grab the specific chatroom ID from clicking on a conversation
 //@access   Private: To only be seen by those logged in
@@ -137,6 +181,8 @@ router.post("/:id", auth, async (req, res) => {
       user2Name: otherUsersName.userName,
       usersWithinChatroom: [currentUserName.userName, otherUsersName.userName],
       isHidden: false,
+      lastUserToSendMsg: null,
+      msgCount: null,
     });
 
     //To delete later. Reference for creating general chat

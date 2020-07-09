@@ -7,6 +7,7 @@ import {
   enterGeneralChat,
   removeChatroomfromSight,
   getUsersChatrooms,
+  getUnreadCount,
 } from "../../../actions/chatroomActions";
 
 //Conversation may also refer to the chatrooms from the reducer
@@ -19,13 +20,15 @@ const ConversationItems = ({
   getUsersChatrooms,
   removeChatroomfromSight,
   key,
+  unreadMsgs,
+  getUnreadCount,
+  lastUserToSend,
 }) => {
   const [room, setRoomName] = useState("");
   const [isShown, setIsShown] = useState(false);
   const [currentConversation, setCurrentConversation] = useState(null);
-  const [active, setActive] = useState();
 
-  // useEffect(() => {});
+   useEffect(() => {getUnreadCount(conversation._id)},[conversation._id]);
 
   const fixer = (conversation) => {
     //This prevents the users from
@@ -33,6 +36,7 @@ const ConversationItems = ({
     getMessagesFromDB(conversation);
     setCurrentChatroomId(conversation);
     setCurrentConversation(conversation);
+    console.log(lastUserToSend);
   };
 
   const removeConvoRoom = () => {
@@ -49,6 +53,7 @@ const ConversationItems = ({
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
         >
+          <div>
           <p
             className={
               currentChatroomId === conversation._id
@@ -60,6 +65,10 @@ const ConversationItems = ({
               ? conversation.user2Name
               : conversation.user1Name}
           </p>
+          <p className="smallFontsize">
+            {unreadMsgs &&  lastUserToSend !== user._id ? unreadMsgs + " unread messages" : null}
+          </p>
+          </div>
           {isShown ? (
             <i
               className="fas fa-times closeConversation"
@@ -84,4 +93,5 @@ export default connect(mapStateToProps, {
   enterGeneralChat,
   removeChatroomfromSight,
   getUsersChatrooms,
+  getUnreadCount,
 })(ConversationItems);

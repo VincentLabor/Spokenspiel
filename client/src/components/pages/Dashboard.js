@@ -11,6 +11,7 @@ import {
   saveMsgs,
   saveSentMsgs,
   getMessagesFromDB,  
+  lastSender,
 } from "../../actions/chatroomActions";
 
 let socket;
@@ -18,11 +19,13 @@ let socket;
 const Dashboard = ({
   chatroom: { currentChatroomName, currentChatroomId },
   getMessagesFromDB,
+  lastSender,
   chatroom: { msgs },
 }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
   const [statusOfSending, setStatusOfSending] = useState(false);
+  
 
   const endpoint = "localhost:5000";
 
@@ -42,7 +45,6 @@ const Dashboard = ({
 
       socket.once("sendTypedMsg", () => {
         if (currentChatroomId) {
-          console.log(currentChatroomId);
           getMessagesFromDB(currentChatroomId);
         }
       });
@@ -66,6 +68,11 @@ const Dashboard = ({
 
   const sendTheMessage = () => {
     socket.emit("chat message");
+
+    if (currentChatroomId) {
+      lastSender(currentChatroomId);
+    }
+      
   };
 
   const scrollDown = useRef(null);
@@ -116,4 +123,5 @@ export default connect(mapStateToProps, {
   saveMsgs,
   saveSentMsgs,
   getMessagesFromDB,
+  lastSender,
 })(Dashboard);

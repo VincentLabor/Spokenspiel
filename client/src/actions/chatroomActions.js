@@ -15,6 +15,9 @@ import {
   GET_SPECIFIC_CHATROOM,
   HIDE_CHAT,
   FIND_SPECIFIC_CHATROOM,
+  GRAB_UNREAD_COUNT,
+  // UNREAD_MSG_COUNT,
+  // LAST_SENDER,
   // UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
 } from "./types";
@@ -43,6 +46,55 @@ export const getMessagesFromDB = (chatId) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+///api/chatroom/userWhoSentLastMsg/${chatroomId}
+//This goes to mongodb and saves the current user as sender.
+export const lastSender = (chatroomId) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  console.log(chatroomId);
+  try {
+    const res = await axios.put(
+      `/api/chatroom/userWhoSentLastMsg/${chatroomId}`,
+      config
+    );
+    console.log(res.data);
+    //No need for dispatch, user does not see anychanges.
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//put /api/chatroom/unreadMsgs/${chatroomId}
+export const unreadMsgsCount = (unreadMsgPackage) => async (dispatch) => {
+  const config = {
+    header: { "Content-Type": "application/json" },
+  };
+
+  try {
+    //We send the whole parameter because we need the chatId and the msgCount.
+    const res = await axios.put(
+      `/api/chatroom/unreadMsgs/${unreadMsgPackage.currentChatroomId}`,
+      unreadMsgPackage,
+      config
+    );
+
+    // dispatch = { type: UNREAD_MSG_COUNT, payload: msgCount };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUnreadCount = (chatroomId) => async (dispatch) => {
+  const res = await axios.get(`/api/chatroom/unreadMsgs/${chatroomId}`);
+  console.log(res.data.msgCount);
+  dispatch({ type: GRAB_UNREAD_COUNT, payload: res.data.msgCount });
+  //This needs to return 2 things. unread and lastUser to send.
 };
 
 //New action that is supposed to grab the chatroomId and proceed to send it to getmessages from chtroom
@@ -101,7 +153,6 @@ export const chatroomCheck = (friendData) => async (dispatch) => {
       dispatch(getMessagesFromDB(res.data[0]._id));
       dispatch(bringChatroomIntoSight(res.data[0]._id));
     } catch (error) {
-      console.log("Could not find any relevant chatrooms");
       dispatch(addChatroom(friendData));
     }
   } catch (error) {
