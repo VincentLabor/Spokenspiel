@@ -19,6 +19,7 @@ import {
   // LAST_SENDER,
   //UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
+  CLEAR_CHAT_STATE,
 } from "../actions/types";
 
 const initialState = {
@@ -30,7 +31,7 @@ const initialState = {
   usersInvolved: null,
   currentChatroomName: null,
   msgs: [],
- // isTheUserInGeneralChat: true,
+  // isTheUserInGeneralChat: true,
   chatRoomExists: null,
   currentSelectChatroom: null,
   unreadMsgs: 0,
@@ -43,80 +44,84 @@ export default (state = initialState, action) => {
       return {
         ...state,
         chatrooms: [...action.payload.slice(0)],
-        loading: false
+        loading: false,
       };
-      case HIDE_CHAT:
-        return{
-          ...state,
-          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id !== action.payload),
-        }
-      case REMOVE_CHATROOM_AFTER_REMOVING_FRIEND:
-        return{
-          ...state,
-          chatrooms: state.chatrooms.filter((chatroom) => chatroom._id !== action.payload),
-        }
+    case HIDE_CHAT:
+      return {
+        ...state,
+        chatrooms: state.chatrooms.filter(
+          (chatroom) => chatroom._id !== action.payload
+        ),
+      };
+    case REMOVE_CHATROOM_AFTER_REMOVING_FRIEND:
+      return {
+        ...state,
+        chatrooms: state.chatrooms.filter(
+          (chatroom) => chatroom._id !== action.payload
+        ),
+      };
     case GET_CHATROOM_ID:
       return {
         ...state,
         currentChatroomId: action.payload,
-        loading: false
+        loading: false,
       };
     case GENERAL_CHAT:
       return {
         ...state,
-        isTheUserInGeneralChat: state.isTheUserInGeneralChat
+        isTheUserInGeneralChat: state.isTheUserInGeneralChat,
       };
-     case ENTERING_GENERAL_CHAT:
-       return {
-         ...state,
-        currentChatroomId: action.payload
-       };
+    case ENTERING_GENERAL_CHAT:
+      return {
+        ...state,
+        currentChatroomId: action.payload,
+      };
     case GET_SPECIFIC_CHATROOM:
       return {
         ...state,
-        chatRoomExists: action.payload
-      }   
-      case FIND_SPECIFIC_CHATROOM:
-        console.log(action.payload)
-        return{
-          ...state,
-          currentSelectChatroom: action.payload
-        }
+        chatRoomExists: action.payload,
+      };
+    case FIND_SPECIFIC_CHATROOM:
+      console.log(action.payload);
+      return {
+        ...state,
+        currentSelectChatroom: action.payload,
+      };
     case ADD_CHATROOM:
       return {
         ...state,
         chatrooms: [...state.chatrooms, action.payload],
-        loading: false
+        loading: false,
       };
     case GET_NAME_CHATROOM:
-      console.log(action.payload)
+      console.log(action.payload);
       return {
         ...state,
         currentChatroomName: action.payload,
-        loading: false
+        loading: false,
       };
-       case STORE_SENT_MSGS:
-         return {
-           ...state,
-           msgs: [...state.msgs, action.payload]
-         }
-       case GRAB_UNREAD_COUNT: 
-       return {
-         ...state, 
-         unreadMsgs: action.payload
-       }  
-     case STORE_MSGS:
-       return {
-         ...state,
-         msgs: [...state.msgs, action.payload],
-         loading: false
-       }; 
-     case GET_CHATROOM_MSGS: 
-     return{
-       ...state,
-       msgs: action.payload.slice(0)
-     } 
-    //  case LAST_SENDER: 
+    case STORE_SENT_MSGS:
+      return {
+        ...state,
+        msgs: [...state.msgs, action.payload],
+      };
+    case GRAB_UNREAD_COUNT:
+      return {
+        ...state,
+        unreadMsgs: action.payload,
+      };
+    case STORE_MSGS:
+      return {
+        ...state,
+        msgs: [...state.msgs, action.payload],
+        loading: false,
+      };
+    case GET_CHATROOM_MSGS:
+      return {
+        ...state,
+        msgs: action.payload.slice(0),
+      };
+    //  case LAST_SENDER:
     //  return {
     //    ...state,
     //  }
@@ -125,10 +130,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         msgs: null,
-        loading: false
+        loading: false,
       };
-      case REMOVE_ALL_CHATROOM: 
-      return{
+    case REMOVE_ALL_CHATROOM:
+      return {
         ...state,
         chatrooms: [],
         loading: false,
@@ -138,11 +143,25 @@ export default (state = initialState, action) => {
         currentChatroomName: null,
         msgs: [],
         isTheUserInGeneralChat: true,
-      }
+      };
     case SET_LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
+      };
+    case CLEAR_CHAT_STATE:
+      return {
+        ...state,
+        chatrooms: [],
+        loading: false,
+        currentChatroomId: null,
+        usersInvolved: null,
+        currentChatroomName: null,
+        msgs: [],
+        chatRoomExists: null,
+        currentSelectChatroom: null,
+        unreadMsgs: 0,
+        lastUserToSendMsg: null,
       };
     default:
       return state;

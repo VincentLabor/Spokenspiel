@@ -20,6 +20,7 @@ import {
   // LAST_SENDER,
   // UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
+  CLEAR_CHAT_STATE
 } from "./types";
 
 export const getUsersChatrooms = () => async (dispatch) => {
@@ -296,3 +297,11 @@ export const loading = () => {
     type: SET_LOADING,
   };
 };
+
+export const clearChatState= () => async (dispatch) =>{
+  try {
+    dispatch({type: CLEAR_CHAT_STATE})  
+  } catch (error) {
+    console.log(error)
+  }
+}

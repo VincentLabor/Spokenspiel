@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
 import { clearAllChatroomState } from "../../actions/chatroomActions";
-import { getChatroomName, findChatroom } from "../../actions/chatroomActions";
+import { getChatroomName, findChatroom, clearChatState } from "../../actions/chatroomActions";
 import { clearAll } from "../../actions/friendActions";
 
 const Navbar = ({
@@ -15,6 +15,7 @@ const Navbar = ({
   clearAllChatroomState,
   chatroom: { currentChatroomName, currentChatroomId, currentSelectChatroom },
   findChatroom,
+  clearChatState,
 }) => {
   const history = useHistory();
 
@@ -23,6 +24,7 @@ const Navbar = ({
       clearState();
       clearAll();
       clearAllChatroomState();
+      clearChatState(); //Delete one of these later
       history.push("/login");
     } else {
       console.log("nothing happened");
@@ -120,4 +122,5 @@ export default connect(mapStateToProps, {
   clearAllChatroomState,
   getChatroomName,
   findChatroom,
+  clearChatState,
 })(Navbar);

@@ -37,6 +37,10 @@ const ConversationItems = ({
     setCurrentChatroomId(conversation);
     setCurrentConversation(conversation);
     console.log(lastUserToSend);
+    //based on last user, this needs to delete the unread messages basically
+    if(lastUserToSend === user._id){
+      //removeUnreadNotification
+    }
   };
 
   const removeConvoRoom = () => {
