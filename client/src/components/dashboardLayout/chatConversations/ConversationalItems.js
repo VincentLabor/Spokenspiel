@@ -8,6 +8,7 @@ import {
   removeChatroomfromSight,
   getUsersChatrooms,
   getUnreadCount,
+  clearUnreadAndLastUserSent,
 } from "../../../actions/chatroomActions";
 
 //Conversation may also refer to the chatrooms from the reducer
@@ -23,6 +24,7 @@ const ConversationItems = ({
   unreadMsgs,
   getUnreadCount,
   lastUserToSend,
+  clearUnreadAndLastUserSent,
 }) => {
   const [room, setRoomName] = useState("");
   const [isShown, setIsShown] = useState(false);
@@ -37,9 +39,9 @@ const ConversationItems = ({
     setCurrentChatroomId(conversation);
     setCurrentConversation(conversation);
     console.log(lastUserToSend);
-    //based on last user, this needs to delete the unread messages basically
-    if(lastUserToSend === user._id){
-      //removeUnreadNotification
+
+    if(lastUserToSend !== user._id){ //This triggers properly
+      clearUnreadAndLastUserSent(conversation)
     }
   };
 
@@ -98,4 +100,5 @@ export default connect(mapStateToProps, {
   removeChatroomfromSight,
   getUsersChatrooms,
   getUnreadCount,
+  clearUnreadAndLastUserSent,
 })(ConversationItems);

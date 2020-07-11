@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
-import { clearAllChatroomState } from "../../actions/chatroomActions";
-import { getChatroomName, findChatroom, clearChatState } from "../../actions/chatroomActions";
+import {
+  getChatroomName,
+  findChatroom,
+  clearChatState,
+} from "../../actions/chatroomActions";
 import { clearAll } from "../../actions/friendActions";
 
 const Navbar = ({
@@ -12,7 +15,6 @@ const Navbar = ({
   clearState,
   loadUser,
   clearAll,
-  clearAllChatroomState,
   chatroom: { currentChatroomName, currentChatroomId, currentSelectChatroom },
   findChatroom,
   clearChatState,
@@ -23,8 +25,7 @@ const Navbar = ({
     if (token) {
       clearState();
       clearAll();
-      clearAllChatroomState();
-      clearChatState(); //Delete one of these later
+      clearChatState();
       history.push("/login");
     } else {
       console.log("nothing happened");
@@ -65,7 +66,7 @@ const Navbar = ({
   };
 
   return (
-    <nav className={!token ? "nav pd-2_5": " nav pd-2_5 navDash"}>
+    <nav className={!token ? "nav pd-2_5" : " nav pd-2_5 navDash"}>
       <div className="">
         <h1>
           {token ? (
@@ -119,7 +120,7 @@ export default connect(mapStateToProps, {
   clearState,
   loadUser,
   clearAll,
-  clearAllChatroomState,
+
   getChatroomName,
   findChatroom,
   clearChatState,

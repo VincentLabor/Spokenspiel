@@ -29,35 +29,41 @@ const ChatInput = ({
       unreadMsgsCount(unreadPackage);
       //At this point, I can grab theglobal count here and add it while still checking if the last user sent is still the same.
     }
-    
+
     console.log(msgCounter);
     console.log(unreadMsgs);
   }, [msgCounter]);
 
   const onChange = (e) => {
-    setCurrentMsg(e.target.value); //Adding a prefix here will break the program
-    setCurrentMsgSent(user.userName + ": " + e.target.value);
     e.preventDefault();
+      setCurrentMsg(e.target.value); //Adding a prefix here will break the program
+      setCurrentMsgSent(user.userName + ": " + e.target.value);
+
   };
 
   const sendMsgToChatroom = async (e) => {
     e.preventDefault(); //Prevents page from opening after sending message
-    sendMessage(user.userName + ": " + e);
+      sendMessage(user.userName + ": " + e);
 
     let msgPacket = {
       currentMsgSent,
       currentChatroomId,
     };
-    if (currentMsgSent !== null && currentChatroomId !== null) {
+    if (currentMsgSent !== null && currentChatroomId !== null && currentMsgSent !== undefined) {
       saveSentMsgs(msgPacket);
     }
     setCurrentMsg(""); //This clears the input bar
 
-    if (msgCounter === 0 && unreadMsgs) {
-      setMsgCounter(msgCounter + unreadMsgs + 1);
+    if(currentMsgSent !== undefined){
+      if (msgCounter === 0 && unreadMsgs) {
+        setMsgCounter(msgCounter + unreadMsgs + 1);
+      } else {
+        setMsgCounter(msgCounter + 1);
+      }
     } else {
-      setMsgCounter(msgCounter + 1);
+      return null;
     }
+
 
     //  await sendInfo();
   };
@@ -104,11 +110,4 @@ export default connect(mapStateToProps, { saveSentMsgs, unreadMsgsCount })(
   ChatInput
 );
 
-//  if (unreadMsgs && (msgCounter === 0 || lastUserToSendMsg === user._id)) {
-// //  if (unreadMsgs && (msgCounter === 0 || lastUserToSendMsg === user._id)) {
-//   getUnreadCount(currentChatroomId);
-//     await setMsgCounter(msgCounter + unreadMsgs + 1);
-//      //(unreadMsgs)
-//  } else {
-//    setMsgCounter(msgCounter + 1);
-//  }
+

@@ -10,17 +10,14 @@ import {
   SET_LOADING,
   GENERAL_CHAT,
   ENTERING_GENERAL_CHAT,
-  REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
   HIDE_CHAT,
   FIND_SPECIFIC_CHATROOM,
   GRAB_UNREAD_COUNT,
-  // UNREAD_MSG_COUNT,
-  // LAST_SENDER,
-  // UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
-  CLEAR_CHAT_STATE
+  CLEAR_CHAT_STATE,
+  CLEAR_UNREAD_AND_LAST_USER,
 } from "./types";
 
 export const getUsersChatrooms = () => async (dispatch) => {
@@ -96,6 +93,22 @@ export const getUnreadCount = (chatroomId) => async (dispatch) => {
   console.log(res.data.msgCount);
   dispatch({ type: GRAB_UNREAD_COUNT, payload: res.data.msgCount });
   //This needs to return 2 things. unread and lastUser to send.
+};
+
+export const clearUnreadAndLastUserSent = (chatroomId) => async (dispatch) => {
+  const config = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+  console.log(chatroomId)
+  try {
+    const res = await axios.put(`/api/chatroom/unreadMsgs/removeCounterAndLastUser/${chatroomId}`);
+    console.log(res.data)
+    dispatch({type:CLEAR_UNREAD_AND_LAST_USER , payload: res.data})
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //New action that is supposed to grab the chatroomId and proceed to send it to getmessages from chtroom
@@ -180,14 +193,6 @@ export const addChatroom = (friendData) => async (dispatch) => {
 export const clearMsgs = () => (dispatch) => {
   try {
     dispatch({ type: REMOVE_MSGS });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const clearAllChatroomState = () => (dispatch) => {
-  try {
-    dispatch({ type: REMOVE_ALL_CHATROOM });
   } catch (error) {
     console.log(error);
   }
@@ -298,10 +303,10 @@ export const loading = () => {
   };
 };
 
-export const clearChatState= () => async (dispatch) =>{
+export const clearChatState = () => async (dispatch) => {
   try {
-    dispatch({type: CLEAR_CHAT_STATE})  
+    dispatch({ type: CLEAR_CHAT_STATE });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};

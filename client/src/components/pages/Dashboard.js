@@ -33,6 +33,7 @@ const Dashboard = ({
     socket = io(endpoint);
   }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders. This will need to change in the far future?
 
+  //This retrieves the messages and shuts off the socket before allowing the socket to reopen
   useEffect(() => {
     socket.once("sendTypedMsg", () => {
       if (currentChatroomId) {

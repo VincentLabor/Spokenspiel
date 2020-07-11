@@ -8,7 +8,6 @@ import {
   SET_LOADING,
   GENERAL_CHAT,
   ENTERING_GENERAL_CHAT,
-  REMOVE_ALL_CHATROOM,
   GET_CHATROOM_MSGS,
   GET_SPECIFIC_CHATROOM,
   STORE_SENT_MSGS,
@@ -20,6 +19,7 @@ import {
   //UNHIDE_CHATROOM,
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
   CLEAR_CHAT_STATE,
+  CLEAR_UNREAD_AND_LAST_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -110,6 +110,13 @@ export default (state = initialState, action) => {
         ...state,
         unreadMsgs: action.payload,
       };
+      case CLEAR_UNREAD_AND_LAST_USER:
+        
+        return {
+          ...state,
+          unreadMsgs: action.payload.msgCount,
+          lastUserToSendMsg: action.payload.lastUserToSendMsg,
+        }
     case STORE_MSGS:
       return {
         ...state,
@@ -121,28 +128,11 @@ export default (state = initialState, action) => {
         ...state,
         msgs: action.payload.slice(0),
       };
-    //  case LAST_SENDER:
-    //  return {
-    //    ...state,
-    //  }
-
     case REMOVE_MSGS:
       return {
         ...state,
         msgs: null,
         loading: false,
-      };
-    case REMOVE_ALL_CHATROOM:
-      return {
-        ...state,
-        chatrooms: [],
-        loading: false,
-        current: null,
-        currentChatroomId: null,
-        usersInvolved: null,
-        currentChatroomName: null,
-        msgs: [],
-        isTheUserInGeneralChat: true,
       };
     case SET_LOADING:
       return {

@@ -36,7 +36,7 @@ export const UNHIDE_CHATROOM = "UNHIDE_CHATROOM";
 // export const UNREAD_MSG_COUNT = "UNREAD_MSG_COUNT";
 // export const LAST_SENDER = "LAST_SENDER";
 export const GRAB_UNREAD_COUNT = "GRAB_UNREAD_COUNT";
-
+export const CLEAR_UNREAD_AND_LAST_USER = "CLEAR_UNREAD_AND_LAST_USER";
 
 //Specifically General Chat
 export const GENERAL_CHAT = "GENERAL_CHAT";
