@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
+import Menu from "./menu/Menu";
 import {
   getChatroomName,
   findChatroom,
@@ -20,17 +21,7 @@ const Navbar = ({
   clearChatState,
 }) => {
   const history = useHistory();
-
-  const onClick = (e) => {
-    if (token) {
-      clearState();
-      clearAll();
-      clearChatState();
-      history.push("/login");
-    } else {
-      console.log("nothing happened");
-    }
-  };
+  const [sideMenu, setSideMenu] = useState(false);
 
   useEffect(() => {
     //Temporary code for development. please remove after development
@@ -45,28 +36,39 @@ const Navbar = ({
     }
   }, [currentChatroomId]);
 
-  const guestLinks = (
-    <Fragment>
-      <li>
-        <Link to="/login" className="clear">
-          Login
-        </Link>
-      </li>
-      <li>
-        <Link to="/register" className="clear">
-          Register
-        </Link>
-      </li>
-    </Fragment>
-  );
+  const onClick = (e) => {
+    if (token) {
+      clearState();
+      clearAll();
+      clearChatState();
+      history.push("/login");
+    } else {
+      console.log("nothing happened");
+    }
+  };
 
   const redirected = () => {
     history.push("/");
     window.location.reload();
   };
 
+  const guestLinks = (
+    <Fragment>
+      <li>
+        <Link to="/login" className="clear hideOnSmallMedia">
+          Login
+        </Link>
+      </li>
+      <li>
+        <Link to="/register" className="clear hideOnSmallMedia">
+          Register
+        </Link>
+      </li>
+    </Fragment>
+  );
+
   return (
-    <nav className={!token ? "nav pd-2_5" : " nav pd-2_5 navDash"}>
+    <nav className={!token ? "nav" : " nav navDash"}>
       <div className="">
         <h1>
           {token ? (
@@ -94,19 +96,39 @@ const Navbar = ({
 
       <ul className="flexRight">
         <li> {user ? <h4>Greetings, {user.userName}</h4> : null}</li>
-        <li>
-          <Link to="/about" className="clear">
-            About
-          </Link>
-        </li>
-
-        {!token ? guestLinks : null}
-        {!token ? null : (
-          <li onClick={onClick} className="clear">
-            Logout
+        <div className="centerHeadings">
+          <li>
+            <Link to="/about" className="clear hideOnSmallMedia">
+              About
+            </Link>
           </li>
-        )}
+
+          {!token ? guestLinks : null}
+          {!token ? null : (
+            <li onClick={onClick} className="clear">
+              Logout
+            </li>
+          )}
+          <li>
+            <i className="fas fa-bars hideOnLargeMedia" onClick={()=>{setSideMenu(true)}}></i>
+          </li>
+        </div>
       </ul>
+      {sideMenu ? (
+        <div className="styledMenu hideOnLargeMedia styledAnimation">
+          <div>
+            <i
+              className="fas fa-times closeConversation"
+              onClick={() => setSideMenu(false)}
+            ></i>
+            <ul className="flexText">
+              <li>About</li>
+              <li>login</li>
+              <li>Register</li>
+            </ul>
+          </div>
+        </div>
+      ) : null}
     </nav>
   );
 };

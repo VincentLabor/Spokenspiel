@@ -90,7 +90,7 @@ const Dashboard = ({
   return (
     <Fragment>
         <Navbar />
-        <div className="gridContainer borderSides">
+        <div className="gridContainer">
           <FriendsList />
           <div className="chatting chatboxDimens" >
             {currentChatroomName} {/*This currently does nothing*/}

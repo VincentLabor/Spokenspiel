@@ -10,35 +10,33 @@
   cursor: pointer;
 }
 
-.pd-top1{
-  padding-top: .7em;
+.smallMediaHide {
+  display: none;
 }
 
- /* .borderSides{
+.pd-top1 {
+  padding-top: 0.7em;
+}
+
+.hideOnLargeMedia {
+  display: none;
+}
+
+/* .borderSides{
   border-left: .5px solid lightgray;
   border-right: .5px solid lightgray;
   padding: 0 10px;
 }  */
 
-/* .inline{
-  display: inline;
-} */
-
-/* .fas {
-  color: red;
-} 
-
-This is how the icons will change colors */
-
-h1 {
+This is how the icons will change colors */ h1 {
   margin: 0;
 }
 
-.smallFontsize{
+.smallFontsize {
   font-size: 10px;
 }
 
-.alignRight{
+.alignRight {
   text-align: right;
 }
 
@@ -53,8 +51,8 @@ body {
   background: royalblue;
 }
 
-.royalBlueColor{
-  color: royalblue
+.royalBlueColor {
+  color: royalblue;
 }
 
 .colorWhite {
@@ -75,9 +73,12 @@ body {
 }
 
 .fullSize {
-  height: 100%;
   overflow: auto;
   background-color: #fafafa;
+}
+
+.landingHeight {
+  height: 100vh;
 }
 
 .container {
@@ -104,10 +105,6 @@ body {
   flex-direction: row;
 }
 
-.pd-2_5 {
-  padding: 2.5em;
-}
-
 .btn {
   margin-top: 2em;
   padding: 1em;
@@ -128,7 +125,14 @@ button:hover {
 
 .landingImg {
   width: 50%;
+  height: 75%;
 }
+
+/* .heightBot {
+  height: 80vh;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+} */
 
 .nav {
   box-sizing: border-box;
@@ -140,10 +144,10 @@ button:hover {
   /* background-color: whitesmoke; */
 }
 
-.navDash{
-  border-bottom: .5px lightgray solid;
-  margin-bottom: 25px;
-  background-color: #2A8CFF;
+.navDash {
+  border-bottom: 0.5px lightgray solid;
+  /* margin-bottom: 25px; */
+  background-color: #2a8cff;
 }
 
 nav li {
@@ -156,16 +160,20 @@ nav li {
 
 .landingText {
   font-size: 90px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
-.landing {
+.weigh {
+  /* font-weight: bold; */
+}
+
+.landingWrapper {
   width: 100%;
   margin: auto;
   text-align: center;
 }
 
-.dot {
+/* .dot {
   border-radius: 50%;
   background-color: #fafafa;
   display: inline-block;
@@ -178,21 +186,25 @@ nav li {
   left: 40em;
   height: 150px;
   width: 150px;
+  z-index: -10000;
 }
 
 .right {
   right: 50em;
   height: 50px;
   width: 50px;
+  z-index: -10000;
 }
 .right1 {
   right: 30em;
   bottom: 50em;
   height: 100px;
   width: 100px;
+  z-index: -10000;
 }
 .right2 {
   right: 1em;
+  z-index: -10000;
 }
 
 .botRight {
@@ -200,6 +212,7 @@ nav li {
   bottom: 5em;
   height: 120px;
   width: 120px;
+  z-index: -10000;
 }
 
 .bottom1 {
@@ -207,37 +220,43 @@ nav li {
   left: 50em;
   height: 300px;
   width: 300px;
+  z-index: -10000;
 }
 .bottom2 {
   bottom: 20px;
   left: 20em;
   height: 30px;
   width: 30px;
+  z-index: -10000;
 }
 .bottom3 {
   bottom: 200px;
   left: 1em;
   height: 160px;
   width: 160px;
+  z-index: -10000;
 }
 .bottom4 {
   bottom: 40em;
   left: 4em;
   height: 70px;
   width: 70px;
+  z-index: -10000;
 }
 .bottom5 {
   bottom: 40em;
   left: 60em;
   height: 90px;
   width: 90px;
+  z-index: -10000;
 }
 .bottom6 {
   bottom: 10em;
   left: 30em;
   height: 90px;
   width: 90px;
-}
+  z-index: -10000;
+} */
 
 /* Login/Register page */
 
@@ -316,16 +335,14 @@ nav li {
   grid-template-rows: repeat(9, auto);
 }
 
-
 /* .borderSides{
  
   padding: 0 10px;
 } */
 
-
 /* Friendslist? */
 
-.friendHeader{
+.friendHeader {
   padding-bottom: 1.2em;
   text-align: left;
   padding-left: 2.3em;
@@ -339,37 +356,34 @@ nav li {
 .friendsListWrapper {
   grid-column-start: 1;
   grid-column-end: 2; /*This used to be 3*/
-  grid-row-start: 1;
-  grid-row-end: 10;
-   /* border-right: lightgray 0.5px solid;  */
+  /* grid-row-start: 1; The rows seemingly did nothing, I did not utilize properly
+  grid-row-end: 10; */
+  /* border-right: lightgray 0.5px solid;  */
   text-align: center;
   /* background: #f5f3f1; */
 }
 
-.friendsListScroll{
+.friendsListScroll {
   overflow: auto;
 }
 
-.friendsListScroll::-webkit-scrollbar{
+.friendsListScroll::-webkit-scrollbar {
   width: 10px;
 }
 
 .friendsListScroll::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 10px
+  border-radius: 10px;
 }
 
 .friendsListScroll::-webkit-scrollbar-thumb {
-  background: #2a8dff; 
-  border-radius: 10px
+  background: #2a8dff;
+  border-radius: 10px;
 }
 
 .friendsListScroll::-webkit-scrollbar-thumb:hover {
   background: #1563bb;
 }
-
-
-
 
 .friendName {
   padding: 10px 10px 10px 0px;
@@ -379,7 +393,7 @@ nav li {
   padding: 0.7em 0.5em;
 }
 
-.friendIcons{
+.friendIcons {
   padding-right: 5px;
   align-items: center;
 }
@@ -388,17 +402,16 @@ nav li {
   cursor: pointer;
 }
 
-.fa-comment-alt{
+.fa-comment-alt {
   color: #2a8dff;
 }
 
-.fa-trash-alt{
+.fa-trash-alt {
   padding-left: 20px;
 }
 
-.fa-trash-alt:hover{
+.fa-trash-alt:hover {
   color: red;
-
 }
 
 .flexContainer {
@@ -418,7 +431,6 @@ nav li {
   background-color: whitesmoke;
 }
 
-
 .commentIcon {
   padding: 10px;
 }
@@ -432,7 +444,7 @@ nav li {
 
 .AddFriendInput {
   box-shadow: none;
-  border: 1px solid lightgray;
+  /* border: 1px solid lightgray; */
   padding: 0.4em;
   width: 80%;
   border-radius: 2px;
@@ -480,35 +492,34 @@ nav li {
 .convoContainer {
   display: flex;
   justify-content: space-between;
-  padding: 0.5em 0
+  padding: 0.5em 0;
   /* border-bottom: .5px solid gray; */
 }
 
-.convoSubHeading{
+.convoSubHeading {
   padding-bottom: 1.7em;
 }
 
-.convoContainer:hover{
+.convoContainer:hover {
   background-color: whitesmoke;
 }
 
 .convoNames {
   padding: 10px;
-  width: 100%
+  width: 100%;
 }
 
-.padLeft{
+.padLeft {
   padding: 0 10px 10px 10px;
 }
 
-.convoPadding{
+.convoPadding {
   padding: 0 10px 10px 10px;
 }
 
-.closeConversation{
+.closeConversation {
   padding: 14px 15px 5px 15px;
   margin: 0 1rem 0 0;
-  
 }
 
 .closeConversation:hover {
@@ -523,7 +534,7 @@ nav li {
 
 .chatboxInput {
   box-shadow: none;
-  border: .5px lightgray solid;
+  border: 0.5px lightgray solid;
   /* border: 1px solid lightgray; */
   padding: 0.7em;
   width: 85%;
@@ -549,32 +560,30 @@ nav li {
   margin: auto;
 }
 
-
-.userColor{
+.userColor {
   /* color: #1563bb */
   background-color: #1563bb;
   border-radius: 15px;
   color: white;
-  padding: .125em .5em;
+  padding: 0.125em 0.5em;
   text-align: left;
 }
 
-.otherUserColor{
+.otherUserColor {
   /* color: #1563bb */
   background-color: silver;
   border-radius: 15px;
-  padding: .125em .7em;
+  padding: 0.125em 0.7em;
   text-align: left;
 }
 
-.userText{
+.userText {
   font-size: 1.125em;
   max-width: 22em;
 }
-.userTextRight{
+.userTextRight {
   font-size: 1.125em;
   max-width: 22em;
-
 }
 
 .chatting {
@@ -583,34 +592,34 @@ nav li {
   grid-row-start: 1;
   grid-row-end: 10;
   background-color: white;
-  border-left: .5px solid silver;
-  border-right: .5px solid silver;
+  border-left: 0.5px solid silver;
+  border-right: 0.5px solid silver;
 }
 
 .chatboxDimens {
   box-sizing: border-box;
-  padding-left: .8em;
-  padding-right: .8em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
   overflow-y: auto;
   overflow-x: hidden;
   overflow-anchor: none;
   height: 100%;
+  width: 100%;
   /* overflow-anchor: none; */
 }
 
 /* Scrollbar */
 .chatboxDimens::-webkit-scrollbar {
   width: 10px;
-  
 }
 .chatboxDimens::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 10px
+  border-radius: 10px;
 }
 
 .chatboxDimens::-webkit-scrollbar-thumb {
-  background: #2a8dff; 
-  border-radius: 10px
+  background: #2a8dff;
+  border-radius: 10px;
 }
 
 .chatboxDimens::-webkit-scrollbar-thumb:hover {
@@ -638,7 +647,7 @@ nav li {
   padding: 0px 10px 10px 10px;
 }
 
-.convoBorder{
+.convoBorder {
   border-bottom: deepskyblue 5px solid;
   border-radius: 7px;
 }
@@ -656,7 +665,7 @@ nav li {
   padding: 0.125em 0.2em 0.2em 0;
 }
 .messageContainerRight {
-  padding: 0.125em .3em 0.2em 0;
+  padding: 0.125em 0.3em 0.2em 0;
 }
 
 .messageContainer p {
@@ -683,11 +692,135 @@ nav li {
 .footer-container {
   margin: auto;
   background-color: #2a8dff;
-  height: 200px;
-  position: relative;
-  margin-top: 200px;
+
   color: white;
-  padding: 3em 0;
+  padding: 5em 0;
   width: 100%;
+  text-align: center;
+}
+
+/* Media queries */
+@media (max-width: 320px) {
+  .hideOnLargeMedia {
+    display: inline-block;
+  }
+
+  .nav {
+    padding: 1em 1em 1em 1em;
+  }
+
+  .pd-2_5 {
+    /* If leave this at 0, there is no extra white space below*/
+    padding: 0;
+  }
+
+  .fa-bars {
+    position: absolute;
+    transform: scale(1.5, 1.5);
+  }
+
+  .landingText {
+    font-size: 45px;
+    margin-bottom: 0.4em;
+    z-index: 10;
+  }
+
+  .styledMenu {
+    display: inline-block;
+    z-index: 9999999;
+
+    background-color: lightblue;
+    transition: transform 3s ease-in-out;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding: 2em;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  @keyframes slideIn {
+    0%{
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  .styledAnimation {
+    animation: slideIn .5s 1;
+    /* transform:translateX(0%); */
+    /* transition: transform 4s ease-in-out; */
+    /* transform:translateX(90%);  */
+  }
+
+  .flexText {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .chatting {
+    grid-column-start: 1;
+  }
+
+  .gridContainer {
+    height: 100vh;
+  }
+
+  .landingWrapper {
+    text-align: left;
+    padding: 1em;
+    margin: 0;
+    margin-top: 5em;
+  }
+
+  .btn {
+    margin-top: 3em;
+    width: 100%;
+  }
+
+  .chatting {
+    border-left: none;
+    border-right: none;
+  }
+
+  .hideOnSmallMedia {
+    display: none;
+  }
+
+  .friendsListWrapper {
+    display: none;
+  }
+
+  .conversations {
+    display: none;
+  }
+
+  /* .footer-container{
+    margin-bottom: -10em;
+  } */
+
+  /* .heightBot{
+    height: 100vh;
+    
+  } */
+}
+/* @media (min-width: 374px){
+  .friendsListWrapper{
+    display: none;
+  }
+  
+  .conversations{
+    display: none;
+  }
+} */
+
+.centerHeadings {
+  display: flex;
   text-align: center;
 }
