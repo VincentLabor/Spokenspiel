@@ -728,9 +728,8 @@ nav li {
   .styledMenu {
     display: inline-block;
     z-index: 9999999;
-
     background-color: lightblue;
-    transition: transform 3s ease-in-out;
+     transition: transform 3s ease-in-out; 
     height: 100%;
     width: 100%;
     top: 0;
@@ -741,27 +740,77 @@ nav li {
     overflow: hidden;
   }
 
+    .moveIn-enter{
+    opacity: 0;
+  }
+
+  .moveIn-enter-active{
+    opacity: 1;
+    transition: opacity 300ms ease-in-out, translate 300ms ease-in-out;
+  }
+
+  .moveIn-enter-done{
+    opacity: 1;
+  } 
+  
+  .moveIn-exit{
+    opacity: 1;
+  }
+
+  .moveIn-exit-active{
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  .moveIn-exit-done{
+    opacity: 0;
+  }
+
+  /* Sidemenu React CSS Transitions */
+
+/* 
   @keyframes slideIn {
-    0%{
+    0% {
+      opacity: 0;
       transform: translateX(100%);
     }
     100% {
+      opacity: 1;
       transform: translateX(0%);
     }
   }
 
+  @keyframes slideOut {
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }  */
+
   .styledAnimation {
-    animation: slideIn .5s 1;
+     /* animation: slideIn 0.5s 1;  */
     /* transform:translateX(0%); */
     /* transition: transform 4s ease-in-out; */
     /* transform:translateX(90%);  */
   }
+
+  /* .slideOutAnimation {
+     animation: slideOut 0.5s 1;  */
+    /* transform:translateX(0%); */
+    /* transition: transform 4s ease-in-out; */
+    /* transform:translateX(90%);  */
+  /* } */
 
   .flexText {
     display: flex;
     text-align: center;
     flex-direction: column;
     justify-content: center;
+    overflow-x: hidden;
   }
 
   .chatting {

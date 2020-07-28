@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -10,6 +11,7 @@ import {
   clearChatState,
 } from "../../actions/chatroomActions";
 import { clearAll } from "../../actions/friendActions";
+import { set } from "mongoose";
 
 const Navbar = ({
   auth: { token, user, isAuthenticated },
@@ -35,6 +37,10 @@ const Navbar = ({
       findChatroom(currentChatroomId);
     }
   }, [currentChatroomId]);
+
+  useEffect(() => {
+    console.log(sideMenu);
+  });
 
   const onClick = (e) => {
     if (token) {
@@ -66,6 +72,12 @@ const Navbar = ({
       </li>
     </Fragment>
   );
+
+  // const sideMenuElements = () => {
+  //   return sideMenu ? (
+  //     <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />
+  //   ) : null;
+  // };
 
   return (
     <nav className={!token ? "nav" : " nav navDash"}>
@@ -110,25 +122,26 @@ const Navbar = ({
             </li>
           )}
           <li>
-            <i className="fas fa-bars hideOnLargeMedia" onClick={()=>{setSideMenu(true)}}></i>
+            <i
+              className="fas fa-bars hideOnLargeMedia"
+              onClick={() => {
+                setSideMenu(true);
+              }}
+            ></i>
           </li>
         </div>
       </ul>
-      {sideMenu ? (
-        <div className="styledMenu hideOnLargeMedia styledAnimation">
-          <div>
-            <i
-              className="fas fa-times closeConversation"
-              onClick={() => setSideMenu(false)}
-            ></i>
-            <ul className="flexText">
-              <li>About</li>
-              <li>login</li>
-              <li>Register</li>
-            </ul>
-          </div>
-        </div>
-      ) : null}
+
+      <CSSTransition
+        in={sideMenu}
+        timeout={300}
+        classNames="moveIn"
+        unmountOnExit
+        // onEnter={() => setSideMenu(false)}
+        // onExit={() => setSideMenu(true)}
+      >
+        <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />
+      </CSSTransition>
     </nav>
   );
 };
