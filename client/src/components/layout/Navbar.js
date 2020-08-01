@@ -12,6 +12,7 @@ import {
 } from "../../actions/chatroomActions";
 import { clearAll } from "../../actions/friendActions";
 import { set } from "mongoose";
+import LoggedInMenu from "./menu/LoggedInMenu";
 
 const Navbar = ({
   auth: { token, user, isAuthenticated },
@@ -107,17 +108,22 @@ const Navbar = ({
       </div>
 
       <ul className="flexRight">
-        <li> {user ? <h4>Greetings, {user.userName}</h4> : null}</li>
+        <li>
+          {" "}
+          {user ? (
+            <h4 className="hideOnSmallMedia">Greetings, {user.userName}</h4>
+          ) : null}
+        </li>
         <div className="centerHeadings">
-          <li>
-            <Link to="/about" className="clear hideOnSmallMedia">
+          <li className="hideOnSmallMedia">
+            <Link to="/about" className="clear ">
               About
             </Link>
           </li>
 
           {!token ? guestLinks : null}
           {!token ? null : (
-            <li onClick={onClick} className="clear">
+            <li onClick={onClick} className="clear hideOnSmallMedia">
               Logout
             </li>
           )}
@@ -137,10 +143,8 @@ const Navbar = ({
         timeout={300}
         classNames="moveIn"
         unmountOnExit
-        // onEnter={() => setSideMenu(false)}
-        // onExit={() => setSideMenu(true)}
       >
-        <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />
+        {!token ? <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />: <LoggedInMenu sideMenu={sideMenu} setSideMenu={setSideMenu} />}
       </CSSTransition>
     </nav>
   );
@@ -155,7 +159,6 @@ export default connect(mapStateToProps, {
   clearState,
   loadUser,
   clearAll,
-
   getChatroomName,
   findChatroom,
   clearChatState,

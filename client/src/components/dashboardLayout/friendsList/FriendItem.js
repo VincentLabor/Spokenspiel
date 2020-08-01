@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { deleteFriend, getFriends } from "../../../actions/friendActions";
 import {
@@ -6,10 +6,9 @@ import {
   getUsersChatrooms,
   chatroomCheck,
   setCurrentChatroomId,
-
   findChatroom,
   removeChatroomfromSight,
-  removeChatroomAfterDeletingFriend
+  removeChatroomAfterDeletingFriend,
 } from "../../../actions/chatroomActions";
 
 const FriendItem = ({
@@ -19,13 +18,12 @@ const FriendItem = ({
   removeChatroomAfterDeletingFriend,
   chatroom: { chatRoomExists, currentChatroomId },
 }) => {
-
-const [isShown,setIsShown] = useState(false)
+  const [isShown, setIsShown] = useState(false);
 
   const removeFriendFromFriendsList = () => {
     removeChatroomAfterDeletingFriend(friend._id);
     deleteFriend(friend._id);
-   // removeChatroomfromSight(currentChatroomId);
+    // removeChatroomfromSight(currentChatroomId);
   };
 
   const openConversation = async () => {
@@ -33,25 +31,30 @@ const [isShown,setIsShown] = useState(false)
   };
 
   return (
-    <div className="cursorChg">
+    <div className="cursorChg" onClick={openConversation}>
       {friend ? (
-        <div className="friendContainer" onMouseEnter={()=>setIsShown(true)} onMouseLeave={()=>setIsShown(false)}>
+        <div
+          className="friendContainer"
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
+        >
           <p className="friendName">{friend.userName}</p>
           {/*   {isShown ? */}
-         
-          <div className="friendIcons"><i
-            className="fas fa-comment-alt commentIcon "
-            onClick={openConversation}
-          ></i>{" "}
-          {/*Messaging Icon*/}
-          <i
-            className="fas fa-trash-alt trashIcon"
-            onClick={removeFriendFromFriendsList}
-          ></i>{" "}
-          {/*Trash Icon*/}</div> 
-         
+
+          <div className="friendIcons hideOnSmallMedia">
+            <i
+              className="fas fa-comment-alt commentIcon"
+              onClick={openConversation}
+            ></i>{" "}
+            {/*Messaging Icon*/}
+            <i
+              className="fas fa-trash-alt trashIcon "
+              onClick={removeFriendFromFriendsList}
+            ></i>{" "}
+            {/*Trash Icon*/}
+          </div>
+
           {/*  : null} */}
-          
         </div>
       ) : null}
     </div>
@@ -60,7 +63,7 @@ const [isShown,setIsShown] = useState(false)
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  chatroom: state.chatroom
+  chatroom: state.chatroom,
 });
 
 export default connect(mapStateToProps, {
@@ -72,10 +75,11 @@ export default connect(mapStateToProps, {
   setCurrentChatroomId,
   findChatroom,
   removeChatroomfromSight,
-  removeChatroomAfterDeletingFriend
+  removeChatroomAfterDeletingFriend,
 })(FriendItem);
 
-{/* <div className="cursorChg">
+{
+  /* <div className="cursorChg">
 {friend ? (
   <div className="friendContainer" onMouseEnter={()=>setIsShown(true)} onMouseLeaver={()=>setIsShown(false)}>
     <p className="friendName">{friend.userName}</p>
@@ -89,4 +93,5 @@ export default connect(mapStateToProps, {
     
   </div>
 ) : null}
-</div> */}
+</div> */
+}

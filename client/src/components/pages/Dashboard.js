@@ -26,12 +26,11 @@ const Dashboard = ({
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
   const [statusOfSending, setStatusOfSending] = useState(false);
   
-
   const endpoint = "localhost:5000";
 
   useEffect(() => {
     socket = io(endpoint);
-  }, [endpoint]); //if the endpoint is ever different, this will rerender. This will prevent multiple renders. This will need to change in the far future?
+  }, [endpoint]);
 
   //This retrieves the messages and shuts off the socket before allowing the socket to reopen
   useEffect(() => {
@@ -40,10 +39,8 @@ const Dashboard = ({
         getMessagesFromDB(currentChatroomId);
       }
     });
-
     return () => {
       socket.off("sendTypedMsg");
-
       socket.once("sendTypedMsg", () => {
         if (currentChatroomId) {
           getMessagesFromDB(currentChatroomId);
@@ -57,7 +54,6 @@ const Dashboard = ({
       setStatusOfSending(true);
       setStatusOfSending(false);
     }, 250) //This runs every 2 seconds
-
   }, [msgs]);
 
   const sendMessage = (e) => {
@@ -69,11 +65,9 @@ const Dashboard = ({
 
   const sendTheMessage = () => {
     socket.emit("chat message");
-
     if (currentChatroomId) {
       lastSender(currentChatroomId);
     }
-      
   };
 
   const scrollDown = useRef(null);
@@ -92,19 +86,19 @@ const Dashboard = ({
         <Navbar />
         <div className="gridContainer">
           <FriendsList />
-          <div className="chatting chatboxDimens" >
+          <div className="chatting chatboxDimens hideOnSmallMedia" >
             {currentChatroomName} {/*This currently does nothing*/}
             <ChatMessages />
             <div ref={scrollDown} className= "anchor"></div>
           </div>
-          <div className="chatbox">
+          <div className="chatbox hideOnSmallMedia">
             <ChatInput /* Passing down the states into the chatinput component */
               currentMsg={currentMsg}
               setCurrentMsg={setCurrentMsg}
               sendMessage={sendMessage}
             />
           </div>
-          <div className="conversations">
+          <div className="conversations hideOnSmallMedia">
             <Conversations
               generalChatStatus={generalChatStatus}
               setGeneralChatStatus={setGeneralChatStatus}

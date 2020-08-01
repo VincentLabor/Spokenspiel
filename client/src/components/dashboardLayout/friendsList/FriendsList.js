@@ -46,7 +46,7 @@ const FriendsList = ({
 
         {/* These are the different tabs you can click to see different things */}
         {/* This is to see your friends list */}
-        <div className="flexContainer">
+        <div className="flexContainer hideOnSmallMedia">
           <p
             onClick={() => {
               setFriendTab(true);
