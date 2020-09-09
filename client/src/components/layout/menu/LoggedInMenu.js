@@ -53,22 +53,8 @@ const LoggedInMenu = ({
                 About
               </Link>
             </li>
-            {/* <li>
-              {" "}
-              <Link to="/login" className="clear ">
-                Login
-              </Link>
-            </li> */}
-
             <li onClick={onClick} className="clear">
               Logout
-            </li>
-
-            <li>
-              {" "}
-              <Link to="/register" className="clear ">
-                Register
-              </Link>
             </li>
           </ul>
         </div>

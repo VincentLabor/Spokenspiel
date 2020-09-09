@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { debounce, _ } from "lodash";
 import { deleteFriend, getFriends } from "../../../actions/friendActions";
 import {
   addChatroom,
@@ -18,7 +19,10 @@ const FriendItem = ({
   removeChatroomAfterDeletingFriend,
   chatroom: { chatRoomExists, currentChatroomId },
 }) => {
-  const [isShown, setIsShown] = useState(false);
+
+  /*Catching the pages width and height to help modify the page based on the screen.  */
+
+
 
   const removeFriendFromFriendsList = () => {
     removeChatroomAfterDeletingFriend(friend._id);
@@ -35,8 +39,6 @@ const FriendItem = ({
       {friend ? (
         <div
           className="friendContainer"
-          onMouseEnter={() => setIsShown(true)}
-          onMouseLeave={() => setIsShown(false)}
         >
           <p className="friendName">{friend.userName}</p>
           {/*   {isShown ? */}

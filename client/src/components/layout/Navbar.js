@@ -39,10 +39,6 @@ const Navbar = ({
     }
   }, [currentChatroomId]);
 
-  useEffect(() => {
-    console.log(sideMenu);
-  });
-
   const onClick = (e) => {
     if (token) {
       clearState();
@@ -73,12 +69,6 @@ const Navbar = ({
       </li>
     </Fragment>
   );
-
-  // const sideMenuElements = () => {
-  //   return sideMenu ? (
-  //     <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />
-  //   ) : null;
-  // };
 
   return (
     <nav className={!token ? "nav" : " nav navDash"}>

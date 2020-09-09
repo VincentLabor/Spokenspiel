@@ -10,7 +10,7 @@ import io from "../../../node_modules/socket.io-client/dist/socket.io";
 import {
   saveMsgs,
   saveSentMsgs,
-  getMessagesFromDB,  
+  getMessagesFromDB,
   lastSender,
 } from "../../actions/chatroomActions";
 
@@ -25,12 +25,13 @@ const Dashboard = ({
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
   const [statusOfSending, setStatusOfSending] = useState(false);
-  
+  const [showMobileChat, setShowMobileChat] = useState(false);
+
   const endpoint = "localhost:5000";
 
   useEffect(() => {
     socket = io(endpoint);
-  }, [endpoint]);
+  }, []);
 
   //This retrieves the messages and shuts off the socket before allowing the socket to reopen
   useEffect(() => {
@@ -50,10 +51,10 @@ const Dashboard = ({
   }, [msgs]);
 
   useEffect(() => {
-    setTimeout(()=>{
+    setTimeout(() => {
       setStatusOfSending(true);
       setStatusOfSending(false);
-    }, 250) //This runs every 2 seconds
+    }, 250); //This runs every 2 seconds
   }, [msgs]);
 
   const sendMessage = (e) => {
@@ -73,38 +74,92 @@ const Dashboard = ({
   const scrollDown = useRef(null);
 
   let autoScrollDown = () => {
-    scrollDown.current.scrollIntoView({behavior:"smooth", block: "end"})
+    scrollDown.current.scrollIntoView({ behavior: "smooth", block: "end" });
   };
 
   useEffect(() => {
     autoScrollDown();
   }, [statusOfSending]); //If no bracket, clicking on conversation will auto scroll down
 
+  ////////////////////////////////////////////////////////////
+  ///Dectection of page width and changing views for mobile///
+  ////////////////////////////////////////////////////////////
+
+  const [pageSize, setPageSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  const resizeScreen = (fn, delay) => {
+    let timeOutId;
+
+    return function (...args) {
+      if (timeOutId) {
+        clearTimeout(timeOutId);
+      }
+      //There needs to be an id for setTimeout so i can cancel it if clicked.
+      timeOutId = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    };
+  };
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      resizeScreen((e) => {
+        setPageSize({
+          height: window.innerHeight,
+          width: window.innerWidth,
+        });
+      }, 1000)
+    );
+    console.log(pageSize.width);
+  }, [pageSize.width]);
+
+  useEffect(() => {
+    if (pageSize.width < 321 && currentChatroomId) {
+      setShowMobileChat(true);
+      // console.log(showMobileChat)
+    } else {
+      setShowMobileChat(false);
+    }
+  }, [pageSize, currentChatroomId]);
 
   return (
     <Fragment>
-        <Navbar />
-        <div className="gridContainer">
-          <FriendsList />
-          <div className="chatting chatboxDimens hideOnSmallMedia" >
-            {currentChatroomName} {/*This currently does nothing*/}
-            <ChatMessages />
-            <div ref={scrollDown} className= "anchor"></div>
-          </div>
-          <div className="chatbox hideOnSmallMedia">
-            <ChatInput /* Passing down the states into the chatinput component */
-              currentMsg={currentMsg}
-              setCurrentMsg={setCurrentMsg}
-              sendMessage={sendMessage}
-            />
-          </div>
-          <div className="conversations hideOnSmallMedia">
-            <Conversations
-              generalChatStatus={generalChatStatus}
-              setGeneralChatStatus={setGeneralChatStatus}
-            />
-          </div>
+      <Navbar />
+      <div className="gridContainer">
+        {/* The ternary works but need to show the chatroom. */}
+        {showMobileChat ? null : <FriendsList />}
+
+        <div
+          className={
+            showMobileChat
+              ? "chatting chatboxDimens"
+              : "chatting chatboxDimens hideOnSmallMedia"
+          }
+        >
+          {currentChatroomName} {/*This currently does nothing*/}
+          <ChatMessages />
+          <div ref={scrollDown} className="anchor"></div>
         </div>
+        <div
+          className={showMobileChat ? "chatbox" : "chatbox hideOnSmallMedia"}
+        >
+          <ChatInput /* Passing down the states into the chatinput component */
+            currentMsg={currentMsg}
+            setCurrentMsg={setCurrentMsg}
+            sendMessage={sendMessage}
+          />
+        </div>
+        <div className="conversations hideOnSmallMedia">
+          <Conversations
+            generalChatStatus={generalChatStatus}
+            setGeneralChatStatus={setGeneralChatStatus}
+          />
+        </div>
+      </div>
     </Fragment>
   );
 };

@@ -711,7 +711,21 @@ nav li {
 
   .chatting {
     grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
   }
+
+
+.chatbox{
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 4;
+  grid-row-end: 4;
+}
+  
+
+
 
 
   .landingWrapper {
@@ -750,10 +764,6 @@ nav li {
     font-size: 20px;
   }
   
-  .gridContainer{
-    display: flex;
-    justify-content: center;
-  }
 
 }
 

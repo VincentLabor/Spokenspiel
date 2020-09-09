@@ -1,5 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://Adminuser1:hYDzRijlMowe5iKR@spokenspiel-q8le0.mongodb.net/test?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://Adminuser1:hYDzRijlMowe5iKR@spokenspiel.q8le0.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecrets": "hungryHipposYes"
 }
+
 

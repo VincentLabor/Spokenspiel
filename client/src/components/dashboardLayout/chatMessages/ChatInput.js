@@ -30,8 +30,8 @@ const ChatInput = ({
       //At this point, I can grab theglobal count here and add it while still checking if the last user sent is still the same.
     }
 
-    console.log(msgCounter);
-    console.log(unreadMsgs);
+    // console.log(msgCounter);
+    // console.log(unreadMsgs);
   }, [msgCounter]);
 
   const onChange = (e) => {

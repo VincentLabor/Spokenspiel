@@ -6,18 +6,22 @@ import {
   addFriend,
   getFriendRequests,
 } from "../../../actions/friendActions";
+import {
+
+} from "../../../"
 import FriendRequests from "./FriendRequests";
 
 const FriendsList = ({
   friend: { friends, currentFriendReqs, friendRequested },
+  chatroom:{currentChatroomId},
   getFriendRequests,
   getFriends,
   addFriend,
 }) => {
   useEffect(() => {
-     getFriends();
+    getFriends();
     getFriendRequests();
-  }, [getFriendRequests]); //Nothing in the brackets mean that these functions will only run once. I removed getFriends() from the brackets
+  }, []); //Nothing in the brackets mean that these functions will only run once. I removed getFriends() from the brackets
 
   const [friendTab, setFriendTab] = useState(true);
   const [friendReqTab, setFriendReqTab] = useState(false);
@@ -39,108 +43,112 @@ const FriendsList = ({
     }, 6000);
   };
 
-  return (
+  return ( 
     <Fragment>
-      <div className="friendsListWrapper">
-        <h3 className="friendHeader">Friends List </h3>
+   <div className="friendsListWrapper">
+     <h3 className="friendHeader">Friends List </h3>
 
-        {/* These are the different tabs you can click to see different things */}
-        {/* This is to see your friends list */}
-        <div className="flexContainer hideOnSmallMedia">
-          <p
-            onClick={() => {
-              setFriendTab(true);
-              setFriendReqTab(false);
-              setAddFriendTab(false);
-               getFriends();
-            }}
-            className={friendTab ? "friendOption underline" : "friendOption"}
-          >
-            Friends
-          </p>
+     {/* These are the different tabs you can click to see different things */}
+     {/* This is to see your friends list */}
+     <div className="flexContainer hideOnSmallMedia">
+       <p
+         onClick={() => {
+           setFriendTab(true);
+           setFriendReqTab(false);
+           setAddFriendTab(false);
+           getFriends();
+         }}
+         className={friendTab ? "friendOption underline" : "friendOption"}
+       >
+         Friends
+       </p>
 
-          {/* This is to add friends */}
-          <p
-            onClick={() => {
-              setFriendTab(false);
-              setFriendReqTab(false);
-              setAddFriendTab(true);
-            }}
-            className={addFriendTab ? "friendOption underline" : "friendOption"}
-          >
-            Add Friend
-          </p>
+       {/* This is to add friends */}
+       <p
+         onClick={() => {
+           setFriendTab(false);
+           setFriendReqTab(false);
+           setAddFriendTab(true);
+         }}
+         className={addFriendTab ? "friendOption underline" : "friendOption"}
+       >
+         Add Friend
+       </p>
 
-          {/* this is to see your current friend requests */}
-          <p
-            onClick={() => {
-              setFriendTab(false);
-              setFriendReqTab(true);
-              setAddFriendTab(false);
-              getFriendRequests();
-            }}
-            className={friendReqTab ? "friendOption underline" : "friendOption"}
-          >
-            Friend Requests
-          </p>
-        </div>
+       {/* this is to see your current friend requests */}
+       <p
+         onClick={() => {
+           setFriendTab(false);
+           setFriendReqTab(true);
+           setAddFriendTab(false);
+           getFriendRequests();
+         }}
+         className={friendReqTab ? "friendOption underline" : "friendOption"}
+       >
+         Friend Requests
+       </p>
+     </div>
 
-        {/* This is the JSX for adding friends*/}
-        {addFriendTab === true ? (
-          <form onSubmit={onSubmit}>
-            <input
-              type="text"
-              name="userName"
-              value={userName}
-              className="AddFriendInput"
-              onChange={onChange}
-              placeholder=" "
-              autoFocus
-            ></input>
-            <button type="submit" className="addFriendBtn">
-              Send Friend Request
-            </button>
-          </form>
-        ) : null}
+     {/* This is the JSX for adding friends*/}
+     {addFriendTab === true ? (
+       <form onSubmit={onSubmit}>
+         <input
+           type="text"
+           name="userName"
+           value={userName}
+           className="AddFriendInput"
+           onChange={onChange}
+           placeholder=" "
+           autoFocus
+         ></input>
+         <button type="submit" className="addFriendBtn">
+           Send Friend Request
+         </button>
+       </form>
+     ) : null}
 
-        {sentFriendRequest === true ? (
-          <p>A friend request has been sent to {userName}</p>
-        ) : null}
+     {sentFriendRequest === true ? (
+       <p>A friend request has been sent to {userName}</p>
+     ) : null}
 
-        {/* This is the JSX for the friendslist */}
-        {friendTab === true ? (
-          <div className="flexWrapperRow friendsListScroll">
-            {/*Checks if user has friends and displays them*/}
+     {/* This is the JSX for the friendslist */}
+     {friendTab === true ? (
+       <div className="flexWrapperRow friendsListScroll">
+         {/*Checks if user has friends and displays them*/}
 
-            {friends
-              ? friends.map((friend) => (
-                  <FriendItem friend={friend} key={friend._id} />
-                ))
-              :(<p className="pd-top1">Add some friends to get started</p>) }
-          </div>
-        ) : null}
+         {friends ? (
+           friends.map((friend) => (
+             <FriendItem friend={friend} key={friend._id} />
+           ))
+         ) : (
+           <p className="pd-top1">Add some friends to get started</p>
+         )}
+       </div>
+     ) : null}
 
-        {/* This is the JSX for the friend Requests */}
-        {friendReqTab === true ? (
-          <div className="flexWrapperRow">
-            {/*Checks if user has friends and displays them*/}
-            {currentFriendReqs
-              ? currentFriendReqs.map((friendReqs) => (
-                  <FriendRequests
-                    friendReqs={friendReqs}
-                    key={friendReqs._id}
-                  />
-                ))
-              : "Send some friend requests to start your journey"}
-          </div>
-        ) : null}
-      </div>
-    </Fragment>
+     {/* This is the JSX for the friend Requests */}
+     {friendReqTab === true ? (
+       <div className="flexWrapperRow">
+         {/*Checks if user has friends and displays them*/}
+         {currentFriendReqs
+           ? currentFriendReqs.map((friendReqs) => (
+               <FriendRequests
+                 friendReqs={friendReqs}
+                 key={friendReqs._id}
+               />
+             ))
+           : "Send some friend requests to start your journey"}
+       </div>
+     ) : null}
+   </div>
+ </Fragment>
+    
   );
 };
 
 const mapStateToProps = (state) => ({
   friend: state.friend,
+  chatroom: state.chatroom,
 });
 
 export default connect(mapStateToProps, {

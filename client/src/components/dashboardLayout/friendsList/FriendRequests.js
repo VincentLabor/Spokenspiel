@@ -15,7 +15,7 @@ const FriendRequests = ({
 }) => {
   useEffect(() => {
     getFriendRequests();
-  }, [getFriendRequests]);
+  }, []);
 
   const addFriend = () => {
     acceptFriendReq(friendReqs._id);
