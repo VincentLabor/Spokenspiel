@@ -18,11 +18,9 @@ const FriendItem = ({
   chatroomCheck,
   removeChatroomAfterDeletingFriend,
   chatroom: { chatRoomExists, currentChatroomId },
+  mobileRemoveToggle, //This is properly brought over.
 }) => {
-
   /*Catching the pages width and height to help modify the page based on the screen.  */
-
-
 
   const removeFriendFromFriendsList = () => {
     removeChatroomAfterDeletingFriend(friend._id);
@@ -37,24 +35,37 @@ const FriendItem = ({
   return (
     <div className="cursorChg" onClick={openConversation}>
       {friend ? (
-        <div
-          className="friendContainer"
-        >
+        <div className="friendContainer">
           <p className="friendName">{friend.userName}</p>
           {/*   {isShown ? */}
 
-          <div className="friendIcons hideOnSmallMedia">
-            <i
-              className="fas fa-comment-alt commentIcon"
-              onClick={openConversation}
-            ></i>{" "}
-            {/*Messaging Icon*/}
-            <i
-              className="fas fa-trash-alt trashIcon "
-              onClick={removeFriendFromFriendsList}
-            ></i>{" "}
-            {/*Trash Icon*/}
-          </div>
+          {mobileRemoveToggle ? (
+            <div className="friendIcons">
+              <i
+                className="fas fa-comment-alt commentIcon hideOnSmallMedia"
+                onClick={openConversation}
+              ></i>{" "}
+              {/*Messaging Icon*/}
+              <i
+                className="fas fa-trash-alt trashIcon "
+                onClick={removeFriendFromFriendsList}
+              ></i>{" "}
+              {/*Trash Icon*/}
+            </div>
+          ) : (
+            <div className="friendIcons hideOnSmallMedia">
+              <i
+                className="fas fa-comment-alt commentIcon"
+                onClick={openConversation}
+              ></i>{" "}
+              {/*Messaging Icon*/}
+              <i
+                className="fas fa-trash-alt trashIcon "
+                onClick={removeFriendFromFriendsList}
+              ></i>{" "}
+              {/*Trash Icon*/}
+            </div>
+          )}
 
           {/*  : null} */}
         </div>
@@ -79,21 +90,3 @@ export default connect(mapStateToProps, {
   removeChatroomfromSight,
   removeChatroomAfterDeletingFriend,
 })(FriendItem);
-
-{
-  /* <div className="cursorChg">
-{friend ? (
-  <div className="friendContainer" onMouseEnter={()=>setIsShown(true)} onMouseLeaver={()=>setIsShown(false)}>
-    <p className="friendName">{friend.userName}</p>
-    {isShown ? (          (<i
-      className="fas fa-comment-alt trashIcon "
-      onClick={openConversation}
-    ></i>) (          <i
-      className="fas fa-trash-alt trashIcon"
-      onClick={removeFriendFromFriendsList}
-    ></i>)) : null}
-    
-  </div>
-) : null}
-</div> */
-}
