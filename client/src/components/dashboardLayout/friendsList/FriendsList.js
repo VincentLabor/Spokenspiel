@@ -43,7 +43,7 @@ const FriendsList = ({
   };
 
   const mobileFriendRemove = () => {
-    setMobileRemoveToggle(true);
+    setMobileRemoveToggle(!mobileRemoveToggle);
   };
 
   return (
@@ -52,7 +52,10 @@ const FriendsList = ({
         <h3 className="friendHeader">Friends List </h3>
         <div className="mobileFriendIcons">
           {mobileRemoveToggle ? (
-            <p>Choose a friend to delete</p>
+            <Fragment>
+              <i class="far fa-times-circle" onClick={mobileFriendRemove}></i>
+              <p>Choose a friend to delete</p>
+            </Fragment>
           ) : (
             <Fragment>
               <i className="fas fa-user-plus"></i>
@@ -132,7 +135,11 @@ const FriendsList = ({
 
             {friends ? (
               friends.map((friend) => (
-                <FriendItem friend={friend} key={friend._id} mobileRemoveToggle={mobileRemoveToggle} />
+                <FriendItem
+                  friend={friend}
+                  key={friend._id}
+                  mobileRemoveToggle={mobileRemoveToggle}
+                />
               ))
             ) : (
               <p className="pd-top1">Add some friends to get started</p>
