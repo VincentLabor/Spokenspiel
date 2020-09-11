@@ -29,7 +29,9 @@ const FriendItem = ({
   };
 
   const openConversation = async () => {
-    chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
+    if (mobileRemoveToggle == false) {
+      chatroomCheck(friend._id); //This checks if the chatroom exists and if not will produce one in the db
+    }
   };
 
   return (
@@ -54,10 +56,14 @@ const FriendItem = ({
             </div>
           ) : (
             <div className="friendIcons hideOnSmallMedia">
-              <i
-                className="fas fa-comment-alt commentIcon"
-                onClick={openConversation}
-              ></i>{" "}
+              {mobileRemoveToggle ? (
+                <i className="fas fa-comment-alt commentIcon"></i>
+              ) : (
+                <i
+                  className="fas fa-comment-alt commentIcon"
+                  onClick={openConversation}
+                ></i>
+              )}{" "}
               {/*Messaging Icon*/}
               <i
                 className="fas fa-trash-alt trashIcon "

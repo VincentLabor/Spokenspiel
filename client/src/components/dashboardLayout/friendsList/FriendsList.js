@@ -53,14 +53,16 @@ const FriendsList = ({
         <div className="mobileFriendIcons">
           {mobileRemoveToggle ? (
             <Fragment>
-              <i class="far fa-times-circle" onClick={mobileFriendRemove}></i>
-              <p>Choose a friend to delete</p>
+ 
+                <i class="far fa-times-circle" onClick={mobileFriendRemove}></i>
+                <p>Choose a friend to delete</p>
+
             </Fragment>
           ) : (
             <Fragment>
-              <i className="fas fa-user-plus"></i>
+              <i className="fas fa-user-plus" onClick={()=>{setAddFriendTab(!addFriendTab)}}></i>
               <i className="fas fa-user-minus" onClick={mobileFriendRemove}></i>
-              <i className="fas fa-user-friends"></i>
+              <i className="fas fa-user-friends" onClick={()=>{setFriendReqTab(!friendReqTab)}}></i>
             </Fragment>
           )}
         </div>
@@ -130,7 +132,7 @@ const FriendsList = ({
 
         {/* This is the JSX for the friendslist */}
         {friendTab === true ? (
-          <div className="flexWrapperRow friendsListScroll">
+          <div className="friendsListScroll">
             {/*Checks if user has friends and displays them*/}
 
             {friends ? (
@@ -149,7 +151,7 @@ const FriendsList = ({
 
         {/* This is the JSX for the friend Requests */}
         {friendReqTab === true ? (
-          <div className="flexWrapperRow">
+          <div className="">
             {/*Checks if user has friends and displays them*/}
             {currentFriendReqs
               ? currentFriendReqs.map((friendReqs) => (
