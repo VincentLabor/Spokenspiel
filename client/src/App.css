@@ -14,8 +14,13 @@
   display: none;
 }
 
-.pd-top1 {
+/* ?????????? */
+.pd-top1 { 
   padding-top: 0.7em;
+}
+
+.mg1-top{
+  margin-top: 1.5em;
 }
 
 .hideOnLargeMedia {
@@ -712,6 +717,7 @@ nav li {
     display: grid;
     grid-template-columns: repeat(5, auto);
     grid-template-rows: repeat(9, auto);
+    margin-top: 1em;
   }
   
   .friendsListWrapper {

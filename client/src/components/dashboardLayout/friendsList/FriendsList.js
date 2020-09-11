@@ -44,25 +44,53 @@ const FriendsList = ({
 
   const mobileFriendRemove = () => {
     setMobileRemoveToggle(!mobileRemoveToggle);
+    setFriendReqTab(false);
+    setFriendTab(true);
+    setAddFriendTab(false);
+  };
+
+  const mobileAddFriend = () => {
+    setAddFriendTab(!addFriendTab);
+    setFriendTab(!friendTab);
+    setFriendReqTab(false);
+    setMobileRemoveToggle(false);
+  };
+
+  const mobileFriendReqs = () => {
+    setFriendReqTab(!friendReqTab);
+    setFriendTab(false);
+    setMobileRemoveToggle(false);
+    setAddFriendTab(false);
+  };
+
+  const returnToFriendslist = () => {
+    setFriendReqTab(false);
+    setFriendTab(true);
+    setMobileRemoveToggle(false);
+    setAddFriendTab(false);
+    setAddFriendTab(false);
   };
 
   return (
     <Fragment>
       <div className="friendsListWrapper">
-        <h3 className="friendHeader">Friends List </h3>
+        <h3 className="friendHeader" onClick={returnToFriendslist}>
+          Friends List{" "}
+        </h3>
         <div className="mobileFriendIcons">
           {mobileRemoveToggle ? (
             <Fragment>
- 
-                <i class="far fa-times-circle" onClick={mobileFriendRemove}></i>
-                <p>Choose a friend to delete</p>
-
+              <i
+                className="far fa-times-circle"
+                onClick={mobileFriendRemove}
+              ></i>
+              <p>Choose a friend to delete</p>
             </Fragment>
           ) : (
             <Fragment>
-              <i className="fas fa-user-plus" onClick={()=>{setAddFriendTab(!addFriendTab)}}></i>
+              <i className="fas fa-user-plus" onClick={mobileAddFriend}></i>
               <i className="fas fa-user-minus" onClick={mobileFriendRemove}></i>
-              <i className="fas fa-user-friends" onClick={()=>{setFriendReqTab(!friendReqTab)}}></i>
+              <i className="fas fa-user-friends" onClick={mobileFriendReqs}></i>
             </Fragment>
           )}
         </div>
@@ -107,32 +135,32 @@ const FriendsList = ({
             Friend Requests
           </p>
         </div>
+        <div className="mg1-top">
+          {/* This is the JSX for adding friends*/}
+          {addFriendTab === true ? (
+            <form onSubmit={onSubmit}>
+              <input
+                type="text"
+                name="userName"
+                value={userName}
+                className="AddFriendInput"
+                onChange={onChange}
+                placeholder=" "
+                autoFocus
+              ></input>
+              <button type="submit" className="addFriendBtn">
+                Send Friend Request
+              </button>
+            </form>
+          ) : null}
 
-        {/* This is the JSX for adding friends*/}
-        {addFriendTab === true ? (
-          <form onSubmit={onSubmit}>
-            <input
-              type="text"
-              name="userName"
-              value={userName}
-              className="AddFriendInput"
-              onChange={onChange}
-              placeholder=" "
-              autoFocus
-            ></input>
-            <button type="submit" className="addFriendBtn">
-              Send Friend Request
-            </button>
-          </form>
-        ) : null}
-
-        {sentFriendRequest === true ? (
-          <p>A friend request has been sent to {userName}</p>
-        ) : null}
-
+          {sentFriendRequest === true ? (
+            <p>A friend request has been sent to {userName}</p>
+          ) : null}
+        </div>
         {/* This is the JSX for the friendslist */}
         {friendTab === true ? (
-          <div className="friendsListScroll">
+          <div className="friendsListScroll mg1-top">
             {/*Checks if user has friends and displays them*/}
 
             {friends ? (
@@ -151,7 +179,7 @@ const FriendsList = ({
 
         {/* This is the JSX for the friend Requests */}
         {friendReqTab === true ? (
-          <div className="">
+          <div className="mg1-top">
             {/*Checks if user has friends and displays them*/}
             {currentFriendReqs
               ? currentFriendReqs.map((friendReqs) => (
