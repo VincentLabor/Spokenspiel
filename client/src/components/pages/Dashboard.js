@@ -12,14 +12,16 @@ import {
   saveSentMsgs,
   getMessagesFromDB,
   lastSender,
+  returnToMobileFriendslist
 } from "../../actions/chatroomActions";
 
 let socket;
 
 const Dashboard = ({
-  chatroom: { currentChatroomName, currentChatroomId },
+  chatroom: { currentChatroomName, currentChatroomId, mobileFriendslistIsOn },
   getMessagesFromDB,
   lastSender,
+  returnToMobileFriendslist,
   chatroom: { msgs },
 }) => {
   const [currentMsg, setCurrentMsg] = useState(""); //State of the current message
@@ -118,6 +120,7 @@ const Dashboard = ({
   }, [pageSize.width]);
 
   useEffect(() => {
+    console.log(mobileFriendslistIsOn);
     if (pageSize.width < 321 && currentChatroomId) {
       setShowMobileChat(true);
       // console.log(showMobileChat)
@@ -125,6 +128,16 @@ const Dashboard = ({
       setShowMobileChat(false);
     }
   }, [pageSize, currentChatroomId]);
+
+  useEffect(() => {
+    if (mobileFriendslistIsOn === true) {
+      setShowMobileChat(false);
+    }
+
+    if (!currentChatroomId && mobileFriendslistIsOn === true){
+      returnToMobileFriendslist();
+    }
+  },[mobileFriendslistIsOn]);
 
   return (
     <Fragment>
@@ -173,5 +186,6 @@ export default connect(mapStateToProps, {
   saveMsgs,
   saveSentMsgs,
   getMessagesFromDB,
+  returnToMobileFriendslist,
   lastSender,
 })(Dashboard);

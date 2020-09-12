@@ -18,7 +18,7 @@ const FriendItem = ({
   chatroomCheck,
   removeChatroomAfterDeletingFriend,
   chatroom: { chatRoomExists, currentChatroomId },
-  mobileRemoveToggle, //This is properly brought over.
+  mobileRemoveToggle, //Triggers a toggle in parent component
 }) => {
   /*Catching the pages width and height to help modify the page based on the screen.  */
 

@@ -18,6 +18,7 @@ import {
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
   CLEAR_CHAT_STATE,
   CLEAR_UNREAD_AND_LAST_USER,
+  RETURN_TO_FRIENDSLIST,
 } from "./types";
 
 export const getUsersChatrooms = () => async (dispatch) => {
@@ -101,11 +102,13 @@ export const clearUnreadAndLastUserSent = (chatroomId) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log(chatroomId)
+  console.log(chatroomId);
   try {
-    const res = await axios.put(`/api/chatroom/unreadMsgs/removeCounterAndLastUser/${chatroomId}`);
-    console.log(res.data)
-    dispatch({type:CLEAR_UNREAD_AND_LAST_USER , payload: res.data})
+    const res = await axios.put(
+      `/api/chatroom/unreadMsgs/removeCounterAndLastUser/${chatroomId}`
+    );
+    console.log(res.data);
+    dispatch({ type: CLEAR_UNREAD_AND_LAST_USER, payload: res.data });
   } catch (error) {
     console.log(error);
   }
@@ -259,6 +262,16 @@ export const removeChatroomfromSight = (chatroomData) => async (dispatch) => {
     dispatch(clearMsgs());
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const returnToMobileFriendslist = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: RETURN_TO_FRIENDSLIST,
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
 

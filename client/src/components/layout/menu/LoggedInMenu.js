@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { clearChatState } from "../../../actions/chatroomActions";
+import { clearChatState, returnToMobileFriendslist } from "../../../actions/chatroomActions";
 import { clearAll } from "../../../actions/friendActions";
 import { clearState } from "../../../actions/authActions";
 import { connect } from "react-redux";
@@ -12,7 +12,10 @@ const LoggedInMenu = ({
   clearState,
   clearAll,
   clearChatState,
+  returnToMobileFriendslist
 }) => {
+
+  const [swapToMobileChat, setSwapToMobileChat] = useState(false)
 
   const onClick = (e) => {
     if (token) {
@@ -24,6 +27,11 @@ const LoggedInMenu = ({
       console.log("nothing happened");
     }
   };
+
+  const viewMobileFriendslist = () =>{
+    returnToMobileFriendslist();
+    setSideMenu(false)
+  }
 
   const history = useHistory();
 
@@ -53,6 +61,9 @@ const LoggedInMenu = ({
                 About
               </Link>
             </li>
+            <li onClick={viewMobileFriendslist}>
+              Friends List
+            </li>
             <li onClick={onClick} className="clear">
               Logout
             </li>
@@ -72,4 +83,5 @@ export default connect(mapStateToProps, {
   clearChatState,
   clearAll,
   clearState,
+  returnToMobileFriendslist,
 })(LoggedInMenu);

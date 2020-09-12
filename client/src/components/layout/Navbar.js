@@ -11,7 +11,6 @@ import {
   clearChatState,
 } from "../../actions/chatroomActions";
 import { clearAll } from "../../actions/friendActions";
-import { set } from "mongoose";
 import LoggedInMenu from "./menu/LoggedInMenu";
 
 const Navbar = ({

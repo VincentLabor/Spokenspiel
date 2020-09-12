@@ -14,6 +14,9 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
+//Chatroom -> Friends List
+export const RETURN_TO_FRIENDSLIST = "RETURN_TO_FRIENDSLIST"; 
+
 //Chatroom Related
 export const GET_CHATROOM = "GET_CHATROOM"; //This grabs all of the chatrooms
 export const GET_SPECIFIC_CHATROOM = "GET_SPECIFIC_CHATROOM";

@@ -20,6 +20,7 @@ import {
   REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
   CLEAR_CHAT_STATE,
   CLEAR_UNREAD_AND_LAST_USER,
+  RETURN_TO_FRIENDSLIST
 } from "../actions/types";
 
 const initialState = {
@@ -36,6 +37,7 @@ const initialState = {
   currentSelectChatroom: null,
   unreadMsgs: 0,
   lastUserToSendMsg: null,
+  mobileFriendslistIsOn: false
 };
 
 export default (state = initialState, action) => {
@@ -134,6 +136,12 @@ export default (state = initialState, action) => {
         msgs: null,
         loading: false,
       };
+      case RETURN_TO_FRIENDSLIST:
+        console.log(state.mobileFriendslistIsOn)
+        return {
+          ...state,
+          mobileFriendslistIsOn: !state.mobileFriendslistIsOn,
+        }
     case SET_LOADING:
       return {
         ...state,
