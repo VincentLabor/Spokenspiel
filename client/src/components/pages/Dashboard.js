@@ -52,11 +52,12 @@ const Dashboard = ({
     };
   }, [msgs]);
 
+
   useEffect(() => {
     setTimeout(() => {
       setStatusOfSending(true);
       setStatusOfSending(false);
-    }, 250); //This runs every 2 seconds
+    }, 25); //This runs every 2 seconds
   }, [msgs]);
 
   const sendMessage = (e) => {
@@ -76,7 +77,7 @@ const Dashboard = ({
   const scrollDown = useRef(null);
 
   let autoScrollDown = () => {
-    scrollDown.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    scrollDown.current.scrollIntoView({ behavior: "auto", block: "end" });
   };
 
   useEffect(() => {
