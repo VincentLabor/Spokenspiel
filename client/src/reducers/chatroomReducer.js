@@ -84,7 +84,7 @@ export default (state = initialState, action) => {
         chatRoomExists: action.payload,
       };
     case FIND_SPECIFIC_CHATROOM:
-      console.log(action.payload);
+      // console.log(action.payload);
       return {
         ...state,
         currentSelectChatroom: action.payload,
@@ -137,7 +137,6 @@ export default (state = initialState, action) => {
         loading: false,
       };
       case RETURN_TO_FRIENDSLIST:
-        console.log(state.mobileFriendslistIsOn)
         return {
           ...state,
           mobileFriendslistIsOn: !state.mobileFriendslistIsOn,

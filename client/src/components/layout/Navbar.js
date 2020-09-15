@@ -38,6 +38,53 @@ const Navbar = ({
     }
   }, [currentChatroomId]);
 
+
+////////////////////////////////////////////////////////////
+  ///Dectection of page width and changing views for mobile///
+  ////////////////////////////////////////////////////////////
+
+  const [pageSize, setPageSize] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  const resizeScreen = (fn, delay) => {
+    let timeOutId;
+
+    return function (...args) {
+      if (timeOutId) {
+        clearTimeout(timeOutId);
+      }
+      //There needs to be an id for setTimeout so i can cancel it if clicked.
+      timeOutId = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    };
+  };
+
+  useEffect(() => {
+    window.addEventListener(
+      "resize",
+      resizeScreen((e) => {
+        setPageSize({
+          height: window.innerHeight,
+          width: window.innerWidth,
+        });
+      }, 1000)
+    );
+    console.log(pageSize.width);
+  }, [pageSize.width]);
+
+  useEffect(() => {
+    // if (pageSize.width < 321) {
+    //   setShowMobileChat(true);
+    // } else {
+    //   setShowMobileChat(false);
+    // }
+  }, [pageSize, currentChatroomId]);
+
+
+
   const onClick = (e) => {
     if (token) {
       clearState();
@@ -75,11 +122,11 @@ const Navbar = ({
         <h1>
           {token ? (
             <Link to="/dashboard" className="clear">
-              Spokenspiel
+              {pageSize.width < 321 ? "SP" :"Spokenspiel"}
             </Link>
           ) : (
             <p onClick={redirected} className="clear royalBlueColor">
-              Spokenspiel
+              {pageSize.width < 321 ? "SP" :"Spokenspiel"}
             </p>
           )}
         </h1>
@@ -88,7 +135,7 @@ const Navbar = ({
         {token && currentSelectChatroom ? (
           <p className="chatboxHeading">
             {" "}
-            Chatting with{" "}
+           { pageSize.width < 321 ? "@":"Chatting with "}
             {user.userName === currentSelectChatroom.user1Name
               ? currentSelectChatroom.user2Name
               : currentSelectChatroom.user1Name}
@@ -133,7 +180,11 @@ const Navbar = ({
         classNames="moveIn"
         unmountOnExit
       >
-        {!token ? <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />: <LoggedInMenu sideMenu={sideMenu} setSideMenu={setSideMenu} />}
+        {!token ? (
+          <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />
+        ) : (
+          <LoggedInMenu sideMenu={sideMenu} setSideMenu={setSideMenu} />
+        )}
       </CSSTransition>
     </nav>
   );

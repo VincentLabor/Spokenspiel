@@ -12,7 +12,7 @@ import {
   saveSentMsgs,
   getMessagesFromDB,
   lastSender,
-  returnToMobileFriendslist
+  returnToMobileFriendslist,
 } from "../../actions/chatroomActions";
 
 let socket;
@@ -120,10 +120,8 @@ const Dashboard = ({
   }, [pageSize.width]);
 
   useEffect(() => {
-    console.log(mobileFriendslistIsOn);
     if (pageSize.width < 321 && currentChatroomId) {
       setShowMobileChat(true);
-      // console.log(showMobileChat)
     } else {
       setShowMobileChat(false);
     }
@@ -133,44 +131,45 @@ const Dashboard = ({
     if (mobileFriendslistIsOn === true) {
       setShowMobileChat(false);
     }
-
-    if (!currentChatroomId && mobileFriendslistIsOn === true){
+    if (!currentChatroomId && mobileFriendslistIsOn === true) {
       returnToMobileFriendslist();
     }
-  },[mobileFriendslistIsOn]);
+  }, [mobileFriendslistIsOn]);
 
   return (
     <Fragment>
-      <Navbar />
-      <div className="gridContainer">
-        {/* The ternary works but need to show the chatroom. */}
-        {showMobileChat ? null : <FriendsList />}
+      <div className="fullscreenHeight">
+        <Navbar />
+        <div className="gridContainer">
+          {/* The ternary works but need to show the chatroom. */}
+          {showMobileChat ? null : <FriendsList />}
 
-        <div
-          className={
-            showMobileChat
-              ? "chatting chatboxDimens"
-              : "chatting chatboxDimens hideOnSmallMedia"
-          }
-        >
-          {currentChatroomName} {/*This currently does nothing*/}
-          <ChatMessages />
-          <div ref={scrollDown} className="anchor"></div>
-        </div>
-        <div
-          className={showMobileChat ? "chatbox" : "chatbox hideOnSmallMedia"}
-        >
-          <ChatInput /* Passing down the states into the chatinput component */
-            currentMsg={currentMsg}
-            setCurrentMsg={setCurrentMsg}
-            sendMessage={sendMessage}
-          />
-        </div>
-        <div className="conversations hideOnSmallMedia">
-          <Conversations
-            generalChatStatus={generalChatStatus}
-            setGeneralChatStatus={setGeneralChatStatus}
-          />
+          <div
+            className={
+              showMobileChat
+                ? "chatting chatboxDimens"
+                : "chatting chatboxDimens hideOnSmallMedia"
+            }
+          >
+            {currentChatroomName} {/*This currently does nothing*/}
+            <ChatMessages />
+            <div ref={scrollDown} className="anchor"></div>
+          </div>
+          <div
+            className={showMobileChat ? "chatbox" : "chatbox hideOnSmallMedia"}
+          >
+            <ChatInput /* Passing down the states into the chatinput component */
+              currentMsg={currentMsg}
+              setCurrentMsg={setCurrentMsg}
+              sendMessage={sendMessage}
+            />
+          </div>
+          <div className="conversations hideOnSmallMedia">
+            <Conversations
+              generalChatStatus={generalChatStatus}
+              setGeneralChatStatus={setGeneralChatStatus}
+            />
+          </div>
         </div>
       </div>
     </Fragment>

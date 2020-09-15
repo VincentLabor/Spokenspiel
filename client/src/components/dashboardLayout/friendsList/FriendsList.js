@@ -58,9 +58,12 @@ const FriendsList = ({
 
   const mobileFriendReqs = () => {
     setFriendReqTab(!friendReqTab);
-    setFriendTab(false);
+    setFriendTab(!friendTab);
     setMobileRemoveToggle(false);
     setAddFriendTab(false);
+    if (addFriendTab == true && friendTab == false) {
+      setFriendTab(false);
+    }
   };
 
   const returnToFriendslist = () => {

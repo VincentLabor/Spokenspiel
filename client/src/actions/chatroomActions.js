@@ -91,7 +91,7 @@ export const unreadMsgsCount = (unreadMsgPackage) => async (dispatch) => {
 
 export const getUnreadCount = (chatroomId) => async (dispatch) => {
   const res = await axios.get(`/api/chatroom/unreadMsgs/${chatroomId}`);
-  console.log(res.data.msgCount);
+  // console.log(res.data.msgCount);
   dispatch({ type: GRAB_UNREAD_COUNT, payload: res.data.msgCount });
   //This needs to return 2 things. unread and lastUser to send.
 };

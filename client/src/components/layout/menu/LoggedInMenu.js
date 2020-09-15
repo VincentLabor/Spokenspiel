@@ -12,7 +12,7 @@ const LoggedInMenu = ({
   clearState,
   clearAll,
   clearChatState,
-  returnToMobileFriendslist
+  returnToMobileFriendslist,
 }) => {
 
   const [swapToMobileChat, setSwapToMobileChat] = useState(false)
@@ -30,6 +30,7 @@ const LoggedInMenu = ({
 
   const viewMobileFriendslist = () =>{
     returnToMobileFriendslist();
+    clearChatState();
     setSideMenu(false)
   }
 
