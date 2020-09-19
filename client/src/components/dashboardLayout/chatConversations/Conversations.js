@@ -22,7 +22,7 @@ const Conversations = ({
 
   return (
     <div className="convoPadding">
-      <h2 className="padLeft">Conversations</h2>
+      <h2 className="padLeft appBlue">Conversations</h2>
       <p className="convoSubHeading padLeft">Current Conversations</p>
       {/* <p className="cursorChg convoSpacing" onClick={selectGeneralChat}>
         General Chat

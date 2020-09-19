@@ -20,7 +20,7 @@ const Landing = () => {
         </div>
         <img
           src={require("./20671_1_25.jpg")}
-          className="landingImg hideOnSmallMedia"
+          className="landingImg "
           alt=""
         ></img>
       </div>

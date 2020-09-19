@@ -15,11 +15,11 @@
 }
 
 /* ?????????? */
-.pd-top1 { 
+.pd-top1 {
   padding-top: 0.7em;
 }
 
-.mg1-top{
+.mg1-top {
   margin-top: 1.5em;
 }
 
@@ -27,7 +27,12 @@
   display: none;
 }
 
-.fullscreenHeight{
+.centerHeadings {
+  display: flex;
+  text-align: center;
+}
+
+.fullscreenHeight {
   height: 100vh;
   overflow: hidden;
 }
@@ -59,6 +64,9 @@ body {
   color: royalblue;
 }
 
+.appBlue {
+  color: #2a8cff;
+}
 .colorWhite {
   color: white;
 }
@@ -66,6 +74,10 @@ body {
 .clear {
   text-decoration: none;
   color: inherit;
+}
+
+.whiteText {
+  color: white;
 }
 
 .clear:hover {
@@ -622,15 +634,226 @@ nav li {
     margin-bottom: 1em;
   }
 
-  /* .credentials {
-  box-shadow: none;
-  border: 1px solid black;
-  padding: 0.4em;
-  width: 100%;
-  border-radius: 2px;
-  text-align: left;
-  margin-bottom: 0.5em;
-} */
+  .container-form {
+    width: 90%;
+  }
+
+  .flexAndCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  
+
+  .pd-2_5 {
+    /* If leave this at 0, there is no extra white space below*/
+    padding: 0;
+  }
+
+  .fa-bars {
+    transform: scale(1.5, 1.5);
+  }
+
+  .landingText {
+    font-size: 45px;
+    margin-bottom: 0.4em;
+    z-index: 10;
+  }
+
+
+
+  .styledMenu {
+    display: inline-block;
+    z-index: 9999;
+    background-color: lightblue;
+    transition: transform 3s ease-in-out;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding: 2em;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .closeConversation {
+    padding: 15px 15px 15px 15px;
+    margin: 0;
+  }
+
+  .closeConversation:hover {
+    cursor: pointer;
+    background-color: red;
+    border-radius: 10px;
+  }
+
+  .moveIn-enter {
+    opacity: 0;
+  }
+
+  .moveIn-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out, translate 300ms ease-in-out;
+  }
+
+  .moveIn-enter-done {
+    opacity: 1;
+  }
+
+  .moveIn-exit {
+    opacity: 1;
+  }
+
+  .moveIn-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  .moveIn-exit-done {
+    opacity: 0;
+  }
+
+  .flexText {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  .gridContainer {
+    height: 85.5vh;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(10, auto);
+    margin-top: 1em;
+  }
+
+  .friendsListWrapper {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    width: 100%;
+  }
+
+  .friendHeader {
+    /* This needs to be centered */
+
+    padding-bottom: 1.2em;
+    text-align: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .chatting {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    margin-bottom: 8em;
+  }
+
+  .chatbox {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 4;
+    grid-row-end: 4;
+  }
+
+  .chatboxDimens {
+    box-sizing: border-box;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-anchor: none;
+    height: 100%;
+    width: 100%;
+    /* overflow-anchor: none; */
+  }
+
+  .wrapper {
+    /*This is the chat input*/
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: sticky;
+  }
+
+  .chatboxInput {
+    width: 75%;
+  }
+
+  .chatboxBtn {
+    width: 25%;
+  }
+
+  .landingWrapper {
+    text-align: left;
+    padding: 1em;
+    margin: 0;
+    margin-top: 20em;
+  }
+
+  .btn {
+    margin-top: 3em;
+    width: 100%;
+  }
+
+  .chatting {
+    border-left: none;
+    border-right: none;
+  }
+
+  .hideOnSmallMedia {
+    display: none !important;
+  }
+
+  .conversations {
+    display: none;
+  }
+
+  .mobileFriendIcons {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+  }
+}
+
+/*
+/////////////////////////
+/////////////////////////
+*/
+
+@media (max-width: 375px) {
+  .hideOnLargeMedia {
+    display: inline-block;
+  }
+
+  .landingImg {
+    width: 40%;
+    height: 70%;
+  }
+
+  .nav {
+    padding: 1.5em 1em 1em 1em;
+  }
+
+  .landingHeight {
+    height: 100vh;
+    margin-bottom: 1em;
+  }
+
+  .flexAndCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+  }
 
   .container-form {
     width: 90%;
@@ -718,22 +941,21 @@ nav li {
     grid-template-rows: repeat(10, auto);
     margin-top: 1em;
   }
-  
+
   .friendsListWrapper {
     grid-column-start: 1;
     grid-column-end: 6;
     width: 100%;
   }
 
-  .friendHeader { /* This needs to be centered */
+  .friendHeader {
+    /* This needs to be centered */
 
     padding-bottom: 1.2em;
     text-align: center;
     justify-content: center;
     font-size: 20px;
   }
-
-
 
   .chatting {
     grid-column-start: 1;
@@ -744,13 +966,11 @@ nav li {
   }
 
   .chatbox {
-    
     grid-column-start: 1;
     grid-column-end: 6;
     grid-row-start: 4;
     grid-row-end: 4;
   }
-
 
   .chatboxDimens {
     box-sizing: border-box;
@@ -763,32 +983,21 @@ nav li {
     width: 100%;
     /* overflow-anchor: none; */
   }
-  
-  .wrapper { /*This is the chat input*/
+
+  .wrapper {
+    /*This is the chat input*/
     display: flex;
     width: 100%;
     height: 100%;
     position: sticky;
   }
 
-  .chatboxInput{
+  .chatboxInput {
     width: 75%;
   }
 
-
-
-
-  .chatboxBtn{
+  .chatboxBtn {
     width: 25%;
-  }
-
-
-
-  .landingWrapper {
-    text-align: left;
-    padding: 1em;
-    margin: 0;
-    margin-top: -10em;
   }
 
   .btn {
@@ -809,6 +1018,218 @@ nav li {
     display: none;
   }
 
+  .mobileFriendIcons {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+  }
+}
+
+@media(min-width: 375px){
+  .landingWrapper {
+    width: 80%;
+    margin-top: 17em;
+  }
+  
+}
+
+/*
+/////////////////////////
+/////////////////////////
+/////////////////////////
+/////////////////////////
+*/
+
+@media (max-width: 425px) {
+  .hideOnLargeMedia {
+    display: inline-block;
+  }
+
+  .nav {
+    padding: 1.5em 1em 1em 1em;
+  }
+
+  .landingHeight {
+    height: 100vh;
+    margin-bottom: 1em;
+  }
+
+  .container-form {
+    width: 90%;
+  }
+
+  .pd-2_5 {
+    /* If leave this at 0, there is no extra white space below*/
+    padding: 0;
+  }
+
+  .fa-bars {
+    transform: scale(1.5, 1.5);
+  }
+
+  .landingText {
+    font-size: 45px;
+    margin-bottom: 0.4em;
+    z-index: 10;
+  }
+
+  .styledMenu {
+    display: inline-block;
+    z-index: 9999;
+    background-color: lightblue;
+    transition: transform 3s ease-in-out;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding: 2em;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .closeConversation {
+    padding: 15px 15px 15px 15px;
+    margin: 0;
+  }
+
+  .closeConversation:hover {
+    cursor: pointer;
+    background-color: red;
+    border-radius: 10px;
+  }
+
+  .moveIn-enter {
+    opacity: 0;
+  }
+
+  .moveIn-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out, translate 300ms ease-in-out;
+  }
+
+  .moveIn-enter-done {
+    opacity: 1;
+  }
+
+  .moveIn-exit {
+    opacity: 1;
+  }
+
+  .moveIn-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  .moveIn-exit-done {
+    opacity: 0;
+  }
+
+  .flexAndCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+  }
+
+  .landingImg {
+    width: 100%;
+    height: 80%;
+  }
+
+
+  .flexText {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  .gridContainer {
+    height: 85.5vh;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(10, auto);
+    margin-top: 1em;
+  }
+
+  .friendsListWrapper {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    width: 100%;
+  }
+
+  .friendHeader {
+    /* This needs to be centered */
+
+    padding-bottom: 1.2em;
+    text-align: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .chatting {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    margin-bottom: 8em;
+  }
+
+  .chatbox {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 4;
+    grid-row-end: 4;
+  }
+
+  .chatboxDimens {
+    box-sizing: border-box;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-anchor: none;
+    height: 100%;
+    width: 100%;
+    /* overflow-anchor: none; */
+  }
+
+  .wrapper {
+    /*This is the chat input*/
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: sticky;
+  }
+
+  .chatboxInput {
+    width: 75%;
+  }
+
+  .chatboxBtn {
+    width: 25%;
+  }
+
+  .btn {
+    margin-top: 3em;
+    width: 100%;
+  }
+
+  .chatting {
+    border-left: none;
+    border-right: none;
+  }
+
+  .hideOnSmallMedia {
+    display: none !important;
+  }
+
+  .conversations {
+    display: none;
+  }
 
   .mobileFriendIcons {
     display: flex;
@@ -817,7 +1238,258 @@ nav li {
   }
 }
 
-.centerHeadings {
-  display: flex;
-  text-align: center;
+/*
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
+*/
+
+@media (max-width: 768px) {
+  .hideOnLargeMedia {
+    display: inline-block;
+  }
+
+  .nav {
+    padding: 1.5em 1em 1em 1em;
+  }
+
+  .landingHeight {
+    height: 100vh;
+    margin-bottom: 1em;
+  }
+
+  .container-form {
+    width: 60%;
+  }
+
+  .pd-2_5 {
+    /* If leave this at 0, there is no extra white space below*/
+    padding: 0;
+  }
+
+  .fa-bars {
+    transform: scale(1.5, 1.5);
+  }
+
+  .landingText {
+    font-size: 45px;
+    margin-bottom: 0.4em;
+    z-index: 10;
+  }
+
+  .styledMenu {
+    display: inline-block;
+    z-index: 9999;
+    background-color: lightblue;
+    transition: transform 3s ease-in-out;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding: 2em;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .closeConversation {
+    padding: 15px 15px 15px 15px;
+    margin: 0;
+  }
+
+  .closeConversation:hover {
+    cursor: pointer;
+    background-color: red;
+    border-radius: 10px;
+  }
+
+  .moveIn-enter {
+    opacity: 0;
+  }
+
+  .moveIn-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out, translate 300ms ease-in-out;
+  }
+
+  .moveIn-enter-done {
+    opacity: 1;
+  }
+
+  .moveIn-exit {
+    opacity: 1;
+  }
+
+  .moveIn-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  .moveIn-exit-done {
+    opacity: 0;
+  }
+
+  .flexText {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  .gridContainer {
+    height: 85.5vh;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-template-rows: repeat(10, auto);
+    margin-top: 1em;
+  }
+
+  .friendsListWrapper {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    width: 100%;
+  }
+
+  .friendHeader {
+    /* This needs to be centered */
+
+    padding-bottom: 1.2em;
+    text-align: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .chatting {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    margin-bottom: 8em;
+  }
+
+  .chatbox {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 4;
+    grid-row-end: 4;
+  }
+
+  .chatboxDimens {
+    box-sizing: border-box;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-anchor: none;
+    height: 100%;
+    width: 100%;
+    /* overflow-anchor: none; */
+  }
+
+  .wrapper {
+    /*This is the chat input*/
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: sticky;
+  }
+
+  .chatboxInput {
+    width: 75%;
+  }
+
+  .chatboxBtn {
+    width: 25%;
+  }
+
+
+  .btn {
+    margin-top: 3em;
+    width: 100%;
+  }
+
+  .chatting {
+    border-left: none;
+    border-right: none;
+  }
+
+  .hideOnSmallMedia {
+    display: none !important;
+  }
+
+  .conversations {
+    display: none;
+  }
+
+  .hideOnTablet {
+    display: none;
+  }
+
+  .showMeTheMoney {
+    display: flex;
+    justify-content: space-evenly; /*This is the container for all the tabs*/
+    padding: 0 10px;
+  }
+
+  .mobileFriendIcons {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+  }
+
+}
+
+@media(min-width: 768px){
+  .landingWrapper {
+    text-align: left;
+    padding: 1em;
+    margin: 0;
+    margin-top: -10em;
+    width: 40%;
+  }
+
+  .landingImg {
+    margin-top: -10em;
+    width: 55%;
+    height: 35%;
+  }
+
+
+}
+
+@media (max-width: 1025px) {
+  .hideOnTablet {
+    display: none;
+  }
+
+  .container-form {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px){
+  .landingImg {
+    margin-top: -10em;
+    width: 55%;
+    height: 40%;
+  }
+
+  .flexAndCenter {
+    padding: 1em;
+  }
+}
+
+@media(min-width: 1440px){
+  .landingImg{
+    width: 50%;
+    height: 50%;
+  }
+}
+@media(min-width: 1920px){
+  .landingImg{
+    width: 30%;
+    height: 40%;
+  }
 }

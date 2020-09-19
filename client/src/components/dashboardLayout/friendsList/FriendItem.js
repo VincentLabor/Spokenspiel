@@ -38,16 +38,14 @@ const FriendItem = ({
     <div className="cursorChg" onClick={openConversation}>
       {friend ? (
         <div className="friendContainer">
+          {/* Display the Friends */}
           <p className="friendName">{friend.userName}</p>
-          {/*   {isShown ? */}
 
+          {/* If mobile toggle = true, click on trash to delete */}
+          {/* Else, show friends and onclick, display/create conversation */}
           {mobileRemoveToggle ? (
             <div className="friendIcons">
-              <i
-                className="fas fa-comment-alt commentIcon hideOnSmallMedia"
-                onClick={openConversation}
-              ></i>{" "}
-              {/*Messaging Icon*/}
+              <i className="fas fa-comment-alt commentIcon hideOnSmallMedia"></i>{" "}
               <i
                 className="fas fa-trash-alt trashIcon "
                 onClick={removeFriendFromFriendsList}
@@ -68,13 +66,11 @@ const FriendItem = ({
               <i
                 className="fas fa-trash-alt trashIcon "
                 onClick={removeFriendFromFriendsList}
-              ></i>{" "}
-              {/*Trash Icon*/}
+              ></i>
             </div>
           )}
-
-          {/*  : null} */}
         </div>
+        //Basically just nulls if the user has no friends leaving it blank. 
       ) : null}
     </div>
   );

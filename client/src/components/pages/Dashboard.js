@@ -28,6 +28,7 @@ const Dashboard = ({
   const [generalChatStatus, setGeneralChatStatus] = useState(true);
   const [statusOfSending, setStatusOfSending] = useState(false);
   const [showMobileChat, setShowMobileChat] = useState(false);
+  const [tabletLayout, setTabletLayout] = useState(false);
 
   const endpoint = "localhost:5000";
 
@@ -51,7 +52,6 @@ const Dashboard = ({
       });
     };
   }, [msgs]);
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -121,7 +121,7 @@ const Dashboard = ({
   }, [pageSize.width]);
 
   useEffect(() => {
-    if (pageSize.width < 321 && currentChatroomId) {
+    if (pageSize.width < 769 && currentChatroomId) {
       setShowMobileChat(true);
     } else {
       setShowMobileChat(false);
@@ -136,6 +136,25 @@ const Dashboard = ({
       returnToMobileFriendslist();
     }
   }, [mobileFriendslistIsOn]);
+
+  ////////////////////////////////////////////////////////////
+  ///Dectection of page width and changing views for tablets//
+  ////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    if (pageSize.width < 1024 && currentChatroomId) {
+      setTabletLayout(true);
+    } else {
+      setTabletLayout(false);
+    }
+  });
+
+  const tabletStructure = () => (
+    <Fragment>
+      <FriendsList />
+      <div className="chatting chatboxDimens"></div>
+    </Fragment>
+  );
 
   return (
     <Fragment>
@@ -165,7 +184,7 @@ const Dashboard = ({
               sendMessage={sendMessage}
             />
           </div>
-          <div className="conversations hideOnSmallMedia">
+          <div className="conversations hideOnSmallMedia hideOnTablet">
             <Conversations
               generalChatStatus={generalChatStatus}
               setGeneralChatStatus={setGeneralChatStatus}

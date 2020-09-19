@@ -42,6 +42,10 @@ const FriendsList = ({
     }, 6000);
   };
 
+  /////////////////////////////////////////////////////
+  /* These are just mobile icons and their functions */
+  /////////////////////////////////////////////////////
+
   const mobileFriendRemove = () => {
     setMobileRemoveToggle(!mobileRemoveToggle);
     setFriendReqTab(false);
@@ -77,8 +81,8 @@ const FriendsList = ({
   return (
     <Fragment>
       <div className="friendsListWrapper">
-        <h3 className="friendHeader" onClick={returnToFriendslist}>
-          Friends List{" "}
+        <h3 className="friendHeader appBlue" onClick={returnToFriendslist}>
+          Friends List
         </h3>
         <div className="mobileFriendIcons">
           {mobileRemoveToggle ? (
@@ -100,7 +104,7 @@ const FriendsList = ({
 
         {/* These are the different tabs you can click to see different things */}
         {/* This is to see your friends list */}
-        <div className="flexContainer hideOnSmallMedia">
+        <div className="flexContainer hideOnSmallMedia"> {/* Just removed the hideonmobile class*/}
           <p
             onClick={() => {
               setFriendTab(true);

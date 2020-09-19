@@ -122,20 +122,20 @@ const Navbar = ({
         <h1>
           {token ? (
             <Link to="/dashboard" className="clear">
-              {pageSize.width < 321 ? "SP" :"Spokenspiel"}
+              {pageSize.width < 500 ? "SP" :"Spokenspiel"}
             </Link>
           ) : (
             <p onClick={redirected} className="clear royalBlueColor">
-              {pageSize.width < 321 ? "SP" :"Spokenspiel"}
+              {pageSize.width < 500 ? "SP" :"Spokenspiel"}
             </p>
           )}
         </h1>
       </div>
       <div>
         {token && currentSelectChatroom ? (
-          <p className="chatboxHeading">
+          <p className="chatboxHeading whiteText">
             {" "}
-           { pageSize.width < 321 ? "@":"Chatting with "}
+           { pageSize.width < 500 ? "@":"Chatting with "}
             {user.userName === currentSelectChatroom.user1Name
               ? currentSelectChatroom.user2Name
               : currentSelectChatroom.user1Name}
@@ -147,7 +147,7 @@ const Navbar = ({
         <li>
           {" "}
           {user ? (
-            <h4 className="hideOnSmallMedia">Greetings, {user.userName}</h4>
+            <h4 className="hideOnSmallMedia whiteText">Greetings, {user.userName}</h4>
           ) : null}
         </li>
         <div className="centerHeadings">

@@ -44,7 +44,7 @@ const Login = ({
   return (
     <div className="container pageColor">
       <Navbar />
-      <div className="container-form">
+      <div className="container-form ">
         <h1>Login</h1>
 
         <form onSubmit={onSubmit}>
