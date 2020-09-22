@@ -4,6 +4,7 @@ import {
   acceptFriendReq,
   getFriendRequests,
   declineFriendReq,
+  getFriends
 } from "../../../actions/friendActions";
 
 const FriendRequests = ({
@@ -12,6 +13,8 @@ const FriendRequests = ({
   acceptFriendReq,
   getFriendRequests,
   declineFriendReq,
+  returnToFriendslist,
+  getFriends
 }) => {
   useEffect(() => {
     getFriendRequests();
@@ -19,7 +22,9 @@ const FriendRequests = ({
 
   const addFriend = () => {
     acceptFriendReq(friendReqs._id);
-    // window.location.reload();
+    getFriends();
+     window.location.reload();
+    returnToFriendslist();
   };
 
   const rejectFriend = () => {
@@ -59,4 +64,5 @@ export default connect(mapStateToProps, {
   acceptFriendReq,
   getFriendRequests,
   declineFriendReq,
+  getFriends
 })(FriendRequests);

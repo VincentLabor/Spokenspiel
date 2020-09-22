@@ -290,7 +290,6 @@ export const removeChatroomAfterDeletingFriend = (friendId) => async (
       type: REMOVE_CHATROOM_AFTER_REMOVING_FRIEND,
       payload: res.data._id,
     });
-    dispatch();
   } catch (error) {
     console.log(error);
   }

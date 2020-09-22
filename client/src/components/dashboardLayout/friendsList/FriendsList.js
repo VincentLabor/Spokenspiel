@@ -58,6 +58,13 @@ const FriendsList = ({
     setFriendTab(!friendTab);
     setFriendReqTab(false);
     setMobileRemoveToggle(false);
+    if (addFriendTab === true && friendTab === true) {
+      setFriendTab(false);
+    }
+    if (friendReqTab && addFriendTab === false) {
+      setFriendTab(false);
+      setAddFriendTab(true);
+    }
   };
 
   const mobileFriendReqs = () => {
@@ -71,6 +78,7 @@ const FriendsList = ({
   };
 
   const returnToFriendslist = () => {
+    getFriends();
     setFriendReqTab(false);
     setFriendTab(true);
     setMobileRemoveToggle(false);
@@ -104,7 +112,9 @@ const FriendsList = ({
 
         {/* These are the different tabs you can click to see different things */}
         {/* This is to see your friends list */}
-        <div className="flexContainer hideOnSmallMedia"> {/* Just removed the hideonmobile class*/}
+        <div className="flexContainer hideOnSmallMedia">
+          {" "}
+          {/* Just removed the hideonmobile class*/}
           <p
             onClick={() => {
               setFriendTab(true);
@@ -116,7 +126,6 @@ const FriendsList = ({
           >
             Friends
           </p>
-
           {/* This is to add friends */}
           <p
             onClick={() => {
@@ -128,7 +137,6 @@ const FriendsList = ({
           >
             Add Friend
           </p>
-
           {/* this is to see your current friend requests */}
           <p
             onClick={() => {
@@ -176,6 +184,8 @@ const FriendsList = ({
                   friend={friend}
                   key={friend._id}
                   mobileRemoveToggle={mobileRemoveToggle}
+                  mobileFriendRemove={mobileFriendRemove}
+                  friendReqTab={friendReqTab}
                 />
               ))
             ) : (
@@ -193,6 +203,7 @@ const FriendsList = ({
                   <FriendRequests
                     friendReqs={friendReqs}
                     key={friendReqs._id}
+                    returnToFriendslist={returnToFriendslist}
                   />
                 ))
               : "Send some friend requests to start your journey"}
