@@ -84,6 +84,10 @@ body {
   cursor: pointer;
 }
 
+.redBackground{
+  background-color: red;
+}
+
 .pageColor {
   background-color: #fafafa;
 }
@@ -134,11 +138,47 @@ body {
   text-decoration: none;
 }
 
-button:hover {
+.btn:hover{
+    cursor: pointer;
+    background-color: #1563bb;
+    transition: 0.3s ease-out;
+}
+
+.confirmationBtn {
+  border: solid .5px silver;
+  padding: 0.4em;
+  border-radius: 2px;
+  color: black;
+  text-decoration: none;
+  /* margin: 1em auto; */
+}
+
+.confirmationBtn:hover{
+  cursor: pointer;
+  background-color: #8a0303;
+  transition: 0.3s ease-out;
+}
+
+.denyBtn {
+  border: solid .5px silver;
+  padding: 0.4em;
+  border-radius: 2px;
+  color: black;
+  text-decoration: none;
+  /* margin: 1em auto; */
+}
+
+.denyBtn:hover{
+  cursor: pointer;
+  background-color: #b9b9b9;
+  transition: 0.3s ease-out;
+}
+
+/* button:hover {
   cursor: pointer;
   background-color: #1563bb;
   transition: 0.3s ease-out;
-}
+} */
 
 /* Landing Page */
 
@@ -246,6 +286,13 @@ nav li {
   display: block;
   margin: 1em auto 2em;
 }
+
+.submitBtn:hover{
+  cursor: pointer;
+  background-color: #1563bb;
+  transition: 0.3s ease-out;
+}
+
 
 /* Dashboard */
 
@@ -393,6 +440,18 @@ nav li {
   margin: 1em auto;
 }
 
+.addFriendBtn:hover{
+  cursor: pointer;
+  background-color: #1563bb;
+  transition: 0.3s ease-out;
+}
+
+.deletionBtns{
+  display: flex;
+  justify-content: space-around;
+}
+
+
 /* Section for the Chatbox */
 
 .chatbox {
@@ -470,6 +529,12 @@ nav li {
   color: white;
   text-decoration: none;
   margin: 1em auto;
+}
+
+.chatboxBtn:hover{
+  cursor: pointer;
+  background-color: #1563bb;
+  transition: 0.3s ease-out;
 }
 
 .chatboxDisplay {

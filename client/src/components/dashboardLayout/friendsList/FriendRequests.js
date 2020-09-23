@@ -14,7 +14,8 @@ const FriendRequests = ({
   getFriendRequests,
   declineFriendReq,
   returnToFriendslist,
-  getFriends
+  getFriends,
+  mobileFriendReqs
 }) => {
   useEffect(() => {
     getFriendRequests();
@@ -23,8 +24,9 @@ const FriendRequests = ({
   const addFriend = () => {
     acceptFriendReq(friendReqs._id);
     getFriends();
-     window.location.reload();
-    returnToFriendslist();
+    // window.location.reload();
+    // returnToFriendslist();
+    mobileFriendReqs();
   };
 
   const rejectFriend = () => {

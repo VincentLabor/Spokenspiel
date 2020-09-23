@@ -20,7 +20,7 @@ const FriendItem = ({
   chatroom: { chatRoomExists, currentChatroomId },
   mobileRemoveToggle, //Triggers a toggle in parent component
 }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [askForConfirmation, setAskForConfirmation] = useState(false);
 
   const removeFriendFromFriendsList = () => {
     removeChatroomAfterDeletingFriend(friend._id);
@@ -30,11 +30,11 @@ const FriendItem = ({
   };
 
   const checkFriendRemovalWithUser = () => {
-    setShowModal(true);
+    setAskForConfirmation(true);
   };
 
   const cancelFriendRemoval = () => {
-    setShowModal(false);
+    setAskForConfirmation(false);
   };
 
   const openConversation = async () => {
@@ -47,9 +47,18 @@ const FriendItem = ({
     <div>
       <div className="modalBody">
         <p>Would you like to delete {friend.userName}?</p>
-        {/* This here would be the leftovers from the friendlist item that would show proper information*/}
-        <button onClick={removeFriendFromFriendsList}>Yes</button>
-        <button onClick={cancelFriendRemoval}>No</button>
+        <div className="deletionBtns">
+          {/* This here would be the leftovers from the friendlist item that would show proper information*/}
+          <button
+            onClick={removeFriendFromFriendsList}
+            className="redBackground confirmationBtn"
+          >
+            Yes
+          </button>
+          <button onClick={cancelFriendRemoval} className="denyBtn">
+            No
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -82,22 +91,13 @@ const FriendItem = ({
                 className="fas fa-trash-alt trashIcon "
                 onClick={removeFriendFromFriendsList}
               ></i> */}
-              {showModal === false ? friendIcons : null}
-              {showModal ? verifyFriendRemoval : null}
+              {askForConfirmation === false ? friendIcons : null}
+              {askForConfirmation ? verifyFriendRemoval : null}
             </div>
           ) : (
             <div className="friendIcons hideOnSmallMedia">
-              <i
-                className="fas fa-comment-alt commentIcon"
-                onClick={openConversation}
-              ></i>
-
-              {/*Messaging Icon*/}
-              <i
-                className="fas fa-trash-alt trashIcon "
-                onClick={checkFriendRemovalWithUser}
-              ></i>
-              {showModal ? verifyFriendRemoval : null}
+              {askForConfirmation ? null : friendIcons}
+              {askForConfirmation ? verifyFriendRemoval : null}
             </div>
           )}
         </div>

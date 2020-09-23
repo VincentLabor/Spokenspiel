@@ -16,10 +16,6 @@ const FriendsList = ({
   getFriends,
   addFriend,
 }) => {
-  useEffect(() => {
-    getFriends();
-    getFriendRequests();
-  }, []); //Nothing in the brackets mean that these functions will only run once. I removed getFriends() from the brackets
 
   const [friendTab, setFriendTab] = useState(true);
   const [friendReqTab, setFriendReqTab] = useState(false);
@@ -31,6 +27,18 @@ const FriendsList = ({
   const onChange = (e) => {
     setUserName(e.target.value);
   };
+
+  useEffect(() => {
+    getFriends();
+    getFriendRequests();
+  }, []); //Nothing in the brackets mean that these functions will only run once. I removed getFriends() from the brackets
+
+  useEffect(()=>{
+   if(friendTab){
+     getFriends();
+   } 
+   console.log(friends)
+  },[friendTab])
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -204,6 +212,7 @@ const FriendsList = ({
                     friendReqs={friendReqs}
                     key={friendReqs._id}
                     returnToFriendslist={returnToFriendslist}
+                    mobileFriendReqs = {mobileFriendReqs}
                   />
                 ))
               : "Send some friend requests to start your journey"}
