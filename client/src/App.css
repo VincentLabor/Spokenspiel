@@ -14,17 +14,41 @@
   display: none;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* ?????????? */
 .pd-top1 {
   padding-top: 0.7em;
+}
+
+.leftAlign {
+  text-align: left;
 }
 
 .mg1-top {
   margin-top: 1.5em;
 }
 
+.mg-left1{
+  margin-left: 1em;
+}
+
+.sidemenuBotMargin{
+  margin-bottom: 2em;
+}
+
+.mg1-bottom{
+  margin-bottom: 1em;
+}
+
 .hideOnLargeMedia {
   display: none;
+}
+
+.fontSize20{
+  font-size: 20px;
 }
 
 .centerHeadings {
@@ -32,12 +56,19 @@
   text-align: center;
 }
 
+.flexBetween {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .fullscreenHeight {
   height: 100vh;
   overflow: hidden;
 }
 
-This is how the icons will change colors */ h1 {
+h1 {
   margin: 0;
 }
 
@@ -76,6 +107,10 @@ body {
   color: inherit;
 }
 
+.blackText{
+  color:black
+}
+
 .whiteText {
   color: white;
 }
@@ -84,7 +119,7 @@ body {
   cursor: pointer;
 }
 
-.redBackground{
+.redBackground {
   background-color: red;
 }
 
@@ -101,10 +136,18 @@ body {
   height: 100vh;
 }
 
+.width30p {
+  width: 30%;
+}
+
 .container {
   width: 100%;
   text-align: center;
   height: 100%;
+}
+
+.whiteColor {
+  color: white;
 }
 
 .linkColor {
@@ -120,6 +163,10 @@ body {
   display: inline;
 }
 
+.padding4ths {
+  padding: 0.4em;
+}
+
 .flexAndCenter {
   display: flex;
   flex-direction: row;
@@ -132,43 +179,43 @@ body {
   margin-top: 2em;
   padding: 1em;
   border: none;
-  background-color: #2a8dff;
+  /* background-color: #2a8dff; */
   border-radius: 2px;
-  color: white;
   text-decoration: none;
 }
 
-.btn:hover{
-    cursor: pointer;
-    background-color: #1563bb;
-    transition: 0.3s ease-out;
+.btn:hover {
+  cursor: pointer;
+  background-color: #1563bb;
+  transition: 0.3s ease-out;
 }
 
 .confirmationBtn {
-  border: solid .5px silver;
-  padding: 0.4em;
+  border: solid 0.5px silver;
+
   border-radius: 2px;
-  color: black;
   text-decoration: none;
+
   /* margin: 1em auto; */
 }
 
-.confirmationBtn:hover{
+.confirmationBtn:hover {
   cursor: pointer;
   background-color: #8a0303;
   transition: 0.3s ease-out;
 }
 
 .denyBtn {
-  border: solid .5px silver;
+  border: solid 0.5px silver;
   padding: 0.4em;
   border-radius: 2px;
   color: black;
   text-decoration: none;
+
   /* margin: 1em auto; */
 }
 
-.denyBtn:hover{
+.denyBtn:hover {
   cursor: pointer;
   background-color: #b9b9b9;
   transition: 0.3s ease-out;
@@ -287,12 +334,11 @@ nav li {
   margin: 1em auto 2em;
 }
 
-.submitBtn:hover{
+.submitBtn:hover {
   cursor: pointer;
   background-color: #1563bb;
   transition: 0.3s ease-out;
 }
-
 
 /* Dashboard */
 
@@ -373,6 +419,11 @@ nav li {
   cursor: pointer;
 }
 
+.friendRequests {
+  margin: 0.5em;
+  padding: 0.3em;
+}
+
 .mobileFriendIcons {
   display: none;
 }
@@ -440,17 +491,16 @@ nav li {
   margin: 1em auto;
 }
 
-.addFriendBtn:hover{
+.addFriendBtn:hover {
   cursor: pointer;
   background-color: #1563bb;
   transition: 0.3s ease-out;
 }
 
-.deletionBtns{
+.deletionBtns {
   display: flex;
   justify-content: space-around;
 }
-
 
 /* Section for the Chatbox */
 
@@ -531,7 +581,7 @@ nav li {
   margin: 1em auto;
 }
 
-.chatboxBtn:hover{
+.chatboxBtn:hover {
   cursor: pointer;
   background-color: #1563bb;
   transition: 0.3s ease-out;
@@ -711,8 +761,6 @@ nav li {
     height: 100%;
   }
 
-  
-
   .pd-2_5 {
     /* If leave this at 0, there is no extra white space below*/
     padding: 0;
@@ -728,12 +776,10 @@ nav li {
     z-index: 10;
   }
 
-
-
   .styledMenu {
     display: inline-block;
     z-index: 9999;
-    background-color: lightblue;
+    
     transition: transform 3s ease-in-out;
     height: 100%;
     width: 100%;
@@ -784,7 +830,7 @@ nav li {
 
   .flexText {
     display: flex;
-    text-align: center;
+    text-align: left;
     flex-direction: column;
     justify-content: center;
     overflow-x: hidden;
@@ -942,7 +988,7 @@ nav li {
   .styledMenu {
     display: inline-block;
     z-index: 9999;
-    background-color: lightblue;
+    
     transition: transform 3s ease-in-out;
     height: 100%;
     width: 100%;
@@ -993,9 +1039,9 @@ nav li {
 
   .flexText {
     display: flex;
-    text-align: center;
+    /* text-align: center; */
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     overflow-x: hidden;
   }
 
@@ -1090,12 +1136,11 @@ nav li {
   }
 }
 
-@media(min-width: 375px){
+@media (min-width: 375px) {
   .landingWrapper {
     width: 80%;
     margin-top: 17em;
   }
-  
 }
 
 /*
@@ -1141,7 +1186,7 @@ nav li {
   .styledMenu {
     display: inline-block;
     z-index: 9999;
-    background-color: lightblue;
+    
     transition: transform 3s ease-in-out;
     height: 100%;
     width: 100%;
@@ -1203,12 +1248,11 @@ nav li {
     height: 70%;
   }
 
-
   .flexText {
     display: flex;
-    text-align: center;
+    /* text-align: center; */
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     overflow-x: hidden;
   }
 
@@ -1346,7 +1390,7 @@ nav li {
   .styledMenu {
     display: inline-block;
     z-index: 9999;
-    background-color: lightblue;
+    
     transition: transform 3s ease-in-out;
     height: 100%;
     width: 100%;
@@ -1401,9 +1445,9 @@ nav li {
 
   .flexText {
     display: flex;
-    text-align: center;
+    /* text-align: center; */
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     overflow-x: hidden;
   }
 
@@ -1473,7 +1517,6 @@ nav li {
     width: 25%;
   }
 
-
   .btn {
     margin-top: 3em;
     width: 100%;
@@ -1507,10 +1550,9 @@ nav li {
     text-align: center;
     justify-content: space-evenly;
   }
-
 }
 
-@media(min-width: 768px){
+@media (min-width: 768px) {
   .landingWrapper {
     text-align: left;
     padding: 1em;
@@ -1527,18 +1569,15 @@ nav li {
   .container-form {
     width: 40%;
   }
-
 }
 
 @media (max-width: 1025px) {
   .hideOnTablet {
     display: none;
   }
-
-
 }
 
-@media (min-width: 1024px){
+@media (min-width: 1024px) {
   .landingImg {
     margin-top: -10em;
     width: 55%;
@@ -1554,8 +1593,8 @@ nav li {
   }
 }
 
-@media(min-width: 1440px){
-  .landingImg{
+@media (min-width: 1440px) {
+  .landingImg {
     width: 50%;
     height: 50%;
   }
@@ -1563,10 +1602,9 @@ nav li {
   .container-form {
     width: 25%;
   }
-
 }
-@media(min-width: 1920px){
-  .landingImg{
+@media (min-width: 1920px) {
+  .landingImg {
     width: 30%;
     height: 40%;
   }

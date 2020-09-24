@@ -4,7 +4,7 @@ import {
   acceptFriendReq,
   getFriendRequests,
   declineFriendReq,
-  getFriends
+  getFriends,
 } from "../../../actions/friendActions";
 
 const FriendRequests = ({
@@ -15,7 +15,7 @@ const FriendRequests = ({
   declineFriendReq,
   returnToFriendslist,
   getFriends,
-  mobileFriendReqs
+  mobileFriendReqs,
 }) => {
   useEffect(() => {
     getFriendRequests();
@@ -37,18 +37,22 @@ const FriendRequests = ({
     <div>
       {/* Checks if the friend status == 1 because that person is the sender. 2 is Receiver.  */}
       {friendReqs ? (
-        <div>
-          <p>
-            {`${friendReqs.userName} has sent you a Friend Request`}{" "}
-            <i
-              className="fas fa-check-circle fa-lg cursorChg"
-              onClick={addFriend}
-            ></i>
-            <i
-              className="far fa-times-circle fa-lg cursorChg"
-              onClick={rejectFriend}
-            ></i>
-          </p>
+        <div className="friendRequests">
+          {`${friendReqs.userName} has sent you a Friend Request`}{" "}
+          <div className="friendReqBtns">
+            <button>
+              <i
+                class="fas fa-check cursorChg confirmationBtn pageColor width30p"
+                onClick={addFriend}
+              ></i>
+            </button>
+            <button>
+              <i
+                class="fas fa-times cursorChg pageColor width30p"
+                onClick={addFriend}
+              ></i>
+            </button>
+          </div>
         </div>
       ) : (
         <p>There are no current friend requests</p>
@@ -66,5 +70,5 @@ export default connect(mapStateToProps, {
   acceptFriendReq,
   getFriendRequests,
   declineFriendReq,
-  getFriends
+  getFriends,
 })(FriendRequests);

@@ -12,7 +12,7 @@ const Landing = () => {
             real time with no costs.
           </p>
 
-          <button className="btn">
+          <button className="btn backgroundBlue">
             <Link to="/login" className="linkColor">
               Get Started
             </Link>

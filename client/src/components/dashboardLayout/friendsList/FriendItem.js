@@ -51,11 +51,11 @@ const FriendItem = ({
           {/* This here would be the leftovers from the friendlist item that would show proper information*/}
           <button
             onClick={removeFriendFromFriendsList}
-            className="redBackground confirmationBtn"
+            className="redBackground confirmationBtn width30p whiteColor padding4ths"
           >
             Yes
           </button>
-          <button onClick={cancelFriendRemoval} className="denyBtn">
+          <button onClick={cancelFriendRemoval} className="denyBtn width30p padding4ths">
             No
           </button>
         </div>
