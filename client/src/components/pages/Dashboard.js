@@ -7,6 +7,7 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "../../../node_modules/socket.io-client/dist/socket.io";
+import LogoutModal from "../layout/logoutModal/LogoutModal"
 import {
   saveMsgs,
   saveSentMsgs,
@@ -158,6 +159,9 @@ const Dashboard = ({
 
   return (
     <Fragment>
+            
+      
+      
       <div className="fullscreenHeight">
         <Navbar />
         <div className="gridContainer">
@@ -178,6 +182,7 @@ const Dashboard = ({
           <div
             className={showMobileChat ? "chatbox" : "chatbox hideOnSmallMedia"}
           >
+            
             <ChatInput /* Passing down the states into the chatinput component */
               currentMsg={currentMsg}
               setCurrentMsg={setCurrentMsg}
@@ -191,6 +196,7 @@ const Dashboard = ({
             />
           </div>
         </div>
+        
       </div>
     </Fragment>
   );

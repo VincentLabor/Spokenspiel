@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
 import Menu from "./menu/Menu";
+import LogoutModal from "./logoutModal/LogoutModal";
+
 import {
   getChatroomName,
   findChatroom,
@@ -24,6 +26,7 @@ const Navbar = ({
 }) => {
   const history = useHistory();
   const [sideMenu, setSideMenu] = useState(false);
+  const [toggleLogoutModal, setToggleLogoutModal] = useState(false);
 
   useEffect(() => {
     //Temporary code for development. please remove after development
@@ -38,8 +41,7 @@ const Navbar = ({
     }
   }, [currentChatroomId]);
 
-
-////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
   ///Dectection of page width and changing views for mobile///
   ////////////////////////////////////////////////////////////
 
@@ -83,18 +85,20 @@ const Navbar = ({
     // }
   }, [pageSize, currentChatroomId]);
 
-
-
-  const onClick = (e) => {
-    if (token) {
-      clearState();
-      clearAll();
-      clearChatState();
-      history.push("/login");
-    } else {
-      console.log("nothing happened");
-    }
+  const promptUserLogout = () => {
+    setToggleLogoutModal(!toggleLogoutModal);
   };
+
+  // const logUserOut = (e) => {
+  //   if (token) {
+  //     clearState();
+  //     clearAll();
+  //     clearChatState();
+  //     history.push("/login");
+  //   } else {
+  //     console.log("nothing happened");
+  //   }
+  // };
 
   const redirected = () => {
     history.push("/");
@@ -117,76 +121,93 @@ const Navbar = ({
   );
 
   return (
-    <nav className={!token ? "nav" : " nav navDash"}>
-      <div className="">
-        <h1>
-          {token ? (
-            <Link to="/dashboard" className="clear">
-              {pageSize.width < 500 ? "SP" :"Spokenspiel"}
-            </Link>
-          ) : (
-            <p onClick={redirected} className="clear royalBlueColor">
-              {pageSize.width < 500 ? "SP" :"Spokenspiel"}
-            </p>
-          )}
-        </h1>
-      </div>
-      <div>
-        {token && currentSelectChatroom ? (
-          <p className="chatboxHeading whiteText">
-            {" "}
-           { pageSize.width < 500 ? "@":"Chatting with "}
-            {user.userName === currentSelectChatroom.user1Name
-              ? currentSelectChatroom.user2Name
-              : currentSelectChatroom.user1Name}
-          </p>
-        ) : null}
-      </div>
-
-      <ul className="flexRight">
-        <li>
-          {" "}
-          {user ? (
-            <h4 className="hideOnSmallMedia whiteText">Greetings, {user.userName}</h4>
-          ) : null}
-        </li>
-        <div className="centerHeadings">
-          <li className="hideOnSmallMedia">
-            <Link to="/about" className="clear ">
-              About
-            </Link>
-          </li>
-
-          {!token ? guestLinks : null}
-          {!token ? null : (
-            <li onClick={onClick} className="clear hideOnSmallMedia">
-              Logout
-            </li>
-          )}
-          <li>
-            <i
-              className="fas fa-bars hideOnLargeMedia"
-              onClick={() => {
-                setSideMenu(true);
-              }}
-            ></i>
-          </li>
+    <Fragment>
+      <nav className={!token ? "nav" : " nav navDash"}>
+        <div className="">
+          <h1>
+            {token ? (
+              <Link to="/dashboard" className="clear">
+                {pageSize.width < 500 ? "SP" : "Spokenspiel"}
+              </Link>
+            ) : (
+              <p onClick={redirected} className="clear royalBlueColor">
+                {pageSize.width < 500 ? "SP" : "Spokenspiel"}
+              </p>
+            )}
+          </h1>
         </div>
-      </ul>
+        <div>
+          {token && currentSelectChatroom ? (
+            <p className="chatboxHeading whiteText">
+              {" "}
+              {pageSize.width < 500 ? "@" : "Chatting with "}
+              {user.userName === currentSelectChatroom.user1Name
+                ? currentSelectChatroom.user2Name
+                : currentSelectChatroom.user1Name}
+            </p>
+          ) : null}
+        </div>
 
-      <CSSTransition
-        in={sideMenu}
-        timeout={300}
-        classNames="moveIn"
-        unmountOnExit
-      >
-        {!token ? (
-          <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />
-        ) : (
-          <LoggedInMenu sideMenu={sideMenu} setSideMenu={setSideMenu} />
-        )}
-      </CSSTransition>
-    </nav>
+        <ul className="flexRight">
+          <li>
+            {" "}
+            {user ? (
+              <div>
+                <h4 className="hideOnSmallMedia whiteText">
+                  Greetings, {user.userName}
+                </h4>
+              </div>
+            ) : null}
+          </li>
+          <div className="centerHeadings">
+            <li className="hideOnSmallMedia">
+              <Link to="/about" className="clear ">
+                About
+              </Link>
+            </li>
+            <div className="hello"></div>
+            {!token ? guestLinks : null}
+            {!token ? null : (
+              <div>
+                <li
+                  onClick={promptUserLogout}
+                  className="clear hideOnSmallMedia"
+                >
+                  Logout
+                </li>
+                {toggleLogoutModal ? (
+                  <LogoutModal
+                    setToggleLogoutModal={setToggleLogoutModal}
+                    toggleLogoutModal={toggleLogoutModal}
+                  />
+                ) : null}
+              </div>
+            )}
+            <li>
+              <i
+                className="fas fa-bars hideOnLargeMedia"
+                onClick={() => {
+                  setSideMenu(true);
+                }}
+              ></i>
+            </li>
+          </div>
+        </ul>
+
+        <CSSTransition
+          in={sideMenu}
+          timeout={300}
+          classNames="moveIn"
+          unmountOnExit
+        >
+          {!token ? (
+            <Menu sideMenu={sideMenu} setSideMenu={setSideMenu} />
+          ) : (
+            <LoggedInMenu sideMenu={sideMenu} setSideMenu={setSideMenu} />
+          )}
+        </CSSTransition>
+      </nav>
+    </Fragment>
   );
 };
 
