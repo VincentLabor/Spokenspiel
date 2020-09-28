@@ -16,7 +16,6 @@ const FriendsList = ({
   getFriends,
   addFriend,
 }) => {
-
   const [friendTab, setFriendTab] = useState(true);
   const [friendReqTab, setFriendReqTab] = useState(false);
   const [addFriendTab, setAddFriendTab] = useState(false);
@@ -33,21 +32,28 @@ const FriendsList = ({
     getFriendRequests();
   }, []); //Nothing in the brackets mean that these functions will only run once. I removed getFriends() from the brackets
 
-  useEffect(()=>{
-   if(friendTab){
-     getFriends();
-   } 
-   console.log(friends)
-  },[friendTab])
+  useEffect(() => {
+    if (friendTab) {
+      getFriends();
+    }
+    console.log(friends);
+    console.log(currentFriendReqs);
+  }, [friendTab]);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const friendUserName = { userName };
-    addFriend(friendUserName);
-    setSentFriendRequest(true);
-    setTimeout(() => {
-      setSentFriendRequest(false);
-    }, 6000);
+    currentFriendReqs.map((friendRequest) => {
+      if (friendRequest.userName !== userName) {
+        const friendUserName = { userName };
+        addFriend(friendUserName);
+        setSentFriendRequest(true);
+        setTimeout(() => {
+          setSentFriendRequest(false);
+        }, 6000);
+      } else {
+        return console.log("nothing ");
+      }
+    });
   };
 
   /////////////////////////////////////////////////////
@@ -212,7 +218,7 @@ const FriendsList = ({
                     friendReqs={friendReqs}
                     key={friendReqs._id}
                     returnToFriendslist={returnToFriendslist}
-                    mobileFriendReqs = {mobileFriendReqs}
+                    mobileFriendReqs={mobileFriendReqs}
                   />
                 ))
               : "Send some friend requests to start your journey"}

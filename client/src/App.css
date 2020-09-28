@@ -243,6 +243,25 @@ body {
   transition: 0.3s ease-out;
 }
 
+.greenBg{
+  background-color: green;
+}
+
+.friendReqBtn {
+  margin-top: 2em;
+  padding: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  border: none;
+  /* background-color: #2a8dff; */
+  border-radius: 2px;
+  text-decoration: none;
+}
+
+.friendReqBtn:hover{
+  filter: grayscale(0.40);
+}
+
 .confirmationBtn {
   border: solid 0.5px silver;
 

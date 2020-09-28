@@ -40,17 +40,17 @@ const FriendRequests = ({
         <div className="friendRequests">
           {`${friendReqs.userName} has sent you a Friend Request`}{" "}
           <div className="friendReqBtns">
-            <button className="btn width30p">
-              <i
-                class="fas fa-check cursorChg pageColor "
-                onClick={addFriend}
-              ></i>
+            <button
+              className="friendReqBtn greenBg width30p cursorChg"
+              onClick={addFriend}
+            >
+              <i class="fas fa-check pageColor "></i>
             </button>
-            <button className="btn width30p">
-              <i
-                class="fas fa-times cursorChg pageColor "
-                onClick={addFriend}
-              ></i>
+            <button
+              className="friendReqBtn width30p cursorChg"
+              onClick={rejectFriend}
+            >
+              <i class="fas fa-times pageColor "></i>
             </button>
           </div>
         </div>
