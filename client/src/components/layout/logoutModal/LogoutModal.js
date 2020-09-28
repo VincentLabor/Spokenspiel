@@ -44,7 +44,7 @@ const LogoutModal = ({
               Yes
             </button>
             <button
-              className="logoutBtns logoutBtnWidth mg-left1 mg-right1"
+              className="logoutBtns whiteBackground logoutBtnWidth mg-left1 mg-right1"
               onClick={closeTheModal}
             >
               No

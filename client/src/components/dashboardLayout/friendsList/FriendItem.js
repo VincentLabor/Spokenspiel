@@ -64,10 +64,10 @@ const FriendItem = ({
   );
 
   const friendIcons = (
-    <div>
-      <i className="fas fa-comment-alt commentIcon hideOnSmallMedia"></i>{" "}
+    <div className="centerRowFlex">
+      <i className="fas fa-comment-alt commentlargeMediaFriendIcon hideOnSmallMedia"></i>{" "}
       <i
-        className="fas fa-trash-alt trashIcon "
+        className="fas fa-trash-alt commentlargeMediaFriendIcon"
         onClick={checkFriendRemovalWithUser}
       ></i>
     </div>
@@ -85,7 +85,7 @@ const FriendItem = ({
           {/* If mobile toggle = true, click on trash to delete */}
           {/* Else, show friends and onclick, display/create conversation */}
           {mobileRemoveToggle ? (
-            <div className="friendIcons">
+            <div className="friendIcons centerRowFlex">
               {/* <i className="fas fa-comment-alt commentIcon hideOnSmallMedia"></i>{" "}
               <i
                 className="fas fa-trash-alt trashIcon "

@@ -69,14 +69,20 @@
   justify-content: space-between;
 }
 
-.flexSpaceBetween {
-  width: 100%;
-
+.centerRowFlex{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .flexCenterColumn{
   display: flex;
   justify-content: center;
+  flex-direction: column;
+}
+
+.columnFlex{
+  display: flex;
   flex-direction: column;
 }
 
@@ -171,6 +177,14 @@ body {
   color: white;
 }
 
+.whiteBackground{
+  background-color: lightgray;
+}
+
+.whiteBackground:hover{
+  background-color: lightslategrey;
+}
+
 .linkColor {
   color: white;
   text-decoration: none;
@@ -207,6 +221,7 @@ body {
 
 .logoutBtns:hover{
   cursor: pointer;
+  filter: grayscale(0.40);
 }
 
 .btn {
@@ -467,11 +482,6 @@ nav li {
   padding: 0.7em 0.5em;
 }
 
-.friendIcons {
-  padding-right: 5px;
-  align-items: center;
-}
-
 .friendOption:hover {
   cursor: pointer;
 }
@@ -487,6 +497,14 @@ nav li {
 
 .fa-comment-alt {
   color: #2a8dff;
+}
+
+.fa-times{
+  background-color: inherit;
+}
+
+.fa-check{
+  background-color: inherit;
 }
 
 .fa-trash-alt {
@@ -514,8 +532,10 @@ nav li {
   background-color: whitesmoke;
 }
 
-.commentIcon {
+.commentlargeMediaFriendIcon {
   padding: 10px;
+  padding: 1em;
+  
 }
 
 .commentIcon:hover {
@@ -587,6 +607,7 @@ nav li {
   display: flex;
   justify-content: space-between;
   padding: 0.5em 0;
+  width: 100%;
   /* border-bottom: .5px solid gray; */
 }
 
@@ -1635,6 +1656,10 @@ nav li {
 }
 
 @media (max-width: 1025px) {
+  .logoutTheUserModal{
+    width: 35%;
+  }
+
   .hideOnTablet {
     display: none;
   }
