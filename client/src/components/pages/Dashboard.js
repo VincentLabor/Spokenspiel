@@ -19,7 +19,7 @@ import {
 let socket;
 
 const Dashboard = ({
-  chatroom: { currentChatroomName, currentChatroomId, mobileFriendslistIsOn },
+  chatroom: { currentChatroomName, currentChatroomId, mobileFriendslistIsOn, chatrooms },
   getMessagesFromDB,
   lastSender,
   returnToMobileFriendslist,
@@ -54,11 +54,13 @@ const Dashboard = ({
     };
   }, [msgs]);
 
+
+//This helps move the scrollbar downwards automatically
   useEffect(() => {
     setTimeout(() => {
       setStatusOfSending(true);
       setStatusOfSending(false);
-    }, 25); //This runs every 2 seconds
+    }, 25);
   }, [msgs]);
 
   const sendMessage = (e) => {

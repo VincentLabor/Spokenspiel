@@ -43,7 +43,7 @@ const ChatInput = ({
 
   const sendMsgToChatroom = async (e) => {
     e.preventDefault(); //Prevents page from opening after sending message
-      sendMessage(user.userName + ": " + e);
+      
 
     let msgPacket = {
       currentMsgSent,
@@ -52,6 +52,7 @@ const ChatInput = ({
     if (currentMsgSent !== null && currentChatroomId !== null && currentMsgSent !== undefined) {
       saveSentMsgs(msgPacket);
     }
+    sendMessage(user.userName + ": " + e);
     setCurrentMsg(""); //This clears the input bar
 
     if(currentMsgSent !== undefined){

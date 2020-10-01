@@ -46,7 +46,7 @@ const FriendItem = ({
   const verifyFriendRemoval = (
     <div>
       <div className="modalBody">
-        <p>Would you like to delete {friend.userName}?</p>
+        <p className="centerHeadings">Would you like to delete {friend.userName}?</p>
         <div className="deletionBtns">
           {/* This here would be the leftovers from the friendlist item that would show proper information*/}
           <button
@@ -55,7 +55,10 @@ const FriendItem = ({
           >
             Yes
           </button>
-          <button onClick={cancelFriendRemoval} className="denyBtn width30p padding4ths">
+          <button
+            onClick={cancelFriendRemoval}
+            className="denyBtn width30p padding4ths"
+          >
             No
           </button>
         </div>
@@ -65,7 +68,10 @@ const FriendItem = ({
 
   const friendIcons = (
     <div className="centerRowFlex">
-      <i className="fas fa-comment-alt commentlargeMediaFriendIcon hideOnSmallMedia"></i>{" "}
+      <i
+        className="fas fa-comment-alt commentlargeMediaFriendIcon hideOnSmallMedia"
+        onClick={openConversation}
+      ></i>{" "}
       <i
         className="fas fa-trash-alt commentlargeMediaFriendIcon"
         onClick={checkFriendRemovalWithUser}

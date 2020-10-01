@@ -97,7 +97,7 @@ const LoggedInMenu = ({
               >
                 <i class="fas fa-sign-out-alt"></i> {"    "}
                 Logout
-                
+                 {/* This is actually for mobile */}
                 {checkIfUserWishesToLog ? (
                   <div className="mg1-top ">
                     {" "}

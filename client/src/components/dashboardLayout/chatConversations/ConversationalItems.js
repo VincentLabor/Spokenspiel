@@ -42,7 +42,7 @@ const ConversationItems = ({
     getMessagesFromDB(conversation);
     setCurrentChatroomId(conversation);
     setCurrentConversation(conversation);
-    console.log(lastUserToSend);
+    // console.log(lastUserToSend);
 
     if (lastUserToSend !== user._id) {
       //This triggers properly
@@ -60,21 +60,21 @@ const ConversationItems = ({
     <div>
       {conversation.isHidden === false ? (
         <Fragment>
-          <div className="convoContainer"               onMouseEnter={() => setIsShown(true)}
-              onMouseLeave={() => setIsShown(false)}>
+          <div
+            className={
+              currentChatroomId === conversation._id
+                ? "convoContainer convoContainerSelect"
+                : "convoContainer"
+            }
+            onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)}
+          >
             <div
               className="convoContainer"
               onClick={() => fixer(conversation._id)}
-
             >
               <div className="columnFlex">
-                <p
-                  className={
-                    currentChatroomId === conversation._id
-                      ? "convoContainer cursorChg convoNames convoBorder"
-                      : "convoNames cursorChg convoContainer "
-                  }
-                >
+                <p className="convoContainer cursorChg convoNames ">
                   {(user && user.userName) === conversation.user1Name
                     ? conversation.user2Name
                     : conversation.user1Name}

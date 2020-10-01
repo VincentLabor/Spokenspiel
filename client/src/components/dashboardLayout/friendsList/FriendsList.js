@@ -36,8 +36,8 @@ const FriendsList = ({
     if (friendTab) {
       getFriends();
     }
-    console.log(friends);
-    console.log(currentFriendReqs);
+    // console.log(friends);
+    // console.log(currentFriendReqs);
   }, [friendTab]);
 
   const onSubmit = (e) => {

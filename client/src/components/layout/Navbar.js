@@ -74,7 +74,7 @@ const Navbar = ({
         });
       }, 1000)
     );
-    console.log(pageSize.width);
+    // console.log(pageSize.width);
   }, [pageSize.width]);
 
   useEffect(() => {
@@ -89,16 +89,6 @@ const Navbar = ({
     setToggleLogoutModal(!toggleLogoutModal);
   };
 
-  // const logUserOut = (e) => {
-  //   if (token) {
-  //     clearState();
-  //     clearAll();
-  //     clearChatState();
-  //     history.push("/login");
-  //   } else {
-  //     console.log("nothing happened");
-  //   }
-  // };
 
   const redirected = () => {
     history.push("/");

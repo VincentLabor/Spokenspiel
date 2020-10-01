@@ -4,6 +4,8 @@ import Message from "./Message"; //This is to move to Message.js
 
 import { getMessagesFromDB } from "../../../actions/chatroomActions";
 
+
+
 const ChatMessages = ({ chatroom: { msgs } }) => {
   return (
     <div>

@@ -495,6 +495,7 @@ nav li {
 
 .friendName {
   padding: 10px 10px 10px 0px;
+  width: 100%;
 }
 
 .friendOption {
@@ -543,7 +544,7 @@ nav li {
 .friendContainer {
   display: flex;
   justify-content: space-between;
-  padding: 0.5em 2.8rem;
+  padding: 0.5em 2.7rem;
   text-align: left;
 }
 
@@ -628,6 +629,10 @@ nav li {
   padding: 0.5em 0;
   width: 100%;
   /* border-bottom: .5px solid gray; */
+}
+
+.convoContainerSelect{
+  background-color: whitesmoke;
 }
 
 .convoSubHeading {

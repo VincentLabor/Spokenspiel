@@ -26,9 +26,15 @@ const LogoutModal = ({
     }
   };
 
-  const closeTheModal = () => {
-    setToggleLogoutModal(!toggleLogoutModal);
+  const closeTheModal = (e) => {
+    if (e.target.className === "innerLogoutModal") {
+      setToggleLogoutModal(!toggleLogoutModal);
+    }
   };
+
+  const cancelLogoutPrompt = ()=>{
+    setToggleLogoutModal(!toggleLogoutModal);
+  }
 
   return (
     <div classname="">
@@ -45,7 +51,7 @@ const LogoutModal = ({
             </button>
             <button
               className="logoutBtns whiteBackground logoutBtnWidth mg-left1 mg-right1"
-              onClick={closeTheModal}
+              onClick={cancelLogoutPrompt}
             >
               No
             </button>
