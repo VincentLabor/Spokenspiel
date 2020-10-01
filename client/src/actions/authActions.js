@@ -47,6 +47,7 @@ export const registerUser = formData => async dispatch => {
     dispatch(loadUser());
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
+    dispatch(setAlert(err.response.data.msg))
   }
 };
 
@@ -60,6 +61,7 @@ export const loginUser = formData => async dispatch => {
 
   try {
     // loading();
+    dispatch(clearState());
     const res = await axios.post("/api/auth", formData, config);
     dispatch({
       type: SET_CURRENT_USER,
@@ -69,6 +71,7 @@ export const loginUser = formData => async dispatch => {
     dispatch(loadUser()); //This works thanks to react/thunk
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
+    console.log(err.response.data)
     dispatch(setAlert(err.response.data.msg)); // This allows us to reach the other set of actions.
   }
 };

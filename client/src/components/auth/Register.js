@@ -6,7 +6,7 @@ import { registerUser, loadUser } from "../../actions/authActions";
 import { setAlert } from "../../actions/alertActions";
 import Footer from "../layout/Footer";
 import { connect } from "react-redux";
-import Alert from "../alert/alerts";
+import Alerts from "../alert/alerts"
 // import history from '../history/history';
 
 const Register = ({
@@ -56,7 +56,10 @@ const Register = ({
       userName,
       password
     };
-    registerUser(newUser);
+
+    if( email && userName && password && (password === password2)){
+      registerUser(newUser)
+    }
   };
 
   return (
@@ -103,7 +106,7 @@ const Register = ({
           <button type="submit" className="submitBtn">
             Submit
           </button>
-          {alerts && <Alert />}
+          {alerts && <Alerts />}
           <p>
             <Link to="/login" className="credLink">
               Have an account? Click here to login

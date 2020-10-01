@@ -65,6 +65,7 @@ const Login = ({
             onChange={onChange}
             value={password}
           />
+          {/* Here is where alerts for the user will be */}
           {alerts && <Alert />}
           <button type="submit" className="submitBtn">
             Submit
