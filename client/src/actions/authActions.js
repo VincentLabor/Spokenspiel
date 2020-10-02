@@ -12,8 +12,7 @@ import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alertActions";
 
 //Grabbing the information through the token
-export const loadUser = () => async dispatch => {
-
+export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -23,20 +22,19 @@ export const loadUser = () => async dispatch => {
 
     dispatch({
       type: USER_LOADED,
-      payload: res.data
+      payload: res.data,
     });
-
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
   }
 };
 
 //Registering a User
-export const registerUser = formData => async dispatch => {
+export const registerUser = (formData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   try {
@@ -47,16 +45,16 @@ export const registerUser = formData => async dispatch => {
     dispatch(loadUser());
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
-    dispatch(setAlert(err.response.data.msg))
+    dispatch(setAlert(err.response.data.msg));
   }
 };
 
 //Logging in a User
-export const loginUser = formData => async dispatch => {
+export const loginUser = (formData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   try {
@@ -65,18 +63,16 @@ export const loginUser = formData => async dispatch => {
     const res = await axios.post("/api/auth", formData, config);
     dispatch({
       type: SET_CURRENT_USER,
-      payload: res.data
+      payload: res.data,
     });
 
     dispatch(loadUser()); //This works thanks to react/thunk
   } catch (err) {
     dispatch({ type: GET_ERRORS, payload: err.response.data });
-    console.log(err.response.data)
+    console.log(err.response.data);
     dispatch(setAlert(err.response.data.msg)); // This allows us to reach the other set of actions.
   }
 };
-
-
 
 export const clearState = () => {
   return { type: CLEAR_STATE };
@@ -84,6 +80,6 @@ export const clearState = () => {
 
 export const loading = () => {
   return {
-    type: SET_LOADING
+    type: SET_LOADING,
   };
 };

@@ -25,37 +25,35 @@ const ChatInput = ({
         msgCounter,
         currentChatroomId,
       };
-
       unreadMsgsCount(unreadPackage);
       //At this point, I can grab theglobal count here and add it while still checking if the last user sent is still the same.
     }
-
-    // console.log(msgCounter);
-    // console.log(unreadMsgs);
   }, [msgCounter]);
 
   const onChange = (e) => {
     e.preventDefault();
-      setCurrentMsg(e.target.value); //Adding a prefix here will break the program
-      setCurrentMsgSent(user.userName + ": " + e.target.value);
-
+    setCurrentMsg(e.target.value); //Adding a prefix here will break the program
+    setCurrentMsgSent(user.userName + ": " + e.target.value);
   };
 
   const sendMsgToChatroom = async (e) => {
     e.preventDefault(); //Prevents page from opening after sending message
-      
 
     let msgPacket = {
       currentMsgSent,
       currentChatroomId,
     };
-    if (currentMsgSent !== null && currentChatroomId !== null && currentMsgSent !== undefined) {
+    if (
+      currentMsgSent !== null &&
+      currentChatroomId !== null &&
+      currentMsgSent !== undefined
+    ) {
       saveSentMsgs(msgPacket);
     }
     sendMessage(user.userName + ": " + e);
     setCurrentMsg(""); //This clears the input bar
 
-    if(currentMsgSent !== undefined){
+    if (currentMsgSent !== undefined) {
       if (msgCounter === 0 && unreadMsgs) {
         setMsgCounter(msgCounter + unreadMsgs + 1);
       } else {
@@ -64,9 +62,6 @@ const ChatInput = ({
     } else {
       return null;
     }
-
-
-    //  await sendInfo();
   };
 
   let sendInfo = () => {
@@ -110,5 +105,3 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { saveSentMsgs, unreadMsgsCount })(
   ChatInput
 );
-
-

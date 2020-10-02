@@ -32,16 +32,16 @@ const LogoutModal = ({
     }
   };
 
-  const cancelLogoutPrompt = ()=>{
+  const cancelLogoutPrompt = () => {
     setToggleLogoutModal(!toggleLogoutModal);
-  }
+  };
 
   return (
-    <div classname="">
+    <div className="">
       <div className="innerLogoutModal" onClick={closeTheModal}>
         <section className="logoutTheUserModal hideOnSmallMedia flexCenterColumn">
           <p className="">Are you sure you want to logout? </p>
-          <div classname="flexSpaceBetween">
+          <div className="flexSpaceBetween">
             {" "}
             <button
               onClick={logUserOut}

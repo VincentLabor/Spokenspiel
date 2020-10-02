@@ -92,11 +92,6 @@ const FriendItem = ({
           {/* Else, show friends and onclick, display/create conversation */}
           {mobileRemoveToggle ? (
             <div className="friendIcons centerRowFlex">
-              {/* <i className="fas fa-comment-alt commentIcon hideOnSmallMedia"></i>{" "}
-              <i
-                className="fas fa-trash-alt trashIcon "
-                onClick={removeFriendFromFriendsList}
-              ></i> */}
               {askForConfirmation === false ? friendIcons : null}
               {askForConfirmation ? verifyFriendRemoval : null}
             </div>

@@ -2,12 +2,9 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
 const index = require("./routes/index");
+const path = require("path");
 
 connectDB();
-
-// app.get("/", (req, res) => {
-//   res.json({ msg: "Welcome to the spokenSpiel API" });
-// });
 
 app.use(express.json({ extended: false }));
 
@@ -25,19 +22,28 @@ const socketIo = require("socket.io");
 const server = http.createServer(app);
 const io = socketIo(server);
 
-io.on("connection", socket => {
-  
-  // console.log(socket.id)
+io.on("connection", (socket) => {
   console.log("A user has joined!");
 
-    socket.on("chat message", () => { //Listens for "chat message"
-     io.emit("sendTypedMsg")
-    });
+  socket.on("chat message", () => {
+    //Listens for "chat message"
+    io.emit("sendTypedMsg");
+  });
 
   socket.on("disconnect", () => {
     console.log("client has disconnected");
   });
 });
+
+//Serve react in production.
+//First we check if the environment is production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.use(index);
 server.listen(PORT, () => {

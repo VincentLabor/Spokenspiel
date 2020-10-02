@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import ConversationalItems from "./ConversationalItems";
 import {
   getUsersChatrooms,
@@ -24,10 +24,6 @@ const Conversations = ({
     <div className="convoPadding">
       <h2 className="padLeft appBlue">Conversations</h2>
       <p className="convoSubHeading padLeft">Current Conversations</p>
-      {/* <p className="cursorChg convoSpacing" onClick={selectGeneralChat}>
-        General Chat
-      </p> */}
-      {/*TODO CSS class that makes a separate block for discerning different convos*/}
       {chatrooms
         ? chatrooms.map((conversation, index) => (
             <ConversationalItems

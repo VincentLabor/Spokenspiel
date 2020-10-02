@@ -74,21 +74,11 @@ const Navbar = ({
         });
       }, 1000)
     );
-    // console.log(pageSize.width);
   }, [pageSize.width]);
-
-  useEffect(() => {
-    // if (pageSize.width < 321) {
-    //   setShowMobileChat(true);
-    // } else {
-    //   setShowMobileChat(false);
-    // }
-  }, [pageSize, currentChatroomId]);
 
   const promptUserLogout = () => {
     setToggleLogoutModal(!toggleLogoutModal);
   };
-
 
   const redirected = () => {
     history.push("/");

@@ -4,10 +4,6 @@ import { saveSentMsgs } from "../../../actions/chatroomActions";
 //we have to import users username here later
 const Message = ({ message, auth: { user } }) => {
   
-
-  useEffect(()=>{
-console.log(message)
-  },)
   //This doesn't do anything except say currentname exists
   let currentUserName = () => {
     if (message === null) {

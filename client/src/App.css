@@ -854,11 +854,11 @@ nav li {
   .container-form {
     width: 90%;
   }
-
+/* 
   .landingText {
     font-size: 35px;
 
-  }
+  } */
 
   .flexAndCenter {
     display: flex;
@@ -877,11 +877,11 @@ nav li {
     transform: scale(1.5, 1.5);
   }
 
-  .landingText {
+  /* .landingText {
     font-size: 45px;
     margin-bottom: 0.4em;
     z-index: 10;
-  }
+  } */
 
   .styledMenu {
     display: inline-block;
@@ -1012,11 +1012,11 @@ nav li {
     text-align: left;
     padding: 1em;
     margin: 0;
-    margin-top: 20em;
+    margin-top: 15em;
   }
 
   .btn {
-    margin-top: 3em;
+    margin-top: 2em;
     width: 100%;
   }
 
@@ -1040,6 +1040,15 @@ nav li {
   }
 }
 
+@media (max-width: 360px){
+  .landingWrapper {
+    text-align: left;
+    padding: 1em;
+    margin: 0;
+    margin-top: 15em;
+  }
+}
+
 /*
 /////////////////////////
 /////////////////////////
@@ -1053,8 +1062,8 @@ nav li {
 
 
   .landingImg {
-    width: 20%;
-    height: 50%;
+    width: 15%;
+    height: 40%;
   }
 
   .nav {
@@ -1286,7 +1295,7 @@ nav li {
   }
 
   .landingText {
-    font-size: 45px;
+    font-size: 40px;
     margin-bottom: 0.4em;
     z-index: 10;
   }
@@ -1490,7 +1499,7 @@ nav li {
   }
 
   .landingText {
-    font-size: 45px;
+    font-size: 40px;
     margin-bottom: 0.4em;
     z-index: 10;
   }
@@ -1672,7 +1681,7 @@ nav li {
   .landingImg {
     margin-top: -10em;
     width: 55%;
-    height: 35%;
+    height: 30%;
   }
   .container-form {
     width: 40%;
@@ -1694,6 +1703,10 @@ nav li {
     margin-top: -10em;
     width: 55%;
     height: 40%;
+  }
+
+  .landingText{
+    font-size: 55px;
   }
 
   .flexAndCenter {

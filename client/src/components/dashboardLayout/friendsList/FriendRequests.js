@@ -24,8 +24,6 @@ const FriendRequests = ({
   const addFriend = () => {
     acceptFriendReq(friendReqs._id);
     getFriends();
-    // window.location.reload();
-    // returnToFriendslist();
     mobileFriendReqs();
   };
 

@@ -6,7 +6,7 @@ const Landing = () => {
     <Fragment>
       <div className="flexAndCenter">
         <div className="landingWrapper ">
-          <h1 className="landingText inlineBlock landingFont">Speak Freely</h1>
+          <h1 className="landingText inlineBlock">Speak Freely</h1>
           <p>
             Join our chatting service that allows you to chat with others in
             real time with no costs.
