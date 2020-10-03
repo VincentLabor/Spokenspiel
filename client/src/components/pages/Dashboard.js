@@ -31,7 +31,7 @@ const Dashboard = ({
   const [showMobileChat, setShowMobileChat] = useState(false);
   const [tabletLayout, setTabletLayout] = useState(false);
 
-  const endpoint = "localhost:5000";
+  const endpoint = "https://cryptic-crag-10049.herokuapp.com/";
 
   useEffect(() => {
     socket = io(endpoint);
