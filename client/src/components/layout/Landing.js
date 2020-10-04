@@ -11,12 +11,9 @@ const Landing = () => {
             Join our chatting service that allows you to chat with others in
             real time with no costs.
           </p>
-
-          <button className="btn backgroundBlue">
-            <Link to="/login" className="linkColor">
-              Get Started
-            </Link>
-          </button>
+          <Link to="/login" className="linkColor">
+            <button className="btn backgroundBlue whiteText">Get Started</button>
+          </Link>
         </div>
         <img
           src={require("./20671_1_25.jpg")}
