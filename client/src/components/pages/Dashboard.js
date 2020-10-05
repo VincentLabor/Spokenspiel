@@ -8,7 +8,7 @@ import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "../../../node_modules/socket.io-client/dist/socket.io";
 import LogoutModal from "../layout/logoutModal/LogoutModal";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   saveMsgs,
   saveSentMsgs,
@@ -20,7 +20,12 @@ import {
 let socket;
 
 const Dashboard = ({
-  chatroom: { currentChatroomName, currentChatroomId, mobileFriendslistIsOn, chatroomsasdsadsa },
+  chatroom: {
+    currentChatroomName,
+    currentChatroomId,
+    mobileFriendslistIsOn,
+    chatroomsasdsadsa,
+  },
   getMessagesFromDB,
   lastSender,
   returnToMobileFriendslist,
@@ -55,8 +60,7 @@ const Dashboard = ({
     };
   }, [msgs]);
 
-
-//This helps move the scrollbar downwards automatically
+  //This helps move the scrollbar downwards automatically
   useEffect(() => {
     setTimeout(() => {
       setStatusOfSending(true);
@@ -81,7 +85,7 @@ const Dashboard = ({
   const scrollDown = useRef(null);
 
   let autoScrollDown = () => {
-    scrollDown.current.scrollIntoView({ behavior: "auto", block: "end" });
+    scrollDown.current.scrollIntoView({ behavior: "auto", block: "end",  });
   };
 
   useEffect(() => {
@@ -162,9 +166,6 @@ const Dashboard = ({
 
   return (
     <Fragment>
-            
-      
-      
       <div className="fullscreenHeight">
         <Navbar />
         <div className="gridContainer">
@@ -185,7 +186,6 @@ const Dashboard = ({
           <div
             className={showMobileChat ? "chatbox" : "chatbox hideOnSmallMedia"}
           >
-            
             <ChatInput /* Passing down the states into the chatinput component */
               currentMsg={currentMsg}
               setCurrentMsg={setCurrentMsg}
@@ -199,7 +199,6 @@ const Dashboard = ({
             />
           </div>
         </div>
-        
       </div>
     </Fragment>
   );

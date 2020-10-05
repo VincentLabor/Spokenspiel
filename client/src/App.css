@@ -764,7 +764,7 @@ nav li {
 }
 
 .anchor {
-  overflow-anchor: auto;
+  overflow-anchor: none;
   height: 1px;
 }
 
