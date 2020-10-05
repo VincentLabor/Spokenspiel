@@ -7,7 +7,8 @@ import ChatInput from "../dashboardLayout/chatMessages/ChatInput";
 import ChatMessages from "../dashboardLayout/chatMessages/ChatMessages";
 import Conversations from "../dashboardLayout/chatConversations/Conversations";
 import io from "../../../node_modules/socket.io-client/dist/socket.io";
-import LogoutModal from "../layout/logoutModal/LogoutModal"
+import LogoutModal from "../layout/logoutModal/LogoutModal";
+import {Link} from "react-router-dom";
 import {
   saveMsgs,
   saveSentMsgs,
@@ -19,7 +20,7 @@ import {
 let socket;
 
 const Dashboard = ({
-  chatroom: { currentChatroomName, currentChatroomId, mobileFriendslistIsOn, chatrooms },
+  chatroom: { currentChatroomName, currentChatroomId, mobileFriendslistIsOn, chatroomsasdsadsa },
   getMessagesFromDB,
   lastSender,
   returnToMobileFriendslist,

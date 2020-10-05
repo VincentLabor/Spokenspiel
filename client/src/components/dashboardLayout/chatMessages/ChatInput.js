@@ -77,7 +77,7 @@ const ChatInput = ({
   return (
     <div className="wrapper ">
       <div className="chatboxDisplay">
-        <form onSubmit={sendMsgToChatroom}>
+        <form onSubmit={sendMsgToChatroom} className="fillHeight">
           <input
             type="text"
             className="chatboxInput"

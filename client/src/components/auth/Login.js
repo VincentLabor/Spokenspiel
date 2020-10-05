@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 const Login = ({
   loginUser,
   alert: { alerts },
-  auth: { isAuthenticated },
+  auth: { isAuthenticated, token },
 }) => {
 
   const [userAcct, setUserAcct] = useState({
@@ -22,7 +22,7 @@ const Login = ({
   const history = useHistory();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && token) {
       history.push("/dashboard");
     } else {
       history.push("/login");

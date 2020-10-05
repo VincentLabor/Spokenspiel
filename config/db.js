@@ -4,8 +4,9 @@ const db = config.get("mongoURI"); //default.json file is global.
 
 const connectDB = async () => {
   try {
+
+    //Accesses db through proper credentials
    await mongoose.connect(db, {
-      //These are added in case of errors that may appear.
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,

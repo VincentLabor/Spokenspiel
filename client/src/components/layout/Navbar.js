@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { clearState, loadUser } from "../../actions/authActions";
 import Menu from "./menu/Menu";
 import LogoutModal from "./logoutModal/LogoutModal";
@@ -32,6 +32,10 @@ const Navbar = ({
     //Temporary code for development. please remove after development
     if (token) {
       loadUser();
+    } 
+
+    if(token && !isAuthenticated){
+        return history.push("/login")
     }
   }, [loadUser, isAuthenticated, token]);
 

@@ -8,6 +8,7 @@ const User = require("../models/User");
 const auth = require("../middleware/auth");
 const isOnline = require('../middleware/isOnline');
 
+
 //@route    GET /api/auth
 //@desc     This is to get logged in user
 //@access   Private: we are grabbing a user.

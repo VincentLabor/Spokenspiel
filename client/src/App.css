@@ -604,9 +604,10 @@ nav li {
 .chatbox {
   grid-column-start: 2;
   grid-column-end: 9;
-  grid-row-start: 10; /* If things get weird, change back to 9 */
-  grid-row-end: 10;
+  grid-row-start: 15; /* If things get weird, change back to 9 */
+  grid-row-end: 15;
   background-color: white;
+  height: 100%;
   /* border-top: solid lightgray 0.5px; To be removed later */
 }
 
@@ -620,6 +621,7 @@ nav li {
   grid-column-end: 11;
   grid-row-start: 1;
   grid-row-end: 10;
+  height: 100%;
   /* border-left: solid 0.5px lightgray; */
 }
 
@@ -724,10 +726,11 @@ nav li {
   grid-column-start: 2;
   grid-column-end: 9;
   grid-row-start: 1;
-  grid-row-end: 10;
+  grid-row-end: 15;
   background-color: white;
   border-left: 0.5px solid silver;
   border-right: 0.5px solid silver;
+  height: 100%;
 }
 
 .chatboxDimens {
@@ -943,7 +946,7 @@ nav li {
   }
 
   .gridContainer {
-    height: 85.5vh;
+     height: 100vh; 
     display: grid;
     grid-template-columns: repeat(5, auto);
     grid-template-rows: repeat(10, auto);
@@ -1054,8 +1057,24 @@ nav li {
 /////////////////////////
 */
 
-@media (max-height: 760px){
-  
+@media (max-width: 360) and (max-height: 760px){
+
+  /* .chatboxDimens {
+    box-sizing: border-box;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overflow-anchor: none;
+    height: 100%;
+    width: 100%; */
+    /* overflow-anchor: none; */
+  /* } */
+
+  /* .fillHeight{
+    margin-top: 5em;
+  } */
+
 }
 
 @media (max-width: 375px) {
@@ -1601,6 +1620,7 @@ nav li {
     grid-row-start: 1;
     grid-row-end: 4;
     margin-bottom: 8em;
+    height: 100%;
   }
 
   .chatbox {
@@ -1608,6 +1628,7 @@ nav li {
     grid-column-end: 6;
     grid-row-start: 4;
     grid-row-end: 4;
+    height: 100%;
   }
 
   .chatboxDimens {
