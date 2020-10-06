@@ -85,7 +85,8 @@ const Dashboard = ({
   const scrollDown = useRef(null);
 
   let autoScrollDown = () => {
-    scrollDown.current.scrollIntoView({ behavior: "auto", block: "end",  });
+    // scrollDown.current.scrollIntoView({ behavior: "auto", block: "end" });
+    scrollDown.current.scrollTo(scrollDown.scrollHeight);
   };
 
   useEffect(() => {
@@ -157,12 +158,6 @@ const Dashboard = ({
     }
   });
 
-  const tabletStructure = () => (
-    <Fragment>
-      <FriendsList />
-      <div className="chatting chatboxDimens"></div>
-    </Fragment>
-  );
 
   return (
     <Fragment>

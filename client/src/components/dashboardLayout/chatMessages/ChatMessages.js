@@ -8,7 +8,7 @@ import { getMessagesFromDB } from "../../../actions/chatroomActions";
 
 const ChatMessages = ({ chatroom: { msgs } }) => {
   return (
-    <div>
+    <div className="">
       {!msgs
         ? null
         : msgs.map((message, i) => (
