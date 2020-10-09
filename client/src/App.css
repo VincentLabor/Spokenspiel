@@ -1759,16 +1759,23 @@ nav li {
   }
 }
 
-@media (min-height: 568px) {
+@media (max-height: 568px) {
   .fillHeight {
-    margin-bottom: -0.3em;
+    margin-bottom: -6em;
   }
 }
-@media (min-height: 720px) and (max-width: 1440px) {
+@media (max-height: 630px) {
   .fillHeight {
-    margin-bottom: 1em;
+    margin-bottom: -0.6em;
   }
 }
+
+@media (min-height: 1075px) {
+  .fillHeight {
+    margin-bottom: -4em;
+  }
+}
+
 @media (min-height: 640px) and (max-width: 360px) {
   .fillHeight {
     margin-bottom: -1em;
@@ -1779,16 +1786,29 @@ nav li {
     margin-bottom: -1.2em;
   }
 }
-@media (min-height: 736px) and (max-width: 414px) {
-  .fillHeight {
-    margin-bottom: -1.7em;
-  }
-}
 @media (min-height: 812px) and (max-width: 375px) {
   .fillHeight {
     margin-bottom: -2.5em;
   }
 }
+
+@media (min-height: 698px) and (min-width: 383px) {
+  .fillHeight {
+    margin-bottom: -0.7em;
+  }
+}
+@media (min-height: 644px) and (min-width: 376px) {
+  .fillHeight {
+    margin-bottom: -0.7em;
+  }
+}
+
+@media (min-height: 736px) and (max-width: 414px) {
+  .fillHeight {
+    margin-bottom: -1.7em;
+  }
+}
+
 @media (min-height: 1024px) and (max-width: 768px) {
   .fillHeight {
     margin-bottom: -2em;
@@ -1804,8 +1824,55 @@ nav li {
     margin-bottom: -2em;
   }
 }
-@media (min-height: 869px) and (max-width: 412px) {
+@media (min-height: 800px) and (max-width: 360px) {
   .fillHeight {
     margin-bottom: -3em;
   }
+}
+@media (min-height: 1024px) and (max-width: 360px) {
+  .fillHeight {
+    margin-bottom: -2em;
+  }
+}
+@media (min-height: 740px) and (max-width: 360px) {
+  .fillHeight {
+    margin-bottom: -2em;
+  }
+}
+@media (min-height: 861px) and (max-width: 381px) {
+  .fillHeight {
+    margin-bottom: -3em;
+  }
+}
+@media (min-height: 770px) and (min-width: 400px) {
+  .fillHeight {
+    margin-bottom: -3em;
+  }
+}
+@media (min-height: 770px) and (min-width: 772px) {
+  .fillHeight {
+    margin-bottom: 1em;
+  }
+}
+@media (min-height: 1366px) and (min-width: 1024px) {
+  .fillHeight {
+    margin-bottom: -1.5em;
+  }
+}
+@media (min-height: 1024px) and (min-width: 728px) {
+  .fillHeight {
+    margin-bottom: -3.5em;
+  }
+}
+
+/* @media (min-height: ) */
+
+/* @media (min-height: 720px) and (max-width: 1440px) {
+  .fillHeight {
+    margin-bottom: 1em;
+  }
+} */
+
+@media only screen and (min-device-width: 360px) and (max-device-height: 740px) and (-webkit-min-device-pixel-ratio: 4) {
+  /* CSS Rules Here */
 }
